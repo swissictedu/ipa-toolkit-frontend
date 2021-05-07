@@ -1,1 +1,1 @@
-# ipa-toolkit-frontend
+# IPA Toolkit <br> <small>frontend</small>
