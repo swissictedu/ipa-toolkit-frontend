@@ -21,6 +21,7 @@
   "scripts": {
     "start": "PORT=3001 react-scripts start",
     "build": "react-scripts build",
+    "build:types": "graphql-codegen --config codegen.yml",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -43,6 +44,9 @@
     ]
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^1.21.4",
+    "@graphql-codegen/typescript": "^1.22.0",
+    "@graphql-codegen/typescript-operations": "^1.17.16",
     "prettier": "^2.2.1"
   }
 }

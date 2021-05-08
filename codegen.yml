@@ -1,0 +1,10 @@
+schema: http://ipa-toolkit-backend:3000/graphql
+documents:
+  - ./src/**/*.{ts,tsx}
+generates:
+  ./graphql-types.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+    config:
+      numericEnums: true
