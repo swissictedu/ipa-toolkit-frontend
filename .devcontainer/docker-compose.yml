@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  ipa-toolkit-frontend:
+    container_name: ipa-toolkit-frontend
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VARIANT: 16
+    volumes:
+      - ..:/workspace
+    command: sleep infinity
+    networks:
+      - ipa-toolkit-network
+
+networks:
+  ipa-toolkit-network:
+    external: true
