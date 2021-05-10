@@ -1,5 +1,11 @@
 {
   "editor.formatOnSave": true,
   "editor.tabSize": 2,
-  "editor.wordWrap": "on"
+  "editor.wordWrap": "on",
+  "i18n-ally.localesPaths": [
+    "src/assets/i18n"
+  ],
+  "i18n-ally.keystyle": "flat",
+  "i18n-ally.displayLanguage": "de-ch",
+  "i18n-ally.sourceLanguage": "de-ch"
 }

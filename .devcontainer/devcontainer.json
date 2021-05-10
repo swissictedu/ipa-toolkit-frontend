@@ -18,7 +18,8 @@
     "dbaeumer.vscode-eslint",
     "jpoissonnier.vscode-styled-components",
     "graphql.vscode-graphql",
-    "gruntfuggly.todo-tree"
+    "gruntfuggly.todo-tree",
+    "lokalise.i18n-ally"
   ],
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.

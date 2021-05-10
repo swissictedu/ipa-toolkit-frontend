@@ -1,3 +1,4 @@
+import { Layout } from 'antd';
 import { PropsWithChildren, ReactNode } from 'react';
 import FooterSection from './sections/FooterSection';
 
@@ -7,9 +8,9 @@ type DefaultLayoutProps = PropsWithChildren<{
 
 export default function DefaultLayout({ children, footer = <FooterSection /> }: DefaultLayoutProps) {
   return (
-    <div>
-      {children}
+    <Layout>
+      <Layout.Content>{children}</Layout.Content>
       {footer}
-    </div>
+    </Layout>
   );
 }
