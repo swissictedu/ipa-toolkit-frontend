@@ -4,6 +4,27 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import CONFIGURATION from './configuration';
+import { css, Global } from '@emotion/react';
+
+const globalStyles = (
+  <Global
+    styles={css`
+      html {
+        height: 100%;
+      }
+
+      body {
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+
+      #root {
+        flex-grow: 1;
+      }
+    `}
+  />
+);
 
 const client = new ApolloClient({ uri: CONFIGURATION.env.api, cache: new InMemoryCache() });
 
@@ -11,6 +32,7 @@ function AppShell() {
   return (
     <React.StrictMode>
       <ApolloProvider client={client}>
+        {globalStyles}
         <App />
       </ApolloProvider>
     </React.StrictMode>
