@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import CONFIGURATION from './configuration';
 import { css, Global } from '@emotion/react';
+import { BrowserRouter } from 'react-router-dom';
 
 const globalStyles = (
   <Global
@@ -21,6 +22,8 @@ const globalStyles = (
 
       #root {
         flex-grow: 1;
+        display: flex;
+        flex-direction: column;
       }
     `}
   />
@@ -32,8 +35,10 @@ function AppShell() {
   return (
     <React.StrictMode>
       <ApolloProvider client={client}>
-        {globalStyles}
-        <App />
+        <BrowserRouter>
+          {globalStyles}
+          <App />
+        </BrowserRouter>
       </ApolloProvider>
     </React.StrictMode>
   );

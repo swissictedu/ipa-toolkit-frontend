@@ -4,11 +4,15 @@ declare global {
   }
 }
 
-const externalApi = (window.env?.api as string).startsWith('//') ? undefined : window.env.api;
+const injectedEnvApi = (window.env?.api as string).startsWith('//') ? undefined : window.env.api;
 
 const CONFIGURATION = {
   env: {
-    api: externalApi || process.env.API || 'http://localhost:3000/graphql'
+    api: injectedEnvApi || process.env.API || 'http://localhost:3000/graphql'
+  },
+  paths: {
+    dashboard: '',
+    signIn: 'sign-in'
   }
 };
 
