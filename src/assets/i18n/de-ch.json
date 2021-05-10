@@ -1,3 +1,6 @@
 {
-  "project-name": "IPA Toolkit"
+  "project-name": "IPA Toolkit",
+  "label.sign-out": "Abmelden",
+  "label.account": "Benutzerkonto",
+  "label.overview": "Übersicht"
 }

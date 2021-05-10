@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import CONFIGURATION from './configuration';
 import { css, Global } from '@emotion/react';
 import { BrowserRouter } from 'react-router-dom';
+import './index.less';
 
 const globalStyles = (
   <Global
