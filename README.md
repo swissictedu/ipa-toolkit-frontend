@@ -8,4 +8,5 @@ The IPA Toolkit implements helpful tools to master the mighty IPA process. This 
 1. Create a Docker network `ipa-toolkit-network` <br> `docker network create ipa-toolkit-network`
 1. Open the project in Visual Studio Code using Remote Containers.
 1. Don't forget to set your Git name and email <br> `git config user.name <name>` and `git config user.email <email>`
+1. Install dependencies <br> `yarn install`
 1. Run the development server <br> `yarn start`
