@@ -2,5 +2,9 @@
   "project-name": "IPA Toolkit",
   "label.sign-out": "Abmelden",
   "label.account": "Benutzerkonto",
-  "label.overview": "Übersicht"
+  "label.overview": "Übersicht",
+  "view.sign-in": "Anmeldung",
+  "attribute.username": "Benutzername",
+  "attribute.password": "Passwort",
+  "action.sign-in": "Anmelden"
 }
