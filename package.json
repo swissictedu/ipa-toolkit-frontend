@@ -47,6 +47,6 @@
     "@graphql-codegen/cli": "^1.21.4",
     "@graphql-codegen/typescript": "^1.22.0",
     "@graphql-codegen/typescript-operations": "^1.17.16",
-    "prettier": "^2.2.1"
+    "prettier": "^2.3.0"
   }
 }
