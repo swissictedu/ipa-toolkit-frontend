@@ -8,5 +8,7 @@
   "attribute.password": "Passwort",
   "action.sign-in": "Anmelden",
   "attribute.email": "E-Mail",
-  "error.wrong-credentials": "Anmeldeinformationen passen zu keinem Benutzer"
+  "error.wrong-credentials": "Anmeldeinformationen passen zu keinem Benutzer",
+  "label.system-info": "Systeminformationen",
+  "author": "Entwickelt durch openscript GmbH"
 }
