@@ -11,8 +11,11 @@ const CONFIGURATION = {
     api: injectedEnvApi || process.env.API || 'http://localhost:3000/graphql'
   },
   paths: {
-    dashboard: '',
+    dashboard: '/',
     signIn: 'sign-in'
+  },
+  localStorage: {
+    session: 'session'
   }
 };
 

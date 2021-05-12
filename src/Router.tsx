@@ -1,10 +1,11 @@
 import { Route, Routes } from 'react-router';
+import { sessionVar } from './cache';
 import ProtectedRoute, { ProtectedRouteProps } from './components/ProtectedRoute';
 import CONFIGURATION from './configuration';
 import SignIn from './views/SignIn';
 
 const defaultProtectedRouteProps: ProtectedRouteProps = {
-  isAuthenticated: false,
+  isAuthenticated: !!sessionVar(),
   authenticationPath: CONFIGURATION.paths.signIn
 };
 

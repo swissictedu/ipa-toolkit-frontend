@@ -1,4 +1,4 @@
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import { ApolloClient, ApolloProvider } from '@apollo/client';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
@@ -7,6 +7,7 @@ import CONFIGURATION from './configuration';
 import { css, Global } from '@emotion/react';
 import { BrowserRouter } from 'react-router-dom';
 import './index.less';
+import { cacheInstance } from './cache';
 
 const globalStyles = (
   <Global
@@ -30,7 +31,7 @@ const globalStyles = (
   />
 );
 
-const client = new ApolloClient({ uri: CONFIGURATION.env.api, cache: new InMemoryCache() });
+const client = new ApolloClient({ uri: CONFIGURATION.env.api, cache: cacheInstance });
 
 function AppShell() {
   return (
