@@ -4,7 +4,7 @@ import SystemInfo from '../../views/SystemInfo';
 
 const footerStyles = css`
   && {
-    padding: 0 1.5rem 1.5rem 1.5rem;
+    padding: 0 1.333333rem 1.333333rem 1.333333rem;
     display: flex;
     justify-content: center;
     align-items: center;
