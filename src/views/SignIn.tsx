@@ -6,9 +6,9 @@ import CenterLayout from '../layouts/CenterLayout';
 import DefaultLayout from '../layouts/DefaultLayout';
 import HeaderSection from '../layouts/sections/HeaderSection';
 import { SignInMutation, SignInMutationVariables } from '../../graphql-types';
-import { useEffect, useState } from 'react';
-import { sessionVar, setSessionVar } from '../cache';
-import { Navigate, useNavigate } from 'react-router';
+import { useState } from 'react';
+import { setSessionVar } from '../cache';
+import { useNavigate } from 'react-router';
 import CONFIGURATION from '../configuration';
 
 const formStyles = css`
@@ -42,10 +42,6 @@ export default function SignIn() {
   const [form] = Form.useForm<SignInMutationVariables>();
   const [signIn] = useMutation<SignInMutation, SignInMutationVariables>(SIGN_IN);
   const navigate = useNavigate();
-
-  if (sessionVar()) {
-    return <Navigate to={CONFIGURATION.paths.dashboard} />;
-  }
 
   const submitSignIn = (values: SignInMutationVariables) => {
     isLoading(true);

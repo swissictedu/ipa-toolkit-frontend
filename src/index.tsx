@@ -27,6 +27,10 @@ const globalStyles = (
         display: flex;
         flex-direction: column;
       }
+
+      input:autofill {
+        filter: none;
+      }
     `}
   />
 );
