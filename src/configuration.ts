@@ -12,7 +12,8 @@ const CONFIGURATION = {
   },
   paths: {
     dashboard: '/',
-    signIn: 'sign-in'
+    signIn: '/sign-in',
+    signOut: '/sign-out'
   },
   localStorage: {
     session: 'session'
