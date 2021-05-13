@@ -14,14 +14,14 @@ export default function SiderSection() {
   const location = useLocation();
 
   return (
-    <Layout.Sider width={220} css={siderStyles}>
+    <Layout.Sider width={244} css={siderStyles}>
       <Menu mode="inline" inlineCollapsed={false} defaultOpenKeys={['grading-conference']} defaultSelectedKeys={[location.pathname]}>
         <Menu.Item key={CONFIGURATION.paths.dashboard} icon={<DashboardOutlined />}>
           <Link to={CONFIGURATION.paths.dashboard}>
             <FormattedMessage id="label.dashboard" />
           </Link>
         </Menu.Item>
-        <Menu.Item icon={<UserOutlined />}>
+        <Menu.Item key={CONFIGURATION.paths.users} icon={<UserOutlined />}>
           <Link to={CONFIGURATION.paths.users}>
             <FormattedMessage id="label.user-management" />
           </Link>

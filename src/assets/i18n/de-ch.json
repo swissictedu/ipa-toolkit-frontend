@@ -15,7 +15,7 @@
   "label.current-pkorg-session-key": "Sessionsschlüssel",
   "label.pkorg-endpoint": "Serveradresse",
   "label.pkorg-access": "PkOrg-Zugang",
-  "label.pkorg-endpoint-placeholder": "bspw. https://2021.pkorg.ch",
+  "label.pkorg-endpoint-placeholder": "bspw. https://{year}.pkorg.ch",
   "label.current-pkorg-session-key-placeholder": "bspw. eengdce29a01r32da7kr76j61v",
   "label.data-import": "Datenimport",
   "label.user-management": "Benutzerverwaltung",
@@ -23,5 +23,9 @@
   "label.evaluation": "Auswertung",
   "label.grading-conference": "Notenkonferenz",
   "content.welcome": "Willkommen {name}",
-  "label.data-export": "Datenexport"
+  "label.data-export": "Datenexport",
+  "label.conference.connection": "Verbindung zu PkOrg",
+  "label.conference.selection": "Auswahl der Dossiers",
+  "label.conference.scraping": "Importieren der Dossiers",
+  "action.test-entry": "Eingaben prüfen"
 }
