@@ -6,8 +6,8 @@ import HeaderSection from './sections/HeaderSection';
 import SiderSection from './sections/SiderSection';
 
 const innerLayoutStyles = css`
-  .ant-page-header + .ant-layout-content {
-    margin-top: 0;
+  .ant-layout-content .ant-page-header {
+    padding: 0 0 0.9rem 0;
   }
 `;
 
@@ -33,8 +33,10 @@ export default function DefaultLayout({ children, header = <HeaderSection />, si
       <Layout>
         {sider}
         <Layout css={innerLayoutStyles}>
-          {pageHeader}
-          <Layout.Content css={contentStyles}>{children}</Layout.Content>
+          <Layout.Content css={contentStyles}>
+            {pageHeader}
+            {children}
+          </Layout.Content>
           {footer}
         </Layout>
       </Layout>

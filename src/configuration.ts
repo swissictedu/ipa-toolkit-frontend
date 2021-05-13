@@ -13,7 +13,13 @@ const CONFIGURATION = {
   paths: {
     dashboard: '/',
     signIn: '/sign-in',
-    signOut: '/sign-out'
+    signOut: '/sign-out',
+    users: '/users',
+    conference: {
+      import: '/conference/import',
+      assignment: '/conference/assignment',
+      export: '/conference/export'
+    }
   },
   localStorage: {
     session: 'session'
