@@ -16,7 +16,7 @@ export default function SystemInfo() {
           <FormattedMessage id="project-name" /> {version}
         </span>
       </Button>
-      <Modal title={intl.formatMessage({ id: 'label.system-info' })} visible={open} footer={null} onCancel={toggleOpen}>
+      <Modal title={intl.formatMessage({ id: 'label.system-info' })} visible={open} footer={null} onCancel={toggleOpen} closable>
         <FormattedMessage id="author" />
       </Modal>
     </>

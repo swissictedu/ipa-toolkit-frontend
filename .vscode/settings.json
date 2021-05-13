@@ -7,5 +7,9 @@
   ],
   "i18n-ally.keystyle": "flat",
   "i18n-ally.displayLanguage": "de-ch",
-  "i18n-ally.sourceLanguage": "de-ch"
+  "i18n-ally.sourceLanguage": "de-ch",
+  "cSpell.words": [
+    "antd",
+    "pkorg"
+  ]
 }
