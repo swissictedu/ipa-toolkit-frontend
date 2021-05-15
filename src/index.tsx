@@ -1,4 +1,5 @@
-import { ApolloClient, ApolloProvider } from '@apollo/client';
+import { ApolloClient, ApolloProvider, createHttpLink } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
@@ -7,7 +8,7 @@ import CONFIGURATION from './configuration';
 import { css, Global } from '@emotion/react';
 import { BrowserRouter } from 'react-router-dom';
 import './index.less';
-import { cacheInstance } from './cache';
+import { cacheInstance, sessionVar } from './cache';
 
 const globalStyles = (
   <Global
@@ -35,7 +36,22 @@ const globalStyles = (
   />
 );
 
-const client = new ApolloClient({ uri: CONFIGURATION.env.api, cache: cacheInstance });
+const httpLink = createHttpLink({
+  uri: CONFIGURATION.env.api
+});
+
+const authLink = setContext((_, { headers }) => ({
+  headers: {
+    ...headers,
+    'access-token': sessionVar()?.credentials.accessToken,
+    'token-type': sessionVar()?.credentials.tokenType,
+    client: sessionVar()?.credentials.client,
+    expiry: sessionVar()?.credentials.expiry,
+    uid: sessionVar()?.credentials.uid
+  }
+}));
+
+const client = new ApolloClient({ link: authLink.concat(httpLink), cache: cacheInstance });
 
 function AppShell() {
   return (

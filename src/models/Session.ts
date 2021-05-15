@@ -1,6 +1,11 @@
 export type Session = {
-  token: string;
+  credentials: {
+    accessToken: string;
+    expiry: number;
+    client: string;
+    tokenType: string;
+    uid: string;
+  };
   name?: string;
   identifier: string;
-  expiration: number;
 };

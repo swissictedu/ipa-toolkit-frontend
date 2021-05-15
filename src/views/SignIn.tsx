@@ -30,7 +30,10 @@ const SIGN_IN = gql`
       }
       credentials {
         accessToken
+        client
         expiry
+        tokenType
+        uid
       }
     }
   }
@@ -50,10 +53,9 @@ export default function SignIn() {
         const userLogin = data?.userLogin;
         if (userLogin) {
           setSessionVar({
-            expiration: userLogin.credentials.expiry,
             identifier: userLogin.authenticatable.email,
             name: userLogin.authenticatable.name ?? '',
-            token: userLogin.credentials.accessToken
+            credentials: userLogin.credentials
           });
         }
         isLoading(false);

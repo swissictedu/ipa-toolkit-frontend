@@ -22,8 +22,6 @@ export type Credential = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  /** An example field added by the generator */
-  testField: Scalars['String'];
   userLogin?: Maybe<UserLoginPayload>;
   userLogout?: Maybe<UserLogoutPayload>;
   userResendConfirmation?: Maybe<UserResendConfirmationPayload>;
@@ -80,12 +78,26 @@ export type MutationUserUpdatePasswordWithTokenArgs = {
   resetPasswordToken: Scalars['String'];
 };
 
+export type Pkorg = {
+  __typename?: 'Pkorg';
+  sessionUser?: Maybe<PkorgUser>;
+};
+
+export type PkorgUser = {
+  __typename?: 'PkorgUser';
+  email: Scalars['String'];
+};
+
 export type Query = {
   __typename?: 'Query';
-  /** An example field added by the generator */
-  testField: Scalars['String'];
+  pkorg?: Maybe<Pkorg>;
   userCheckPasswordToken: User;
   userConfirmAccount: User;
+};
+
+
+export type QueryPkorgArgs = {
+  sessionToken: Scalars['String'];
 };
 
 
@@ -175,7 +187,7 @@ export type SignInMutation = (
       & Pick<User, 'email' | 'name'>
     ), credentials: (
       { __typename?: 'Credential' }
-      & Pick<Credential, 'accessToken' | 'expiry'>
+      & Pick<Credential, 'accessToken' | 'client' | 'expiry' | 'tokenType' | 'uid'>
     ) }
   )> }
 );
