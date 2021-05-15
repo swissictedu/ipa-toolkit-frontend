@@ -56,6 +56,7 @@ export default function SignIn() {
             token: userLogin.credentials.accessToken
           });
         }
+        isLoading(false);
         navigate(CONFIGURATION.paths.dashboard);
       })
       .catch(() => {
@@ -64,8 +65,6 @@ export default function SignIn() {
           { name: 'email', errors: [''] },
           { name: 'password', errors: [''] }
         ]);
-      })
-      .finally(() => {
         isLoading(false);
       });
   };
