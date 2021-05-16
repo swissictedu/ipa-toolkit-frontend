@@ -2,7 +2,7 @@ import { gql, useLazyQuery } from '@apollo/client';
 import Connection from '../../../components/conference/Connection';
 import { Credentials } from '../../../models/Credentials';
 import { CheckConnectionQuery, CheckConnectionQueryVariables } from '../../../../graphql-types';
-import { Fragment, useEffect } from 'react';
+import { Fragment, useEffect, useRef } from 'react';
 import { Result, Skeleton } from 'antd';
 import { useIntl } from 'react-intl';
 
@@ -20,21 +20,25 @@ const CHECK_CONNECTION = gql`
 
 type ConnectionContainerProps = {
   isValid: (state: boolean) => void;
+  setCredentials: (credentials: Credentials) => void;
 };
 
-export default function ConnectionContainer({ isValid }: ConnectionContainerProps) {
+export default function ConnectionContainer({ isValid, setCredentials }: ConnectionContainerProps) {
+  const currentCredentials = useRef<Credentials>();
   const intl = useIntl();
   const [executeCheckConnection, { called, loading, data }] = useLazyQuery<CheckConnectionQuery, CheckConnectionQueryVariables>(CHECK_CONNECTION);
 
   const checkConnection = (credentials: Credentials) => {
+    currentCredentials.current = credentials;
     executeCheckConnection({ variables: { ...credentials } });
   };
 
   useEffect(() => {
-    if (data && data.pkorg?.sessionUser?.email) {
+    if (data && data.pkorg?.sessionUser?.email && currentCredentials.current) {
       isValid(true);
+      setCredentials(currentCredentials.current);
     }
-  }, [data, isValid]);
+  }, [data, isValid, setCredentials]);
 
   return (
     <Fragment>

@@ -227,3 +227,22 @@ export type CheckConnectionQuery = (
     )> }
   )> }
 );
+
+export type RetrieveEvaluationQueryVariables = Exact<{
+  baseUrl: Scalars['String'];
+  sessionToken: Scalars['String'];
+  userAgent: Scalars['String'];
+  evaluationPath: Scalars['String'];
+}>;
+
+
+export type RetrieveEvaluationQuery = (
+  { __typename?: 'Query' }
+  & { pkorg?: Maybe<(
+    { __typename?: 'Pkorg' }
+    & { evaluation?: Maybe<(
+      { __typename?: 'PkorgEvaluation' }
+      & Pick<PkorgEvaluation, 'result'>
+    )> }
+  )> }
+);
