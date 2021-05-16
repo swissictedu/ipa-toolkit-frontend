@@ -1,22 +1,32 @@
-import { PageHeader, Space, Steps } from 'antd';
+import styled from '@emotion/styled';
+import { Button, PageHeader, Space, Steps } from 'antd';
 import { ReactNode, useState } from 'react';
-import { useIntl } from 'react-intl';
-import Connection from '../../components/conference/Connection';
+import { FormattedMessage, useIntl } from 'react-intl';
 import DefaultLayout from '../../layouts/DefaultLayout';
-import { Credentials } from '../../models/Credentials';
+import ConnectionContainer from './import/ConnectionContainer';
+
+const ActionsContainer = styled.div`
+  flex-grow: 1;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+`;
 
 export default function ConferenceImport() {
   const intl = useIntl();
   const [currentStep, setCurrentStep] = useState(0);
-  const nextStep = () => setCurrentStep(currentStep + 1);
+  const [valid, isValid] = useState(false);
+  const nextStep = () => {
+    setCurrentStep(currentStep + 1);
+    isValid(false);
+  };
   const previousStep = () => setCurrentStep(currentStep - 1);
 
-  const testCredentials = (credentials: Credentials) => {
-    console.log(credentials);
-  }
-
   const steps: { title: string; element: ReactNode }[] = [
-    { title: intl.formatMessage({ id: 'label.conference.connection' }), element: <Connection testCredentials={testCredentials} /> },
+    {
+      title: intl.formatMessage({ id: 'label.conference.connection' }),
+      element: <ConnectionContainer isValid={isValid} />
+    },
     { title: intl.formatMessage({ id: 'label.conference.selection' }), element: <div>joho1</div> },
     { title: intl.formatMessage({ id: 'label.conference.scraping' }), element: <div>joho2</div> }
   ];
@@ -31,6 +41,16 @@ export default function ConferenceImport() {
         </Steps>
         {steps[currentStep].element}
       </Space>
+      <ActionsContainer>
+        {currentStep > 0 && (
+          <Button type="primary" size="large" onClick={previousStep}>
+            <FormattedMessage id="action.previous" />
+          </Button>
+        )}
+        <Button type="primary" size="large" onClick={nextStep} disabled={!valid}>
+          <FormattedMessage id="action.next" />
+        </Button>
+      </ActionsContainer>
     </DefaultLayout>
   );
 }

@@ -1,4 +1,5 @@
 export type Credentials = {
   sessionToken: string;
-  endpoint: string;
+  baseUrl: string;
+  userAgent: string;
 };

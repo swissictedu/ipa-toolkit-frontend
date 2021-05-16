@@ -9,6 +9,8 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /** Represents untyped JSON */
+  JSON: any;
 };
 
 export type Credential = {
@@ -19,6 +21,7 @@ export type Credential = {
   tokenType: Scalars['String'];
   uid: Scalars['String'];
 };
+
 
 export type Mutation = {
   __typename?: 'Mutation';
@@ -80,12 +83,25 @@ export type MutationUserUpdatePasswordWithTokenArgs = {
 
 export type Pkorg = {
   __typename?: 'Pkorg';
-  sessionUser?: Maybe<PkorgUser>;
+  evaluation?: Maybe<PkorgEvaluation>;
+  sessionUser?: Maybe<PkorgSessionUser>;
 };
 
-export type PkorgUser = {
-  __typename?: 'PkorgUser';
+
+export type PkorgEvaluationArgs = {
+  evaluationPath: Scalars['String'];
+};
+
+export type PkorgEvaluation = {
+  __typename?: 'PkorgEvaluation';
+  result: Scalars['JSON'];
+};
+
+export type PkorgSessionUser = {
+  __typename?: 'PkorgSessionUser';
   email: Scalars['String'];
+  forename: Scalars['String'];
+  surname: Scalars['String'];
 };
 
 export type Query = {
@@ -98,6 +114,8 @@ export type Query = {
 
 export type QueryPkorgArgs = {
   sessionToken: Scalars['String'];
+  baseUrl: Scalars['String'];
+  userAgent?: Maybe<Scalars['String']>;
 };
 
 
@@ -189,5 +207,23 @@ export type SignInMutation = (
       { __typename?: 'Credential' }
       & Pick<Credential, 'accessToken' | 'client' | 'expiry' | 'tokenType' | 'uid'>
     ) }
+  )> }
+);
+
+export type CheckConnectionQueryVariables = Exact<{
+  baseUrl: Scalars['String'];
+  sessionToken: Scalars['String'];
+  userAgent: Scalars['String'];
+}>;
+
+
+export type CheckConnectionQuery = (
+  { __typename?: 'Query' }
+  & { pkorg?: Maybe<(
+    { __typename?: 'Pkorg' }
+    & { sessionUser?: Maybe<(
+      { __typename?: 'PkorgSessionUser' }
+      & Pick<PkorgSessionUser, 'email' | 'forename' | 'surname'>
+    )> }
   )> }
 );

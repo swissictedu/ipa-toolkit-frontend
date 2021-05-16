@@ -3,20 +3,23 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { Credentials } from '../../models/Credentials';
 
 type ConnectionProps = {
-  testCredentials?: (credentials: Credentials) => void;
+  checkConnection?: (credentials: Credentials) => void;
   loading?: boolean;
 };
 
-export default function Connection({ loading = false, testCredentials }: ConnectionProps) {
+export default function Connection({ loading = false, checkConnection }: ConnectionProps) {
   const intl = useIntl();
 
   return (
-    <Form<Credentials> layout="vertical" onFinish={testCredentials}>
-      <Form.Item label={intl.formatMessage({ id: 'label.pkorg-endpoint' })} name="endpoint" rules={[{ required: true }]}>
-        <Input placeholder={intl.formatMessage({ id: 'label.pkorg-endpoint-placeholder' }, { year: new Date().getFullYear() })} />
+    <Form<Credentials> layout="vertical" onFinish={checkConnection}>
+      <Form.Item label={intl.formatMessage({ id: 'label.pkorg-endpoint' })} name="baseUrl" rules={[{ required: true }]}>
+        <Input placeholder={intl.formatMessage({ id: 'label.pkorg-endpoint-placeholder' }, { year: new Date().getFullYear() })} disabled={loading} />
       </Form.Item>
-      <Form.Item label={intl.formatMessage({ id: 'label.current-pkorg-session-key' })} name="sessionToken" rules={[{ required: true }]}>
-        <Input placeholder={intl.formatMessage({ id: 'label.current-pkorg-session-key-placeholder' })} />
+      <Form.Item label={intl.formatMessage({ id: 'label.session-token' })} name="sessionToken" rules={[{ required: true }]}>
+        <Input placeholder={intl.formatMessage({ id: 'label.session-token-placeholder' })} disabled={loading} />
+      </Form.Item>
+      <Form.Item label={intl.formatMessage({ id: 'label.user-agent' })} name="userAgent" rules={[{ required: true }]} initialValue={navigator.userAgent}>
+        <Input disabled={loading} />
       </Form.Item>
       <Form.Item>
         <Button type="primary" htmlType="submit" loading={loading}>
