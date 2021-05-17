@@ -35,5 +35,6 @@
   "label.evaluation-path": "Auswertungspfad",
   "action.load": "Laden",
   "label.preview": "Vorschau",
-  "label.session-token-extractor": "PkOrg: Sessionsschlüssel Extraktor"
+  "label.session-token-extractor": "PkOrg: Sessionsschlüssel Extraktor",
+  "label.pkorg-endpoint-default": "https://{year}.pkorg.ch"
 }
