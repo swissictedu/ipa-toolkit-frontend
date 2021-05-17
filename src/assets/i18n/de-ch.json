@@ -34,5 +34,6 @@
   "success.connection-established": "Verbindung hergestellt",
   "label.evaluation-path": "Auswertungspfad",
   "action.load": "Laden",
-  "label.preview": "Vorschau"
+  "label.preview": "Vorschau",
+  "label.session-token-extractor": "PkOrg: Sessionsschlüssel Extraktor"
 }

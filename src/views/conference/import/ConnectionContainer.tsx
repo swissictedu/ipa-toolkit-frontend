@@ -3,8 +3,8 @@ import Connection from '../../../components/conference/Connection';
 import { Credentials } from '../../../models/Credentials';
 import { CheckConnectionQuery, CheckConnectionQueryVariables } from '../../../../graphql-types';
 import { Fragment, useEffect, useRef } from 'react';
-import { Result, Skeleton } from 'antd';
-import { useIntl } from 'react-intl';
+import { Button, Result, Skeleton } from 'antd';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 const CHECK_CONNECTION = gql`
   query CheckConnection($baseUrl: String!, $sessionToken: String!, $userAgent: String!) {
@@ -42,6 +42,9 @@ export default function ConnectionContainer({ isValid, setCredentials }: Connect
 
   return (
     <Fragment>
+      <Button disabled={true} href="javascript:alert(document.cookie.split('=')[1]);">
+        <FormattedMessage id="label.session-token-extractor" />
+      </Button>
       <Connection checkConnection={checkConnection} loading={loading} />
       {called && loading && <Skeleton loading={loading} />}
       {data && (
