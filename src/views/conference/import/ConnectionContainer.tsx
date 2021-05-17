@@ -1,3 +1,4 @@
+/* eslint-disable no-script-url */
 import { gql, useLazyQuery } from '@apollo/client';
 import Connection from '../../../components/conference/Connection';
 import { Credentials } from '../../../models/Credentials';
