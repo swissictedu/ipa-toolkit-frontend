@@ -84,7 +84,7 @@ export default function SelectionContainer({ isValid, credentials, setSelection 
             name="evaluationPath"
             css={flexGrow}
             rules={[{ required: true }]}
-            initialValue={CONFIGURATION.defaultValues.evaluation}
+            initialValue={CONFIGURATION.defaultValues.evaluationPath}
           >
             <Input onChange={(e) => setEvaluationPath(`${e.target.value}&api=json`)} disabled={loading} />
           </Form.Item>
