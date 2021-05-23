@@ -21,6 +21,9 @@ const CONFIGURATION = {
       export: '/conference/export'
     }
   },
+  defaultValues: {
+    evaluation: 'verwaltung/301/40?nauswertungid=149'
+  },
   localStorage: {
     session: 'session'
   }

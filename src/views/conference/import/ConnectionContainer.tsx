@@ -1,6 +1,6 @@
 /* eslint-disable no-script-url */
 import { gql, useLazyQuery } from '@apollo/client';
-import Connection from '../../../components/conference/Connection';
+import ConnectionForm from '../../../components/conference/ConnectionForm';
 import { Credentials } from '../../../models/Credentials';
 import { CheckConnectionQuery, CheckConnectionQueryVariables } from '../../../../graphql-types';
 import { Fragment, useEffect, useRef } from 'react';
@@ -46,7 +46,7 @@ export default function ConnectionContainer({ isValid, setCredentials }: Connect
       <Button disabled={true} href="javascript:alert(document.cookie.split('=')[1]);">
         <FormattedMessage id="label.session-token-extractor" />
       </Button>
-      <Connection checkConnection={checkConnection} loading={loading} />
+      <ConnectionForm checkConnection={checkConnection} loading={loading} />
       {called && loading && <Skeleton loading={loading} />}
       {data && (
         <Result

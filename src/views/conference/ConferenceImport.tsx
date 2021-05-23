@@ -5,6 +5,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import DefaultLayout from '../../layouts/DefaultLayout';
 import { Credentials } from '../../models/Credentials';
 import ConnectionContainer from './import/ConnectionContainer';
+import ImportContainer from './import/ImportContainer';
 import SelectionContainer from './import/SelectionContainer';
 
 const ActionsContainer = styled.div`
@@ -18,6 +19,7 @@ export default function ConferenceImport() {
   const intl = useIntl();
   const [currentStep, setCurrentStep] = useState(0);
   const [credentials, setCredentials] = useState<Credentials>();
+  const [selection, setSelection] = useState<Record<string, string | number>[]>([]);
   const [valid, isValid] = useState(false);
   const nextStep = () => {
     setCurrentStep(currentStep + 1);
@@ -32,9 +34,9 @@ export default function ConferenceImport() {
     },
     {
       title: intl.formatMessage({ id: 'label.conference.selection' }),
-      element: credentials && <SelectionContainer isValid={isValid} credentials={credentials} />
+      element: credentials && <SelectionContainer isValid={isValid} credentials={credentials} setSelection={setSelection} />
     },
-    { title: intl.formatMessage({ id: 'label.conference.scraping' }), element: <div>joho2</div> }
+    { title: intl.formatMessage({ id: 'label.conference.scraping' }), element: <ImportContainer selection={selection} /> }
   ];
 
   return (

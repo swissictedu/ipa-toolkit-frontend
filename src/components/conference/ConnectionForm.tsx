@@ -7,7 +7,7 @@ type ConnectionProps = {
   loading?: boolean;
 };
 
-export default function Connection({ loading = false, checkConnection }: ConnectionProps) {
+export default function ConnectionForm({ loading = false, checkConnection }: ConnectionProps) {
   const intl = useIntl();
 
   return (
