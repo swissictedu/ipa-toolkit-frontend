@@ -1,12 +1,8 @@
-import { DossierInput } from '../../../graphql-types';
+import { DossierInput, PkorgAffiliation } from '../../../graphql-types';
 
-export default function mapToDossierInput(data: Record<string, string | number>[]): DossierInput[] {
+export default function mapToDossierInput(data: Record<string, string | number>[], affiliation: PkorgAffiliation, dossierPath: string): DossierInput[] {
   return data.map((dossier) => ({
-    affiliation: {
-      role: '',
-      tenantId: '',
-      tenantName: ''
-    },
+    affiliation: affiliation,
     candidate: {
       id: dossier['KandidatID'] as number,
       forename: dossier['VornameKAN'] as string,
@@ -39,6 +35,7 @@ export default function mapToDossierInput(data: Record<string, string | number>[
     expertMarkC: dossier['NotePexTeilC'] as string,
     markDeduction: (dossier['Notenabzug'] as string) === 'Ja' ? true : false,
     finalMark: dossier['SchlussNoteErrechnet'] as string,
-    submittedMark: dossier['SchlussNoteEingereicht'] as string
+    submittedMark: dossier['SchlussNoteEingereicht'] as string,
+    dossierPath: `${dossierPath}${affiliation.tenantId}/${dossier['KandidatID']}`
   }));
 }

@@ -36,7 +36,10 @@ export default function ConferenceImport() {
       title: intl.formatMessage({ id: 'label.conference.selection' }),
       element: credentials && <SelectionContainer isValid={isValid} credentials={credentials} setSelection={setSelection} />
     },
-    { title: intl.formatMessage({ id: 'label.conference.scraping' }), element: <ImportContainer selection={selection} /> }
+    {
+      title: intl.formatMessage({ id: 'label.conference.scraping' }),
+      element: credentials && <ImportContainer credentials={credentials} selection={selection} />
+    }
   ];
 
   return (
