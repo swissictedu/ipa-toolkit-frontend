@@ -25,7 +25,7 @@ export const cacheInstance = new InMemoryCache({
   typePolicies: {
     Query: {
       fields: {
-        currentUser: {
+        session: {
           read() {
             return sessionVar();
           }
