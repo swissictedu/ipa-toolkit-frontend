@@ -6,6 +6,7 @@ import { CheckConnectionQuery, CheckConnectionQueryVariables } from '../../../..
 import { Fragment, useEffect, useRef } from 'react';
 import { Button, Result, Skeleton } from 'antd';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { Affiliation } from '../../../models/Affiliations';
 
 const CHECK_CONNECTION = gql`
   query CheckConnection($baseUrl: String!, $sessionToken: String!, $userAgent: String!) {
@@ -14,6 +15,11 @@ const CHECK_CONNECTION = gql`
         email
         forename
         surname
+        affiliations {
+          tenantName
+          tenantId
+          role
+        }
       }
     }
   }
@@ -22,9 +28,10 @@ const CHECK_CONNECTION = gql`
 type ConnectionContainerProps = {
   isValid: (state: boolean) => void;
   setCredentials: (credentials: Credentials) => void;
+  setAffiliations: (affiliations: Affiliation[]) => void;
 };
 
-export default function ConnectionContainer({ isValid, setCredentials }: ConnectionContainerProps) {
+export default function ConnectionContainer({ isValid, setCredentials, setAffiliations }: ConnectionContainerProps) {
   const currentCredentials = useRef<Credentials>();
   const intl = useIntl();
   const [executeCheckConnection, { called, loading, data }] = useLazyQuery<CheckConnectionQuery, CheckConnectionQueryVariables>(CHECK_CONNECTION);
@@ -37,9 +44,10 @@ export default function ConnectionContainer({ isValid, setCredentials }: Connect
   useEffect(() => {
     if (data && data.pkorg?.sessionUser?.email && currentCredentials.current) {
       isValid(true);
+      setAffiliations(data.pkorg.sessionUser.affiliations);
       setCredentials(currentCredentials.current);
     }
-  }, [data, isValid, setCredentials]);
+  }, [data, isValid, setCredentials, setAffiliations]);
 
   return (
     <Fragment>

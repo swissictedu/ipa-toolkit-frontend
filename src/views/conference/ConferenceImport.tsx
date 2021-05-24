@@ -3,6 +3,7 @@ import { Button, PageHeader, Space, Steps } from 'antd';
 import { ReactNode, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import DefaultLayout from '../../layouts/DefaultLayout';
+import { Affiliation } from '../../models/Affiliations';
 import { Credentials } from '../../models/Credentials';
 import ConnectionContainer from './import/ConnectionContainer';
 import ImportContainer from './import/ImportContainer';
@@ -19,18 +20,18 @@ export default function ConferenceImport() {
   const intl = useIntl();
   const [currentStep, setCurrentStep] = useState(0);
   const [credentials, setCredentials] = useState<Credentials>();
+  const [affiliations, setAffiliations] = useState<Affiliation[]>([]);
   const [selection, setSelection] = useState<Record<string, string | number>[]>([]);
   const [valid, isValid] = useState(false);
   const nextStep = () => {
     setCurrentStep(currentStep + 1);
     isValid(false);
   };
-  const previousStep = () => setCurrentStep(currentStep - 1);
 
   const steps: { title: string; element: ReactNode }[] = [
     {
       title: intl.formatMessage({ id: 'label.conference.connection' }),
-      element: <ConnectionContainer isValid={isValid} setCredentials={setCredentials} />
+      element: <ConnectionContainer isValid={isValid} setCredentials={setCredentials} setAffiliations={setAffiliations} />
     },
     {
       title: intl.formatMessage({ id: 'label.conference.selection' }),
@@ -38,7 +39,7 @@ export default function ConferenceImport() {
     },
     {
       title: intl.formatMessage({ id: 'label.conference.scraping' }),
-      element: credentials && <ImportContainer credentials={credentials} selection={selection} />
+      element: credentials && <ImportContainer credentials={credentials} affiliations={affiliations} selection={selection} />
     }
   ];
 
@@ -53,14 +54,11 @@ export default function ConferenceImport() {
         {steps[currentStep].element}
       </Space>
       <ActionsContainer>
-        {currentStep > 0 && (
-          <Button type="primary" size="large" onClick={previousStep}>
-            <FormattedMessage id="action.previous" />
+        {currentStep < steps.length - 1 && (
+          <Button type="primary" size="large" onClick={nextStep} disabled={!valid}>
+            <FormattedMessage id="action.next" />
           </Button>
         )}
-        <Button type="primary" size="large" onClick={nextStep} disabled={!valid}>
-          <FormattedMessage id="action.next" />
-        </Button>
       </ActionsContainer>
     </DefaultLayout>
   );

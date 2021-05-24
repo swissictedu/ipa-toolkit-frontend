@@ -51,7 +51,7 @@ export default function SelectionContainer({ isValid, credentials, setSelection 
   const intl = useIntl();
   const [columns, setColumns] = useState<TableColumnType<DataSourceType>[]>();
   const [dataSource, setDataSource] = useState<DataSourceType[]>();
-  const [evaluationPath, setEvaluationPath] = useState('');
+  const [evaluationPath, setEvaluationPath] = useState(`${CONFIGURATION.defaultValues.evaluationPath}&api=json`);
   const [executeRetrieveEvaluation, { loading, data }] = useLazyQuery<RetrieveEvaluationQuery, RetrieveEvaluationQueryVariables>(RETRIEVE_EVALUATION);
 
   const retrieveEvaluation = () => {

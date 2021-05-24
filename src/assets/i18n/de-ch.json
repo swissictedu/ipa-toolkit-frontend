@@ -36,5 +36,10 @@
   "action.load": "Laden",
   "label.preview": "Vorschau",
   "label.session-token-extractor": "PkOrg: Sessionsschlüssel Extraktor",
-  "label.pkorg-endpoint-default": "https://{year}.pkorg.ch"
+  "label.pkorg-endpoint-default": "https://{year}.pkorg.ch",
+  "label.tenant": "Fachrichtung",
+  "label.candidate-forename": "Vorname (Kandidat)",
+  "label.candidate-surname": "Nachname (Kandidat)",
+  "label.dossier-path": "Dossierpfad",
+  "action.import": "Importieren"
 }
