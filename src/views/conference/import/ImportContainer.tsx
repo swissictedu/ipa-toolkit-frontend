@@ -6,9 +6,8 @@ import { DossierInput, ImportDossiersMutation, ImportDossiersMutationVariables }
 import CONFIGURATION from '../../../configuration';
 import { Credentials } from '../../../models/Credentials';
 import mapToDossierInput from '../../../utils/mappers/DossierInputMapper';
-import { gql, useLazyQuery, useMutation } from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 import { Affiliation } from '../../../models/Affiliations';
-import { Link } from 'react-router-dom';
 
 const fullWidth = css`
   width: 100%;

@@ -41,5 +41,7 @@
   "label.candidate-forename": "Vorname (Kandidat)",
   "label.candidate-surname": "Nachname (Kandidat)",
   "label.dossier-path": "Dossierpfad",
-  "action.import": "Importieren"
+  "action.import": "Importieren",
+  "attribute.name": "Name",
+  "attribute.nickname": "Spitzname"
 }
