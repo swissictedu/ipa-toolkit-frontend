@@ -5,6 +5,10 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { Link, useLocation } from 'react-router-dom';
 import CONFIGURATION from '../../configuration';
 
+const SUB_MENU_KEYS = {
+  gradingConference: 'grading-conference'
+};
+
 const siderStyles = css`
   background-color: var(--white);
 `;
@@ -15,7 +19,7 @@ export default function SiderSection() {
 
   return (
     <Layout.Sider width={244} css={siderStyles}>
-      <Menu mode="inline" inlineCollapsed={false} defaultOpenKeys={['grading-conference']} defaultSelectedKeys={[location.pathname]}>
+      <Menu mode="inline" inlineCollapsed={false} defaultOpenKeys={Object.values(SUB_MENU_KEYS)} defaultSelectedKeys={[location.pathname]}>
         <Menu.Item key={CONFIGURATION.paths.dashboard} icon={<DashboardOutlined />}>
           <Link to={CONFIGURATION.paths.dashboard}>
             <FormattedMessage id="label.dashboard" />
@@ -26,8 +30,8 @@ export default function SiderSection() {
             <FormattedMessage id="label.user-management" />
           </Link>
         </Menu.Item>
-        <Menu.Divider />
-        <Menu.SubMenu key="grading-conference" icon={<AuditOutlined />} title={intl.formatMessage({ id: 'label.grading-conference' })}>
+        <Menu.Divider key="divider1" />
+        <Menu.SubMenu key={SUB_MENU_KEYS.gradingConference} icon={<AuditOutlined />} title={intl.formatMessage({ id: 'label.grading-conference' })}>
           <Menu.Item key={CONFIGURATION.paths.conference.import} icon={<ImportOutlined />}>
             <Link to={CONFIGURATION.paths.conference.import}>
               <FormattedMessage id="label.data-import" />
