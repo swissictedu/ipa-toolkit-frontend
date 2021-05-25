@@ -4,6 +4,7 @@ import { Layout, Menu } from 'antd';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Link, useLocation } from 'react-router-dom';
 import CONFIGURATION from '../../configuration';
+import { generatePathHierarchy } from '../../utils/url';
 
 const SUB_MENU_KEYS = {
   gradingConference: 'grading-conference'
@@ -19,7 +20,7 @@ export default function SiderSection() {
 
   return (
     <Layout.Sider width={244} css={siderStyles}>
-      <Menu mode="inline" inlineCollapsed={false} defaultOpenKeys={Object.values(SUB_MENU_KEYS)} defaultSelectedKeys={[location.pathname]}>
+      <Menu mode="inline" inlineCollapsed={false} defaultOpenKeys={Object.values(SUB_MENU_KEYS)} defaultSelectedKeys={generatePathHierarchy(location.pathname)}>
         <Menu.Item key={CONFIGURATION.paths.dashboard} icon={<DashboardOutlined />}>
           <Link to={CONFIGURATION.paths.dashboard}>
             <FormattedMessage id="label.dashboard" />

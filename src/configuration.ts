@@ -19,6 +19,10 @@ const CONFIGURATION = {
       import: '/conference/import',
       assignment: '/conference/assignment',
       export: '/conference/export'
+    },
+    actions: {
+      new: 'new',
+      edit: 'edit'
     }
   },
   defaultValues: {

@@ -1,7 +1,9 @@
 import { useQuery, gql } from '@apollo/client';
-import { PageHeader, Table, TableColumnType } from 'antd';
+import { Button, PageHeader, Table, TableColumnType } from 'antd';
 import { useIntl } from 'react-intl';
+import { useNavigate, useOutlet } from 'react-router';
 import { User, AllUsersQuery } from '../../graphql-types';
+import CONFIGURATION from '../configuration';
 import DefaultLayout from '../layouts/DefaultLayout';
 
 const ALL_USERS = gql`
@@ -16,6 +18,8 @@ const ALL_USERS = gql`
 
 export default function Users() {
   const intl = useIntl();
+  const outlet = useOutlet();
+  const navigate = useNavigate();
   const { loading, data } = useQuery<AllUsersQuery>(ALL_USERS);
   const columns: TableColumnType<User>[] = [
     {
@@ -33,8 +37,14 @@ export default function Users() {
   ];
 
   return (
-    <DefaultLayout pageHeader={<PageHeader title={intl.formatMessage({ id: 'label.user-management' })} />}>
-      <Table<User> columns={columns} dataSource={data?.users || []} loading={loading} />
-    </DefaultLayout>
+    outlet ?? (
+      <DefaultLayout
+        pageHeader={
+          <PageHeader title={intl.formatMessage({ id: 'label.user-management' })} extra={[<Button onClick={() => navigate(CONFIGURATION.paths.actions.new)}>asd</Button>]} />
+        }
+      >
+        <Table<User> columns={columns} dataSource={data?.users || []} loading={loading} />
+      </DefaultLayout>
+    )
   );
 }
