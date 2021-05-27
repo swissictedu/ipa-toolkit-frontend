@@ -1,6 +1,7 @@
+import { PlusOutlined } from '@ant-design/icons';
 import { useQuery, gql } from '@apollo/client';
 import { Button, PageHeader, Table, TableColumnType } from 'antd';
-import { useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { useNavigate, useOutlet } from 'react-router';
 import { User, AllUsersQuery } from '../../graphql-types';
 import CONFIGURATION from '../configuration';
@@ -40,7 +41,14 @@ export default function Users() {
     outlet ?? (
       <DefaultLayout
         pageHeader={
-          <PageHeader title={intl.formatMessage({ id: 'label.user-management' })} extra={[<Button onClick={() => navigate(CONFIGURATION.paths.actions.new)}>asd</Button>]} />
+          <PageHeader
+            title={intl.formatMessage({ id: 'label.user-management' })}
+            extra={[
+              <Button onClick={() => navigate(CONFIGURATION.paths.actions.new)} icon={<PlusOutlined />}>
+                <FormattedMessage id="label.new-user" tagName="span" />
+              </Button>
+            ]}
+          />
         }
       >
         <Table<User> columns={columns} dataSource={data?.users || []} loading={loading} />

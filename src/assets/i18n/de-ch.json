@@ -43,5 +43,7 @@
   "label.dossier-path": "Dossierpfad",
   "action.import": "Importieren",
   "attribute.name": "Name",
-  "attribute.nickname": "Spitzname"
+  "attribute.nickname": "Spitzname",
+  "label.new-user": "Neuer Benutzer",
+  "action.save": "Speichern"
 }
