@@ -4,13 +4,14 @@ import { UserInput } from '../../../graphql-types';
 
 type UserFormProps = {
   save: (user: UserInput) => void;
+  loading?: boolean;
 };
 
-export default function UserForm() {
+export default function UserForm({ save, loading }: UserFormProps) {
   const intl = useIntl();
 
   return (
-    <Form<UserInput>>
+    <Form<UserInput> layout="vertical" onFinish={save} autoComplete="off">
       <Form.Item name="email" label={intl.formatMessage({ id: 'attribute.email' })}>
         <Input />
       </Form.Item>
@@ -21,11 +22,14 @@ export default function UserForm() {
         <Input />
       </Form.Item>
       <Form.Item name="password" label={intl.formatMessage({ id: 'attribute.password' })}>
-        <Input.Password />
+        <Input.Password autoComplete="new-password" />
+      </Form.Item>
+      <Form.Item name="passwordConfirmation" label={intl.formatMessage({ id: 'attribute.password-confirmation' })}>
+        <Input.Password autoComplete="new-password" />
       </Form.Item>
       <Form.Item>
-        <Button htmlType="submit" type="primary">
-          <FormattedMessage id="action.save" />
+        <Button htmlType="submit" type="primary" loading={loading}>
+          <FormattedMessage id="action.save" tagName="span" />
         </Button>
       </Form.Item>
     </Form>

@@ -45,5 +45,6 @@
   "attribute.name": "Name",
   "attribute.nickname": "Spitzname",
   "label.new-user": "Neuer Benutzer",
-  "action.save": "Speichern"
+  "action.save": "Speichern",
+  "attribute.password-confirmation": "Passwortbestätigung"
 }

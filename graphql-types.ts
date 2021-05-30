@@ -179,7 +179,7 @@ export type UserMutation = {
 
 
 export type UserMutationCreateUserArgs = {
-  user: Array<UserInput>;
+  user: UserInput;
 };
 
 export type SignInMutationVariables = Exact<{
@@ -269,6 +269,25 @@ export type RetrieveEvaluationQuery = (
     & { evaluation?: Maybe<(
       { __typename?: 'PkorgEvaluation' }
       & Pick<PkorgEvaluation, 'result'>
+    )> }
+  )> }
+);
+
+export type CreateUserMutationVariables = Exact<{
+  user: UserInput;
+}>;
+
+
+export type CreateUserMutation = (
+  { __typename?: 'Mutation' }
+  & { users?: Maybe<(
+    { __typename?: 'UserMutation' }
+    & { createUser?: Maybe<(
+      { __typename?: 'CreateUserMutationPayload' }
+      & { user: (
+        { __typename?: 'User' }
+        & Pick<User, 'name'>
+      ) }
     )> }
   )> }
 );
