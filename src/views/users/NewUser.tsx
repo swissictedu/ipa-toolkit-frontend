@@ -6,7 +6,7 @@ import { CreateUserMutation, CreateUserMutationVariables, IndexUsersQuery, UserI
 import UserForm from '../../components/users/UserForm';
 import CONFIGURATION from '../../configuration';
 import DefaultLayout from '../../layouts/DefaultLayout';
-import { INDEX_USERS } from '../Users';
+import { INDEX_USERS } from './ListUsers';
 
 const CREATE_USER = gql`
   mutation CreateUser($user: UserInput!) {

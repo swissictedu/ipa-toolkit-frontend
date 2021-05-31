@@ -6,7 +6,7 @@ import UserForm from '../../components/users/UserForm';
 import CONFIGURATION from '../../configuration';
 import DefaultLayout from '../../layouts/DefaultLayout';
 import { ReadUserQuery, ReadUserQueryVariables, UpdateUserMutation, UpdateUserMutationVariables, IndexUsersQuery, UserInput } from '../../../graphql-types';
-import { INDEX_USERS } from '../Users';
+import { INDEX_USERS } from './ListUsers';
 
 export const READ_USER = gql`
   query ReadUser($id: Int!) {
