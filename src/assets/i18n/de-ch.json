@@ -46,5 +46,7 @@
   "attribute.nickname": "Spitzname",
   "label.new-user": "Neuer Benutzer",
   "action.save": "Speichern",
-  "attribute.password-confirmation": "Passwortbestätigung"
+  "attribute.password-confirmation": "Passwortbestätigung",
+  "label.actions": "Aktionen",
+  "label.meeting": "Veranstaltung"
 }

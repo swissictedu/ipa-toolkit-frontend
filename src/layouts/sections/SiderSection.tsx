@@ -1,4 +1,4 @@
-import { AimOutlined, AuditOutlined, DashboardOutlined, ExportOutlined, ImportOutlined, UserOutlined } from '@ant-design/icons';
+import { AimOutlined, AuditOutlined, CalendarOutlined, DashboardOutlined, ExportOutlined, ImportOutlined, UserOutlined } from '@ant-design/icons';
 import { css } from '@emotion/react';
 import { Layout, Menu } from 'antd';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -33,6 +33,11 @@ export default function SiderSection() {
         </Menu.Item>
         <Menu.Divider key="divider1" />
         <Menu.SubMenu key={SUB_MENU_KEYS.gradingConference} icon={<AuditOutlined />} title={intl.formatMessage({ id: 'label.grading-conference' })}>
+          <Menu.Item key={CONFIGURATION.paths.conference.meeting} icon={<CalendarOutlined />}>
+            <Link to={CONFIGURATION.paths.conference.meeting}>
+              <FormattedMessage id="label.meeting" />
+            </Link>
+          </Menu.Item>
           <Menu.Item key={CONFIGURATION.paths.conference.import} icon={<ImportOutlined />}>
             <Link to={CONFIGURATION.paths.conference.import}>
               <FormattedMessage id="label.data-import" />

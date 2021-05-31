@@ -2,17 +2,21 @@ import { useMutation, gql } from '@apollo/client';
 import { PageHeader } from 'antd';
 import { useIntl } from 'react-intl';
 import { useNavigate } from 'react-router';
-import { CreateUserMutation, CreateUserMutationVariables, UserInput } from '../../../graphql-types';
+import { CreateUserMutation, CreateUserMutationVariables, IndexUsersQuery, UserInput } from '../../../graphql-types';
 import UserForm from '../../components/users/UserForm';
 import CONFIGURATION from '../../configuration';
 import DefaultLayout from '../../layouts/DefaultLayout';
+import { INDEX_USERS } from '../Users';
 
 const CREATE_USER = gql`
   mutation CreateUser($user: UserInput!) {
     users {
       createUser(user: $user) {
         user {
+          id
+          email
           name
+          nickname
         }
       }
     }
@@ -22,10 +26,17 @@ const CREATE_USER = gql`
 export default function NewUser() {
   const intl = useIntl();
   const navigate = useNavigate();
-  const [createUser, { loading }] = useMutation<CreateUserMutation, CreateUserMutationVariables>(CREATE_USER);
+  const [createUserMutation, { loading }] = useMutation<CreateUserMutation, CreateUserMutationVariables>(CREATE_USER, {
+    update: (cache, { data }) => {
+      const currentUsers = cache.readQuery<IndexUsersQuery>({ query: INDEX_USERS });
+      cache.writeQuery({ query: INDEX_USERS, data: { users: { ...currentUsers?.users, ...data?.users?.createUser } } });
+    }
+  });
 
-  const saveNewUser = (user: UserInput) => {
-    createUser({ variables: { user } }).then(() => {
+  const saveUser = (user: UserInput) => {
+    createUserMutation({
+      variables: { user }
+    }).then(() => {
       navigate(CONFIGURATION.paths.users);
     });
   };
@@ -40,7 +51,7 @@ export default function NewUser() {
         />
       }
     >
-      <UserForm save={saveNewUser} loading={loading} />
+      <UserForm save={saveUser} loading={loading} />
     </DefaultLayout>
   );
 }
