@@ -5,6 +5,7 @@ import CONFIGURATION from './configuration';
 import ConferenceAssignment from './views/conference/ConferenceAssignment';
 import ConferenceExport from './views/conference/ConferenceExport';
 import ConferenceImport from './views/conference/ConferenceImport';
+import ConferenceMeeting from './views/conference/ConferenceMeeting';
 import Dashboard from './views/Dashboard';
 import SignIn from './views/SignIn';
 import SignOut from './views/SignOut';
@@ -34,6 +35,7 @@ export default function Router() {
           <Route path={`/${CONFIGURATION.paths.actions.new}`} element={<NewUser />} />
           <Route path={`/${CONFIGURATION.paths.actions.edit}/:id`} element={<EditUser />} />
         </Route>
+        <Route path={CONFIGURATION.paths.conference.meeting} element={<ConferenceMeeting />} />
         <Route path={CONFIGURATION.paths.conference.import} element={<ConferenceImport />} />
         <Route path={CONFIGURATION.paths.conference.assignment} element={<ConferenceAssignment />} />
         <Route path={CONFIGURATION.paths.conference.export} element={<ConferenceExport />} />
