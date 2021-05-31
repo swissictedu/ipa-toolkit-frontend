@@ -44,9 +44,10 @@
   "action.import": "Importieren",
   "attribute.name": "Name",
   "attribute.nickname": "Spitzname",
-  "label.new-user": "Neuer Benutzer",
+  "label.new-user": "Benutzer erstellen",
   "action.save": "Speichern",
   "attribute.password-confirmation": "Passwortbestätigung",
   "label.actions": "Aktionen",
-  "label.meeting": "Veranstaltung"
+  "label.meeting": "Veranstaltung",
+  "label.edit-user": "Benutzer bearbeiten"
 }

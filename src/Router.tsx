@@ -9,6 +9,7 @@ import Dashboard from './views/Dashboard';
 import SignIn from './views/SignIn';
 import SignOut from './views/SignOut';
 import Users from './views/Users';
+import EditUser from './views/users/EditUser';
 import NewUser from './views/users/NewUser';
 
 const defaultProtectedRouteProps: ProtectedRouteProps = {
@@ -31,6 +32,7 @@ export default function Router() {
         <Route path={CONFIGURATION.paths.dashboard} element={<Dashboard />} />
         <Route path={CONFIGURATION.paths.users} element={<Users />}>
           <Route path={`/${CONFIGURATION.paths.actions.new}`} element={<NewUser />} />
+          <Route path={`/${CONFIGURATION.paths.actions.edit}/:id`} element={<EditUser />} />
         </Route>
         <Route path={CONFIGURATION.paths.conference.import} element={<ConferenceImport />} />
         <Route path={CONFIGURATION.paths.conference.assignment} element={<ConferenceAssignment />} />

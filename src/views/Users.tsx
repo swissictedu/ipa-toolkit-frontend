@@ -4,6 +4,7 @@ import { Button, PageHeader, Table, TableColumnType } from 'antd';
 import { Fragment } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useNavigate, useOutlet } from 'react-router';
+import { Link } from 'react-router-dom';
 import { User, IndexUsersQuery, DeleteUserMutation, DeleteUserMutationVariables } from '../../graphql-types';
 import CONFIGURATION from '../configuration';
 import DefaultLayout from '../layouts/DefaultLayout';
@@ -70,7 +71,9 @@ export default function Users() {
         <Fragment>
           <Button.Group>
             <Button icon={<DeleteOutlined />} onClick={() => deleteUser({ variables: { id: record.id } })} />
-            <Button icon={<EditOutlined />} />
+            <Link to={`${CONFIGURATION.paths.actions.edit}/${record.id}`}>
+              <Button icon={<EditOutlined />} />
+            </Link>
           </Button.Group>
         </Fragment>
       )
