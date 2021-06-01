@@ -1,6 +1,6 @@
-import { DossierInput, PkorgAffiliation } from '../../../graphql-types';
+import { DossierInput, Affiliation } from '../../../graphql-types';
 
-export default function mapToDossierInput(data: Record<string, string | number>[], affiliations: PkorgAffiliation[], dossierPath: string): DossierInput[] {
+export default function mapToDossierInput(data: Record<string, string | number>[], affiliations: Affiliation[], dossierPath: string): DossierInput[] {
   return data.map((dossier) => {
     const affiliation = affiliations.find((affiliation) => affiliation.tenantName === dossier['Fachrichtung']) ?? { tenantId: '', tenantName: '' };
     return {

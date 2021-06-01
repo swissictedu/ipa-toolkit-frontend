@@ -13,6 +13,13 @@ export type Scalars = {
   JSON: any;
 };
 
+export type Affiliation = {
+  __typename?: 'Affiliation';
+  role: Scalars['String'];
+  tenantId: Scalars['ID'];
+  tenantName: Scalars['String'];
+};
+
 export type AffiliationInput = {
   id: Scalars['Int'];
   tenantName: Scalars['String'];
@@ -37,6 +44,30 @@ export type Credential = {
 export type DeleteUserMutationPayload = {
   __typename?: 'DeleteUserMutationPayload';
   user: User;
+};
+
+export type Dossier = {
+  __typename?: 'Dossier';
+  affiliation: Affiliation;
+  candidate: Person;
+  companyContact?: Maybe<Person>;
+  companyMarkA?: Maybe<Scalars['String']>;
+  companyMarkB?: Maybe<Scalars['String']>;
+  companyPointsA?: Maybe<Scalars['String']>;
+  companyPointsB?: Maybe<Scalars['String']>;
+  dossierPath?: Maybe<Scalars['String']>;
+  expertMarkA?: Maybe<Scalars['String']>;
+  expertMarkB?: Maybe<Scalars['String']>;
+  expertMarkC?: Maybe<Scalars['String']>;
+  expertPointsA?: Maybe<Scalars['String']>;
+  expertPointsB?: Maybe<Scalars['String']>;
+  expertPointsC?: Maybe<Scalars['String']>;
+  finalMark?: Maybe<Scalars['String']>;
+  id: Scalars['Int'];
+  markDeduction?: Maybe<Scalars['Boolean']>;
+  primaryExpert?: Maybe<Person>;
+  secondaryExpert?: Maybe<Person>;
+  submittedMark?: Maybe<Scalars['String']>;
 };
 
 export type DossierInput = {
@@ -89,17 +120,17 @@ export type MutationUserLoginArgs = {
   password: Scalars['String'];
 };
 
+export type Person = {
+  __typename?: 'Person';
+  forename: Scalars['String'];
+  id: Scalars['Int'];
+  surname: Scalars['String'];
+};
+
 export type PersonInput = {
   id: Scalars['Int'];
   forename: Scalars['String'];
   surname: Scalars['String'];
-};
-
-export type PkorgAffiliation = {
-  __typename?: 'PkorgAffiliation';
-  role: Scalars['String'];
-  tenantId: Scalars['ID'];
-  tenantName: Scalars['String'];
 };
 
 export type PkorgEvaluation = {
@@ -130,7 +161,7 @@ export type PkorgQueryEvaluationArgs = {
 
 export type PkorgSessionUser = {
   __typename?: 'PkorgSessionUser';
-  affiliations: Array<PkorgAffiliation>;
+  affiliations: Array<Affiliation>;
   email: Scalars['String'];
   forename: Scalars['String'];
   surname: Scalars['String'];
@@ -138,8 +169,14 @@ export type PkorgSessionUser = {
 
 export type Query = {
   __typename?: 'Query';
+  dossiers?: Maybe<Array<Dossier>>;
   pkorg?: Maybe<PkorgQuery>;
   users?: Maybe<Array<User>>;
+};
+
+
+export type QueryDossiersArgs = {
+  id?: Maybe<Scalars['Int']>;
 };
 
 
@@ -233,34 +270,19 @@ export type SignInMutation = (
   )> }
 );
 
-export type IndexUsersQueryVariables = Exact<{ [key: string]: never; }>;
+export type IndexDossiersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type IndexUsersQuery = (
+export type IndexDossiersQuery = (
   { __typename?: 'Query' }
-  & { users?: Maybe<Array<(
-    { __typename?: 'User' }
-    & Pick<User, 'id' | 'email' | 'name' | 'nickname'>
+  & { dossiers?: Maybe<Array<(
+    { __typename?: 'Dossier' }
+    & Pick<Dossier, 'id' | 'submittedMark' | 'markDeduction'>
+    & { candidate: (
+      { __typename?: 'Person' }
+      & Pick<Person, 'forename' | 'surname' | 'id'>
+    ) }
   )>> }
-);
-
-export type DeleteUserMutationVariables = Exact<{
-  id: Scalars['Int'];
-}>;
-
-
-export type DeleteUserMutation = (
-  { __typename?: 'Mutation' }
-  & { users?: Maybe<(
-    { __typename?: 'UserMutation' }
-    & { deleteUser?: Maybe<(
-      { __typename?: 'DeleteUserMutationPayload' }
-      & { user: (
-        { __typename?: 'User' }
-        & Pick<User, 'id'>
-      ) }
-    )> }
-  )> }
 );
 
 export type CheckConnectionQueryVariables = Exact<{
@@ -278,8 +300,8 @@ export type CheckConnectionQuery = (
       { __typename?: 'PkorgSessionUser' }
       & Pick<PkorgSessionUser, 'email' | 'forename' | 'surname'>
       & { affiliations: Array<(
-        { __typename?: 'PkorgAffiliation' }
-        & Pick<PkorgAffiliation, 'tenantName' | 'tenantId' | 'role'>
+        { __typename?: 'Affiliation' }
+        & Pick<Affiliation, 'tenantName' | 'tenantId' | 'role'>
       )> }
     )> }
   )> }
@@ -351,6 +373,36 @@ export type UpdateUserMutation = (
       & { user: (
         { __typename?: 'User' }
         & Pick<User, 'id' | 'email' | 'name' | 'nickname'>
+      ) }
+    )> }
+  )> }
+);
+
+export type IndexUsersQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type IndexUsersQuery = (
+  { __typename?: 'Query' }
+  & { users?: Maybe<Array<(
+    { __typename?: 'User' }
+    & Pick<User, 'id' | 'email' | 'name' | 'nickname'>
+  )>> }
+);
+
+export type DeleteUserMutationVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type DeleteUserMutation = (
+  { __typename?: 'Mutation' }
+  & { users?: Maybe<(
+    { __typename?: 'UserMutation' }
+    & { deleteUser?: Maybe<(
+      { __typename?: 'DeleteUserMutationPayload' }
+      & { user: (
+        { __typename?: 'User' }
+        & Pick<User, 'id'>
       ) }
     )> }
   )> }

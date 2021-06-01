@@ -49,5 +49,10 @@
   "attribute.password-confirmation": "Passwortbestätigung",
   "label.actions": "Aktionen",
   "label.meeting": "Veranstaltung",
-  "label.edit-user": "Benutzer bearbeiten"
+  "label.edit-user": "Benutzer bearbeiten",
+  "attribute.id": "ID",
+  "attribute.submittedMark": "Endnote",
+  "attribute.markDeduction": "Notenabzug",
+  "label.yes": "Ja",
+  "label.no": "Nein"
 }
