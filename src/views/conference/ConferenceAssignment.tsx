@@ -1,8 +1,9 @@
-import { gql, useQuery } from '@apollo/client';
+import { gql, useMutation, useQuery } from '@apollo/client';
 import { Button, PageHeader, Table, TableColumnType } from 'antd';
 import { Fragment } from 'react';
 import { useIntl } from 'react-intl';
-import { IndexDossiersQuery } from '../../../graphql-types';
+import { IndexDossiersQuery, CreateVerificationMutation, CreateVerificationMutationVariables } from '../../../graphql-types';
+import InvitationForm from '../../components/conference/InvitationForm';
 import DefaultLayout from '../../layouts/DefaultLayout';
 import { Unarray } from '../../utils/types';
 
@@ -21,11 +22,24 @@ const INDEX_DOSSIERS = gql`
   }
 `;
 
+const CREATE_VERIFICATION = gql`
+  mutation CreateVerification($verification: VerificationInput!) {
+    verifications {
+      createVerification(verification: $verification) {
+        verification {
+          id
+        }
+      }
+    }
+  }
+`;
+
 type AssignmentTable = Unarray<NonNullable<IndexDossiersQuery['dossiers']>>;
 
 export default function ConferenceAssignment() {
   const intl = useIntl();
   const { loading, data } = useQuery<IndexDossiersQuery>(INDEX_DOSSIERS);
+  const [createVerification, { loading: mutating }] = useMutation<CreateVerificationMutation, CreateVerificationMutationVariables>(CREATE_VERIFICATION);
 
   const columns: TableColumnType<AssignmentTable>[] = [
     {
@@ -60,7 +74,9 @@ export default function ConferenceAssignment() {
       align: 'center',
       render: (_value, record) => (
         <Fragment>
-          <Button.Group></Button.Group>
+          <Button.Group>
+            <InvitationForm invite={(email) => createVerification({ variables: { verification: { email, dossierId: record.id } } })} />
+          </Button.Group>
         </Fragment>
       )
     }
@@ -68,7 +84,7 @@ export default function ConferenceAssignment() {
 
   return (
     <DefaultLayout pageHeader={<PageHeader title={intl.formatMessage({ id: 'label.grading-conference' })} subTitle={intl.formatMessage({ id: 'label.assignment' })} />}>
-      <Table<AssignmentTable> columns={columns} dataSource={data?.dossiers ?? []} loading={loading} />
+      <Table<AssignmentTable> columns={columns} dataSource={data?.dossiers ?? []} loading={loading || mutating} />
     </DefaultLayout>
   );
 }

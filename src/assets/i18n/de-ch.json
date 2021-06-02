@@ -54,5 +54,6 @@
   "attribute.submittedMark": "Endnote",
   "attribute.markDeduction": "Notenabzug",
   "label.yes": "Ja",
-  "label.no": "Nein"
+  "label.no": "Nein",
+  "label.verification-invitation": "Verifizierungseinladung"
 }

@@ -6,8 +6,8 @@ import { version } from '../../package.json';
 
 export default function SystemInfo() {
   const [open, isOpen] = useState(false);
-  const intl = useIntl();
   const toggleOpen = () => isOpen(!open);
+  const intl = useIntl();
 
   return (
     <>
