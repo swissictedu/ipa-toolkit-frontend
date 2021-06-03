@@ -4,9 +4,13 @@ import ConnectionForm from '../../../components/conference/ConnectionForm';
 import { Credentials } from '../../../models/Credentials';
 import { CheckConnectionQuery, CheckConnectionQueryVariables } from '../../../../graphql-types';
 import { Fragment, useEffect, useRef } from 'react';
-import { Button, Result, Skeleton } from 'antd';
+import { Result, Skeleton } from 'antd';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Affiliation } from '../../../models/Affiliations';
+import BookmarkletGrabButton from '../../../components/BookmarkletGrabButton';
+
+const COPY_SESSION_TOKEN_BOOKMARKLET =
+  'var b=document.createElement("textarea"),c=document.getSelection();b.textContent=document.cookie.split("=")[1],document.body.appendChild(b),c.removeAllRanges(),b.select(),document.execCommand("copy"),c.removeAllRanges(),document.body.removeChild(b)';
 
 const CHECK_CONNECTION = gql`
   query CheckConnection($baseUrl: String!, $sessionToken: String!, $userAgent: String!) {
@@ -51,9 +55,9 @@ export default function ConnectionContainer({ isValid, setCredentials, setAffili
 
   return (
     <Fragment>
-      <Button disabled={true} href="javascript:alert(document.cookie.split('=')[1]);">
+      <BookmarkletGrabButton code={COPY_SESSION_TOKEN_BOOKMARKLET}>
         <FormattedMessage id="label.session-token-extractor" />
-      </Button>
+      </BookmarkletGrabButton>
       <ConnectionForm checkConnection={checkConnection} loading={loading} />
       {called && loading && <Skeleton loading={loading} />}
       {data && (

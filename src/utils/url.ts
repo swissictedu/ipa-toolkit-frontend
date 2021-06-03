@@ -6,3 +6,7 @@ export function generatePathHierarchy(pathname: string) {
     return [...previous, (previous[previous.length - 1] ?? '') + '/' + current];
   }, Array<string>());
 }
+
+export function generateBookmarklet(code: string) {
+  return `javascript:${encodeURIComponent(`(function(){${code}})()`)}`;
+}
