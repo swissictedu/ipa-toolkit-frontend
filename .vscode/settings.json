@@ -12,5 +12,6 @@
     "Unarray",
     "antd",
     "pkorg"
-  ]
+  ],
+  "i18n-ally.sortKeys": true
 }
