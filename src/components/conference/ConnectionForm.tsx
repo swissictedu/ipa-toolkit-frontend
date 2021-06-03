@@ -12,6 +12,9 @@ export default function ConnectionForm({ loading = false, checkConnection }: Con
 
   return (
     <Form<Credentials> layout="vertical" onFinish={checkConnection}>
+      <Form.Item label={intl.formatMessage({ id: 'label.user-agent' })} name="userAgent" rules={[{ required: true }]} initialValue={navigator.userAgent}>
+        <Input disabled={loading} />
+      </Form.Item>
       <Form.Item
         label={intl.formatMessage({ id: 'label.pkorg-endpoint' })}
         name="baseUrl"
@@ -19,9 +22,6 @@ export default function ConnectionForm({ loading = false, checkConnection }: Con
         initialValue={intl.formatMessage({ id: 'label.pkorg-endpoint-default' }, { year: new Date().getFullYear() })}
       >
         <Input placeholder={intl.formatMessage({ id: 'label.pkorg-endpoint-placeholder' }, { year: new Date().getFullYear() })} disabled={loading} />
-      </Form.Item>
-      <Form.Item label={intl.formatMessage({ id: 'label.user-agent' })} name="userAgent" rules={[{ required: true }]} initialValue={navigator.userAgent}>
-        <Input disabled={loading} />
       </Form.Item>
       <Form.Item label={intl.formatMessage({ id: 'label.session-token' })} name="sessionToken" rules={[{ required: true }]}>
         <Input placeholder={intl.formatMessage({ id: 'label.session-token-placeholder' })} disabled={loading} />

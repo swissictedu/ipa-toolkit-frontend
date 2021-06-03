@@ -4,11 +4,12 @@ import ConnectionForm from '../../../components/conference/ConnectionForm';
 import { Credentials } from '../../../models/Credentials';
 import { CheckConnectionQuery, CheckConnectionQueryVariables } from '../../../../graphql-types';
 import { Fragment, useEffect, useRef } from 'react';
-import { Result, Skeleton } from 'antd';
+import { Result, Skeleton, Typography } from 'antd';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Affiliation } from '../../../models/Affiliations';
 import BookmarkletGrabButton from '../../../components/BookmarkletGrabButton';
 
+// see https://gist.github.com/stefanmaric/2abf96c740191cda3bc7a8b0fc905a7d
 const COPY_SESSION_TOKEN_BOOKMARKLET =
   'var b=document.createElement("textarea"),c=document.getSelection();b.textContent=document.cookie.split("=")[1],document.body.appendChild(b),c.removeAllRanges(),b.select(),document.execCommand("copy"),c.removeAllRanges(),document.body.removeChild(b)';
 
@@ -56,8 +57,11 @@ export default function ConnectionContainer({ isValid, setCredentials, setAffili
   return (
     <Fragment>
       <BookmarkletGrabButton code={COPY_SESSION_TOKEN_BOOKMARKLET}>
-        <FormattedMessage id="label.session-token-extractor" />
+        <FormattedMessage id="label.copy-session-token-bookmarklet" />
       </BookmarkletGrabButton>
+      <Typography.Paragraph>
+        <FormattedMessage id="help.conference-import-connection" />
+      </Typography.Paragraph>
       <ConnectionForm checkConnection={checkConnection} loading={loading} />
       {called && loading && <Skeleton loading={loading} />}
       {data && (
