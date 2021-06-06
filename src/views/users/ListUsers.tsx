@@ -1,6 +1,6 @@
 import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
 import { useQuery, gql, useMutation } from '@apollo/client';
-import { Button, PageHeader, Table, TableColumnType } from 'antd';
+import { Button, message, PageHeader, Table, TableColumnType } from 'antd';
 import { Fragment } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useNavigate } from 'react-router';
@@ -43,7 +43,8 @@ export default function ListUsers() {
         query: INDEX_USERS,
         data: { users: currentUsers?.users?.filter((user) => user.id !== data?.users?.deleteUser?.user.id) }
       });
-    }
+    },
+    onError: (error) => message.error(error.message)
   });
 
   const columns: TableColumnType<User>[] = [
