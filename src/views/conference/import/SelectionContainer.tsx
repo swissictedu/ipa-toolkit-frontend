@@ -6,10 +6,7 @@ import { Credentials } from '../../../models/Credentials';
 import { RetrieveEvaluationQuery, RetrieveEvaluationQueryVariables } from '../../../../graphql-types';
 import { css } from '@emotion/react';
 import CONFIGURATION from '../../../configuration';
-
-const fullWidth = css`
-  width: 100%;
-`;
+import HelpContainer from '../../../components/HelpContainer';
 
 const flexGrow = css`
   && {
@@ -51,10 +48,13 @@ export default function SelectionContainer({ isValid, credentials, setSelection 
   const intl = useIntl();
   const [columns, setColumns] = useState<TableColumnType<DataSourceType>[]>();
   const [dataSource, setDataSource] = useState<DataSourceType[]>();
-  const [evaluationPath, setEvaluationPath] = useState(`${CONFIGURATION.defaultValues.evaluationPath}&api=json`);
   const [executeRetrieveEvaluation, { loading, data }] = useLazyQuery<RetrieveEvaluationQuery, RetrieveEvaluationQueryVariables>(RETRIEVE_EVALUATION);
 
-  const retrieveEvaluation = () => {
+  const retrieveEvaluation = (values: EvaluationForm) => {
+    let evaluationPath = values.evaluationPath.replace(credentials.baseUrl, '');
+    if (evaluationPath.indexOf('api=json') === -1) {
+      evaluationPath = `${evaluationPath}&api=json`;
+    }
     executeRetrieveEvaluation({ variables: { ...credentials, evaluationPath } });
   };
 
@@ -70,25 +70,36 @@ export default function SelectionContainer({ isValid, credentials, setSelection 
   useEffect(() => {
     if (data?.pkorg?.evaluation?.result) {
       const result = JSON.parse(data.pkorg.evaluation.result) as ResultType;
-      setColumns(result.fields.map((field) => ({ key: field, title: field, dataIndex: field })));
+      const parsedColumns: TableColumnType<DataSourceType>[] = result.fields.map((field) => ({ key: field, title: field, dataIndex: field }));
+      // Get unique values for first row and create filters from it
+      const uniqueFirstRowFilters = [...new Set(result.rows.map((row) => Object.values(row)[0]))].map((value) => ({ text: value, value }));
+      parsedColumns[0] = {
+        ...parsedColumns[0],
+        defaultFilteredValue: [],
+        filters: uniqueFirstRowFilters,
+        onFilter: (value, record) => Object.values(record)[1].toString().indexOf(value.toString()) === 0
+      };
+      setColumns(parsedColumns);
       setDataSource(result.rows.map((row, i) => ({ key: i, ...row })));
     }
   }, [data]);
 
   return (
     <Fragment>
-      <Space direction="vertical" size="large" css={fullWidth}>
+      <Space direction="vertical" size="large">
+        <HelpContainer>
+          <FormattedMessage id="help.conference-import-selection" />
+        </HelpContainer>
         <Form<EvaluationForm> layout="inline" onFinish={retrieveEvaluation}>
           <Form.Item
             label={intl.formatMessage({ id: 'label.evaluation-path' })}
             name="evaluationPath"
             css={flexGrow}
             rules={[{ required: true }]}
-            initialValue={CONFIGURATION.defaultValues.evaluationPath}
+            initialValue={`${credentials.baseUrl}/${CONFIGURATION.defaultValues.evaluationPath}`}
           >
-            <Input onChange={(e) => setEvaluationPath(`${e.target.value}&api=json`)} disabled={loading} />
+            <Input disabled={loading} />
           </Form.Item>
-          <Form.Item label={intl.formatMessage({ id: 'label.preview' })}>{`${credentials.baseUrl}/${evaluationPath}`}</Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit" loading={loading}>
               <FormattedMessage id="action.load" tagName="span" />

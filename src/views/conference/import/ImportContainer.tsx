@@ -8,10 +8,7 @@ import { Credentials } from '../../../models/Credentials';
 import mapToDossierInput from '../../../utils/mappers/DossierInputMapper';
 import { gql, useMutation } from '@apollo/client';
 import { Affiliation } from '../../../models/Affiliations';
-
-const fullWidth = css`
-  width: 100%;
-`;
+import HelpContainer from '../../../components/HelpContainer';
 
 const flexGrow = css`
   && {
@@ -82,7 +79,10 @@ export default function ImportContainer({ credentials, affiliations, selection }
 
   return (
     <Fragment>
-      <Space direction="vertical" size="large" css={fullWidth}>
+      <Space direction="vertical" size="large">
+        <HelpContainer>
+          <FormattedMessage id="help.conference-import-import" />
+        </HelpContainer>
         <Form layout="inline">
           <Form.Item label={intl.formatMessage({ id: 'label.evaluation-path' })} name="dossierPath" css={flexGrow} rules={[{ required: true }]} initialValue={dossierPath}>
             <Input onChange={(e) => setDossierPath(e.target.value)} disabled={loading} />

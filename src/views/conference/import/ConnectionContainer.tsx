@@ -3,11 +3,12 @@ import { gql, useLazyQuery } from '@apollo/client';
 import ConnectionForm from '../../../components/conference/ConnectionForm';
 import { Credentials } from '../../../models/Credentials';
 import { CheckConnectionQuery, CheckConnectionQueryVariables } from '../../../../graphql-types';
-import { Fragment, useEffect, useRef } from 'react';
-import { Result, Skeleton, Typography } from 'antd';
+import { useEffect, useRef } from 'react';
+import { Result, Skeleton, Space } from 'antd';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Affiliation } from '../../../models/Affiliations';
 import BookmarkletGrabButton from '../../../components/BookmarkletGrabButton';
+import HelpContainer from '../../../components/HelpContainer';
 
 // see https://gist.github.com/stefanmaric/2abf96c740191cda3bc7a8b0fc905a7d
 const COPY_SESSION_TOKEN_BOOKMARKLET =
@@ -55,13 +56,15 @@ export default function ConnectionContainer({ isValid, setCredentials, setAffili
   }, [data, isValid, setCredentials, setAffiliations]);
 
   return (
-    <Fragment>
-      <BookmarkletGrabButton code={COPY_SESSION_TOKEN_BOOKMARKLET}>
-        <FormattedMessage id="label.copy-session-token-bookmarklet" />
-      </BookmarkletGrabButton>
-      <Typography.Paragraph>
-        <FormattedMessage id="help.conference-import-connection" />
-      </Typography.Paragraph>
+    <Space direction="vertical" size="large">
+      <HelpContainer>
+        <p dangerouslySetInnerHTML={{ __html: intl.formatMessage({ id: 'help.conference-import-connection' }) }} />
+        <div>
+          <BookmarkletGrabButton code={COPY_SESSION_TOKEN_BOOKMARKLET}>
+            <FormattedMessage id="label.copy-session-token-bookmarklet" />
+          </BookmarkletGrabButton>
+        </div>
+      </HelpContainer>
       <ConnectionForm checkConnection={checkConnection} loading={loading} />
       {called && loading && <Skeleton loading={loading} />}
       {data && (
@@ -71,6 +74,6 @@ export default function ConnectionContainer({ isValid, setCredentials, setAffili
           subTitle={`${data.pkorg?.sessionUser?.forename} ${data.pkorg?.sessionUser?.surname} (${data.pkorg?.sessionUser?.email})`}
         />
       )}
-    </Fragment>
+    </Space>
   );
 }
