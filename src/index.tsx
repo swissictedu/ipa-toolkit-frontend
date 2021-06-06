@@ -1,4 +1,4 @@
-import { ApolloClient, ApolloProvider, createHttpLink } from '@apollo/client';
+import { ApolloClient, ApolloProvider, createHttpLink, from } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -36,10 +36,6 @@ const globalStyles = (
   />
 );
 
-const httpLink = createHttpLink({
-  uri: CONFIGURATION.env.api
-});
-
 const authLink = setContext((_, { headers }) => ({
   headers: {
     ...headers,
@@ -51,7 +47,11 @@ const authLink = setContext((_, { headers }) => ({
   }
 }));
 
-const client = new ApolloClient({ link: authLink.concat(httpLink), cache: cacheInstance });
+const httpLink = createHttpLink({
+  uri: CONFIGURATION.env.api
+});
+
+const client = new ApolloClient({ link: from([authLink, httpLink]), cache: cacheInstance });
 
 function AppShell() {
   return (
