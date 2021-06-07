@@ -34,8 +34,8 @@ export default function Router() {
       <ProtectedRoute {...defaultProtectedRouteProps} isAuthenticated={!!sessionVar()}>
         <Route path={CONFIGURATION.paths.dashboard} element={<Dashboard />} />
         <Route path={CONFIGURATION.paths.users} element={<Users />}>
-          <Route path={CONFIGURATION.paths.actions.new} element={<NewUser />} />
-          <Route path={CONFIGURATION.paths.actions.edit} element={<EditUser />} />
+          <Route path={`/${CONFIGURATION.paths.actions.new}`} element={<NewUser />} />
+          <Route path={`/${CONFIGURATION.paths.actions.edit}/:id`} element={<EditUser />} />
         </Route>
         <Route path={CONFIGURATION.paths.conference.meeting} element={<ConferenceMeeting />} />
         <Route path={CONFIGURATION.paths.conference.import} element={<ConferenceImport />} />

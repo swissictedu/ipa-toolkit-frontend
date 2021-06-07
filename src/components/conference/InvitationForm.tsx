@@ -20,6 +20,7 @@ export default function InvitationForm({ invite }: InvitationFormProps) {
 
   const handleSubmit = (values: InvitationFormModel) => {
     invite(values.email);
+    toggleOpen();
   };
 
   return (

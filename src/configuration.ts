@@ -25,8 +25,8 @@ const CONFIGURATION = {
       result: '/verification/result/:token'
     },
     actions: {
-      new: '/new',
-      edit: '/edit/:id'
+      new: 'new',
+      edit: 'edit'
     }
   },
   defaultValues: {

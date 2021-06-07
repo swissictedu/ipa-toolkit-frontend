@@ -1,5 +1,5 @@
 import { gql, useMutation, useQuery } from '@apollo/client';
-import { Button, PageHeader, Table, TableColumnType } from 'antd';
+import { Button, message, PageHeader, Table, TableColumnType } from 'antd';
 import { Fragment } from 'react';
 import { useIntl } from 'react-intl';
 import { IndexDossiersQuery, CreateVerificationMutation, CreateVerificationMutationVariables } from '../../../graphql-types';
@@ -39,7 +39,10 @@ type AssignmentTable = Unarray<NonNullable<IndexDossiersQuery['dossiers']>>;
 export default function ConferenceAssignment() {
   const intl = useIntl();
   const { loading, data } = useQuery<IndexDossiersQuery>(INDEX_DOSSIERS);
-  const [createVerification, { loading: mutating }] = useMutation<CreateVerificationMutation, CreateVerificationMutationVariables>(CREATE_VERIFICATION);
+  const [createVerification, { loading: mutating }] = useMutation<CreateVerificationMutation, CreateVerificationMutationVariables>(CREATE_VERIFICATION, {
+    onCompleted: () => message.info('Einladung verschickt.'),
+    onError: () => message.error('Konnte keine Einladung verschicken, weil der Dateiimport noch nicht abgeschlossen ist.')
+  });
 
   const columns: TableColumnType<AssignmentTable>[] = [
     {
