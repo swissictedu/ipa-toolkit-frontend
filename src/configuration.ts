@@ -21,9 +21,12 @@ const CONFIGURATION = {
       assignment: '/conference/assignment',
       export: '/conference/export'
     },
+    verification: {
+      result: '/verification/result/:token'
+    },
     actions: {
-      new: 'new',
-      edit: 'edit'
+      new: '/new',
+      edit: '/edit/:id'
     }
   },
   defaultValues: {
