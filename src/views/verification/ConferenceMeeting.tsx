@@ -1,13 +1,8 @@
-import { PageHeader } from 'antd';
-import { useIntl } from 'react-intl';
-import DefaultLayout from '../../layouts/DefaultLayout';
+import { useOutlet } from 'react-router';
+import ListConferences from './conferences/ListConferences';
 
 export default function ConferenceMeeting() {
-  const intl = useIntl();
+  const outlet = useOutlet();
 
-  return (
-    <DefaultLayout pageHeader={<PageHeader title={intl.formatMessage({ id: 'label.verification' })} subTitle={intl.formatMessage({ id: 'label.grading-conference' })} />}>
-      Meeting
-    </DefaultLayout>
-  );
+  return outlet ?? <ListConferences />;
 }

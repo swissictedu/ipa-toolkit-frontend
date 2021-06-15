@@ -6,6 +6,7 @@ import ConferenceAssignment from './views/verification/ConferenceAssignment';
 import ConferenceExport from './views/verification/ConferenceExport';
 import ConferenceImport from './views/verification/ConferenceImport';
 import ConferenceMeeting from './views/verification/ConferenceMeeting';
+import NewConference from './views/verification/conferences/NewConference';
 import Dashboard from './views/Dashboard';
 import SignIn from './views/SignIn';
 import SignOut from './views/SignOut';
@@ -13,6 +14,7 @@ import Users from './views/Users';
 import EditUser from './views/users/EditUser';
 import NewUser from './views/users/NewUser';
 import VerificationResult from './views/VerificationResult';
+import EditConference from './views/verification/conferences/EditConference';
 
 const defaultProtectedRouteProps: ProtectedRouteProps = {
   isAuthenticated: false,
@@ -37,7 +39,10 @@ export default function Router() {
           <Route path={`/${CONFIGURATION.paths.actions.new}`} element={<NewUser />} />
           <Route path={`/${CONFIGURATION.paths.actions.edit}/:id`} element={<EditUser />} />
         </Route>
-        <Route path={CONFIGURATION.paths.verification.meeting} element={<ConferenceMeeting />} />
+        <Route path={CONFIGURATION.paths.verification.conference} element={<ConferenceMeeting />}>
+          <Route path={`/${CONFIGURATION.paths.actions.new}`} element={<NewConference />} />
+          <Route path={`/${CONFIGURATION.paths.actions.edit}/:id`} element={<EditConference />} />
+        </Route>
         <Route path={CONFIGURATION.paths.verification.import} element={<ConferenceImport />} />
         <Route path={CONFIGURATION.paths.verification.assignment} element={<ConferenceAssignment />} />
         <Route path={CONFIGURATION.paths.verification.export} element={<ConferenceExport />} />

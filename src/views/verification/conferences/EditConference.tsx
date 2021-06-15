@@ -6,7 +6,7 @@ import UserForm from '../../../components/users/UserForm';
 import CONFIGURATION from '../../../configuration';
 import DefaultLayout from '../../../layouts/DefaultLayout';
 import { ReadUserQuery, ReadUserQueryVariables, UpdateUserMutation, UpdateUserMutationVariables, IndexUsersQuery, UserInput } from '../../../../graphql-types';
-import { INDEX_USERS } from './ListUsers';
+import { INDEX_CONFERENCES } from './ListConferences';
 
 export const READ_USER = gql`
   query ReadUser($id: Int!) {
@@ -34,16 +34,16 @@ const UPDATE_USER = gql`
   }
 `;
 
-export default function EditUser() {
+export default function EditConference() {
   const intl = useIntl();
   const params = useParams();
   const navigate = useNavigate();
   const { loading, data } = useQuery<ReadUserQuery, ReadUserQueryVariables>(READ_USER, { variables: { id: parseInt(params.id) } });
   const [updateUserMutation, { loading: mutating }] = useMutation<UpdateUserMutation, UpdateUserMutationVariables>(UPDATE_USER, {
     update: (cache, { data }) => {
-      const currentUsers = cache.readQuery<IndexUsersQuery>({ query: INDEX_USERS });
+      const currentUsers = cache.readQuery<IndexUsersQuery>({ query: INDEX_CONFERENCES });
       cache.writeQuery({
-        query: INDEX_USERS,
+        query: INDEX_CONFERENCES,
         data: { users: currentUsers?.users?.map((user) => (user.id === data?.users?.updateUser?.user.id ? data.users.updateUser.user : user)) }
       });
     }

@@ -33,8 +33,8 @@ export default function SiderSection() {
         </Menu.Item>
         <Menu.Divider key="divider1" />
         <Menu.SubMenu key={SUB_MENU_KEYS.verification} icon={<AuditOutlined />} title={intl.formatMessage({ id: 'label.verification' })}>
-          <Menu.Item key={CONFIGURATION.paths.verification.meeting} icon={<CalendarOutlined />}>
-            <Link to={CONFIGURATION.paths.verification.meeting}>
+          <Menu.Item key={CONFIGURATION.paths.verification.conference} icon={<CalendarOutlined />}>
+            <Link to={CONFIGURATION.paths.verification.conference}>
               <FormattedMessage id="label.grading-conference" />
             </Link>
           </Menu.Item>

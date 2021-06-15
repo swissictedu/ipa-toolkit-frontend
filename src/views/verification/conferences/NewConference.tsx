@@ -6,7 +6,7 @@ import { CreateUserMutation, CreateUserMutationVariables, IndexUsersQuery, UserI
 import UserForm from '../../../components/users/UserForm';
 import CONFIGURATION from '../../../configuration';
 import DefaultLayout from '../../../layouts/DefaultLayout';
-import { INDEX_USERS } from './ListUsers';
+import { INDEX_CONFERENCES } from './ListConferences';
 
 const CREATE_USER = gql`
   mutation CreateUser($user: UserInput!) {
@@ -23,13 +23,13 @@ const CREATE_USER = gql`
   }
 `;
 
-export default function NewUser() {
+export default function NewConference() {
   const intl = useIntl();
   const navigate = useNavigate();
   const [createUserMutation, { loading }] = useMutation<CreateUserMutation, CreateUserMutationVariables>(CREATE_USER, {
     update: (cache, { data }) => {
-      const currentUsers = cache.readQuery<IndexUsersQuery>({ query: INDEX_USERS });
-      cache.writeQuery({ query: INDEX_USERS, data: { users: { ...currentUsers?.users, ...data?.users?.createUser } } });
+      const currentUsers = cache.readQuery<IndexUsersQuery>({ query: INDEX_CONFERENCES });
+      cache.writeQuery({ query: INDEX_CONFERENCES, data: { users: { ...currentUsers?.users, ...data?.users?.createUser } } });
     }
   });
 

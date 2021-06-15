@@ -16,7 +16,7 @@ const CONFIGURATION = {
     signOut: '/sign-out',
     users: '/users',
     verification: {
-      meeting: '/verification/event',
+      conference: '/verification/conference',
       import: '/verification/import',
       assignment: '/verification/assignment',
       export: '/verification/export',
