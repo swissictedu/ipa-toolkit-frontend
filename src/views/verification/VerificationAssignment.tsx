@@ -36,7 +36,7 @@ const CREATE_VERIFICATION = gql`
 
 type AssignmentTable = Unarray<NonNullable<IndexDossiersQuery['dossiers']>>;
 
-export default function ConferenceAssignment() {
+export default function VerificationAssignment() {
   const intl = useIntl();
   const { loading, data } = useQuery<IndexDossiersQuery>(INDEX_DOSSIERS);
   const [createVerification, { loading: mutating }] = useMutation<CreateVerificationMutation, CreateVerificationMutationVariables>(CREATE_VERIFICATION, {

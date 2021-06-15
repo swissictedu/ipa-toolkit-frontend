@@ -1,7 +1,7 @@
 import { useOutlet } from 'react-router';
 import ListConferences from './conferences/ListConferences';
 
-export default function ConferenceMeeting() {
+export default function VerificationConference() {
   const outlet = useOutlet();
 
   return outlet ?? <ListConferences />;

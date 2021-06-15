@@ -2,10 +2,10 @@ import { Navigate, Route, Routes, useLocation } from 'react-router';
 import { sessionVar } from './cache';
 import ProtectedRoute, { ProtectedRouteProps } from './components/ProtectedRoute';
 import CONFIGURATION from './configuration';
-import ConferenceAssignment from './views/verification/ConferenceAssignment';
-import ConferenceExport from './views/verification/ConferenceExport';
-import ConferenceImport from './views/verification/ConferenceImport';
-import ConferenceMeeting from './views/verification/ConferenceMeeting';
+import VerificationAssignment from './views/verification/VerificationAssignment';
+import ConferenceExport from './views/verification/VerificationExport';
+import ConferenceImport from './views/verification/VerificationImport';
+import VerificationConference from './views/verification/VerificationConference';
 import NewConference from './views/verification/conferences/NewConference';
 import Dashboard from './views/Dashboard';
 import SignIn from './views/SignIn';
@@ -39,12 +39,12 @@ export default function Router() {
           <Route path={`/${CONFIGURATION.paths.actions.new}`} element={<NewUser />} />
           <Route path={`/${CONFIGURATION.paths.actions.edit}/:id`} element={<EditUser />} />
         </Route>
-        <Route path={CONFIGURATION.paths.verification.conference} element={<ConferenceMeeting />}>
+        <Route path={CONFIGURATION.paths.verification.conference} element={<VerificationConference />}>
           <Route path={`/${CONFIGURATION.paths.actions.new}`} element={<NewConference />} />
           <Route path={`/${CONFIGURATION.paths.actions.edit}/:id`} element={<EditConference />} />
         </Route>
         <Route path={CONFIGURATION.paths.verification.import} element={<ConferenceImport />} />
-        <Route path={CONFIGURATION.paths.verification.assignment} element={<ConferenceAssignment />} />
+        <Route path={CONFIGURATION.paths.verification.assignment} element={<VerificationAssignment />} />
         <Route path={CONFIGURATION.paths.verification.export} element={<ConferenceExport />} />
       </ProtectedRoute>
     </Routes>

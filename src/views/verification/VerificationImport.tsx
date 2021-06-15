@@ -16,7 +16,7 @@ const ActionsContainer = styled.div`
   justify-content: center;
 `;
 
-export default function ConferenceImport() {
+export default function VerificationImport() {
   const intl = useIntl();
   const [currentStep, setCurrentStep] = useState(0);
   const [credentials, setCredentials] = useState<Credentials>();

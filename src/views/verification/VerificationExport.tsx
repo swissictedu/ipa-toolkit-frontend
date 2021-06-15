@@ -2,7 +2,7 @@ import { PageHeader } from 'antd';
 import { useIntl } from 'react-intl';
 import DefaultLayout from '../../layouts/DefaultLayout';
 
-export default function ConferenceExport() {
+export default function VerificationExport() {
   const intl = useIntl();
 
   return (
