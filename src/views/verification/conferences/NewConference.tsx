@@ -33,7 +33,7 @@ export default function NewConference() {
 
   const saveConference = (conference: ConferenceInput) => {
     createConferenceMutation({
-      variables: { conference }
+      variables: { conference: { ...conference, participants: [] } }
     }).then(() => {
       navigate(CONFIGURATION.paths.verification.conference);
     });

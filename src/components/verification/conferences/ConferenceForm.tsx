@@ -16,13 +16,7 @@ export default function ConferenceForm({ save, initialConference, loading }: Con
       <Form.Item name="name" label={intl.formatMessage({ id: 'attribute.name' })} rules={[{ required: true }]}>
         <Input />
       </Form.Item>
-      <Form.Item name="nickname" label={intl.formatMessage({ id: 'attribute.nickname' })}>
-        <Input />
-      </Form.Item>
       <Form.Item name="password" label={intl.formatMessage({ id: 'attribute.password' })} rules={[{ required: !initialConference }]}>
-        <Input.Password autoComplete="new-password" minLength={6} />
-      </Form.Item>
-      <Form.Item name="passwordConfirmation" label={intl.formatMessage({ id: 'attribute.password-confirmation' })} rules={[{ required: !initialConference }]}>
         <Input.Password autoComplete="new-password" minLength={6} />
       </Form.Item>
       <Form.Item>
