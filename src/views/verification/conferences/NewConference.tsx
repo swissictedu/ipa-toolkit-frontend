@@ -43,7 +43,7 @@ export default function NewConference() {
     <DefaultLayout
       pageHeader={
         <PageHeader
-          title={intl.formatMessage({ id: 'label.conference-management' })}
+          title={intl.formatMessage({ id: 'label.verification' })}
           subTitle={intl.formatMessage({ id: 'label.new-conference' })}
           onBack={() => navigate(CONFIGURATION.paths.verification.conference)}
         />
