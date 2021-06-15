@@ -59,7 +59,7 @@ export default function EditConference() {
   const saveConference = (conference: ConferenceInput) => {
     const currentConference = data?.conferences?.find((conference) => conference);
     if (currentConference?.id) {
-      updateConferenceMutation({ variables: { conference: { ...conference, participants: [] }, id: currentConference.id } }).then(() => {
+      updateConferenceMutation({ variables: { conference, id: currentConference.id } }).then(() => {
         navigate(CONFIGURATION.paths.verification.conference);
       });
     }
