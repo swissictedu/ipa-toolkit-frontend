@@ -9,9 +9,6 @@ import HeaderSection from '../layouts/sections/HeaderSection';
 type VerificationResultForm = {
   change: boolean;
   comment: string;
-  newA: number;
-  newB: number;
-  newC: number;
 };
 
 export default function VerificationResult() {
@@ -28,15 +25,6 @@ export default function VerificationResult() {
           <Form<VerificationResultForm>>
             <Form.Item label={intl.formatMessage({ id: 'attribute.change-of-evaluation' })} name="change" labelCol={{ span: 4 }}>
               <Checkbox />
-            </Form.Item>
-            <Form.Item label={intl.formatMessage({ id: 'attribute.new-points-for-a' })} name="newA" labelCol={{ span: 4 }}>
-              <Input type="number" />
-            </Form.Item>
-            <Form.Item label={intl.formatMessage({ id: 'attribute.new-points-for-b' })} name="newB" labelCol={{ span: 4 }}>
-              <Input type="number" />
-            </Form.Item>
-            <Form.Item label={intl.formatMessage({ id: 'attribute.new-points-for-c' })} name="newC" labelCol={{ span: 4 }}>
-              <Input type="number" />
             </Form.Item>
             <Form.Item label={intl.formatMessage({ id: 'attribute.comment' })} name="comment" labelCol={{ span: 4 }}>
               <Input.TextArea rows={10} />
