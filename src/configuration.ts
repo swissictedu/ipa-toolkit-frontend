@@ -15,13 +15,11 @@ const CONFIGURATION = {
     signIn: '/sign-in',
     signOut: '/sign-out',
     users: '/users',
-    conference: {
-      meeting: '/conference/event',
-      import: '/conference/import',
-      assignment: '/conference/assignment',
-      export: '/conference/export'
-    },
     verification: {
+      meeting: '/verification/event',
+      import: '/verification/import',
+      assignment: '/verification/assignment',
+      export: '/verification/export',
       result: '/verification/result/:token'
     },
     actions: {

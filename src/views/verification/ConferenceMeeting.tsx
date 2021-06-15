@@ -6,7 +6,7 @@ export default function ConferenceMeeting() {
   const intl = useIntl();
 
   return (
-    <DefaultLayout pageHeader={<PageHeader title={intl.formatMessage({ id: 'label.grading-conference' })} subTitle={intl.formatMessage({ id: 'label.meeting' })} />}>
+    <DefaultLayout pageHeader={<PageHeader title={intl.formatMessage({ id: 'label.verification' })} subTitle={intl.formatMessage({ id: 'label.grading-conference' })} />}>
       Meeting
     </DefaultLayout>
   );

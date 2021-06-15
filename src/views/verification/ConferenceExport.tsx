@@ -6,7 +6,7 @@ export default function ConferenceExport() {
   const intl = useIntl();
 
   return (
-    <DefaultLayout pageHeader={<PageHeader title={intl.formatMessage({ id: 'label.grading-conference' })} subTitle={intl.formatMessage({ id: 'label.data-export' })} />}>
+    <DefaultLayout pageHeader={<PageHeader title={intl.formatMessage({ id: 'label.verification' })} subTitle={intl.formatMessage({ id: 'label.data-export' })} />}>
       Export
     </DefaultLayout>
   );

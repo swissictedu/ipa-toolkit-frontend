@@ -7,7 +7,7 @@ import CONFIGURATION from '../../configuration';
 import { generatePathHierarchy } from '../../utils/url';
 
 const SUB_MENU_KEYS = {
-  gradingConference: 'grading-conference'
+  verification: 'verification'
 };
 
 const siderStyles = css`
@@ -32,24 +32,24 @@ export default function SiderSection() {
           </Link>
         </Menu.Item>
         <Menu.Divider key="divider1" />
-        <Menu.SubMenu key={SUB_MENU_KEYS.gradingConference} icon={<AuditOutlined />} title={intl.formatMessage({ id: 'label.grading-conference' })}>
-          <Menu.Item key={CONFIGURATION.paths.conference.meeting} icon={<CalendarOutlined />}>
-            <Link to={CONFIGURATION.paths.conference.meeting}>
-              <FormattedMessage id="label.meeting" />
+        <Menu.SubMenu key={SUB_MENU_KEYS.verification} icon={<AuditOutlined />} title={intl.formatMessage({ id: 'label.verification' })}>
+          <Menu.Item key={CONFIGURATION.paths.verification.meeting} icon={<CalendarOutlined />}>
+            <Link to={CONFIGURATION.paths.verification.meeting}>
+              <FormattedMessage id="label.grading-conference" />
             </Link>
           </Menu.Item>
-          <Menu.Item key={CONFIGURATION.paths.conference.import} icon={<ImportOutlined />}>
-            <Link to={CONFIGURATION.paths.conference.import}>
+          <Menu.Item key={CONFIGURATION.paths.verification.import} icon={<ImportOutlined />}>
+            <Link to={CONFIGURATION.paths.verification.import}>
               <FormattedMessage id="label.data-import" />
             </Link>
           </Menu.Item>
-          <Menu.Item key={CONFIGURATION.paths.conference.assignment} icon={<AimOutlined />}>
-            <Link to={CONFIGURATION.paths.conference.assignment}>
+          <Menu.Item key={CONFIGURATION.paths.verification.assignment} icon={<AimOutlined />}>
+            <Link to={CONFIGURATION.paths.verification.assignment}>
               <FormattedMessage id="label.assignment" />
             </Link>
           </Menu.Item>
-          <Menu.Item key={CONFIGURATION.paths.conference.export} icon={<ExportOutlined />}>
-            <Link to={CONFIGURATION.paths.conference.export}>
+          <Menu.Item key={CONFIGURATION.paths.verification.export} icon={<ExportOutlined />}>
+            <Link to={CONFIGURATION.paths.verification.export}>
               <FormattedMessage id="label.data-export" />
             </Link>
           </Menu.Item>

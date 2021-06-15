@@ -44,7 +44,7 @@ export default function ConferenceImport() {
   ];
 
   return (
-    <DefaultLayout pageHeader={<PageHeader title={intl.formatMessage({ id: 'label.grading-conference' })} subTitle={intl.formatMessage({ id: 'label.data-import' })} />}>
+    <DefaultLayout pageHeader={<PageHeader title={intl.formatMessage({ id: 'label.verification' })} subTitle={intl.formatMessage({ id: 'label.data-import' })} />}>
       <Space direction="vertical" size="large">
         <Steps current={currentStep}>
           {steps.map((step) => (

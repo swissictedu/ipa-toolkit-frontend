@@ -86,7 +86,7 @@ export default function ConferenceAssignment() {
   ];
 
   return (
-    <DefaultLayout pageHeader={<PageHeader title={intl.formatMessage({ id: 'label.grading-conference' })} subTitle={intl.formatMessage({ id: 'label.assignment' })} />}>
+    <DefaultLayout pageHeader={<PageHeader title={intl.formatMessage({ id: 'label.verification' })} subTitle={intl.formatMessage({ id: 'label.assignment' })} />}>
       <Table<AssignmentTable> columns={columns} dataSource={data?.dossiers ?? []} loading={loading || mutating} />
     </DefaultLayout>
   );
