@@ -1,6 +1,6 @@
 /* eslint-disable no-script-url */
 import { gql, useLazyQuery } from '@apollo/client';
-import ConnectionForm from '../../../components/conference/ConnectionForm';
+import ConnectionForm from '../../../components/verification/ConnectionForm';
 import { Credentials } from '../../../models/Credentials';
 import { CheckConnectionQuery, CheckConnectionQueryVariables } from '../../../../graphql-types';
 import { useEffect, useRef } from 'react';

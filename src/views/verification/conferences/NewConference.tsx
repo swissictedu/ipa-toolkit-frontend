@@ -2,21 +2,19 @@ import { useMutation, gql } from '@apollo/client';
 import { PageHeader } from 'antd';
 import { useIntl } from 'react-intl';
 import { useNavigate } from 'react-router';
-import { CreateUserMutation, CreateUserMutationVariables, IndexUsersQuery, UserInput } from '../../../../graphql-types';
-import UserForm from '../../../components/users/UserForm';
+import { ConferenceInput, CreateConferenceMutation, CreateConferenceMutationVariables, IndexUsersQuery } from '../../../../graphql-types';
+import ConferenceForm from '../../../components/verification/conferences/ConferenceForm';
 import CONFIGURATION from '../../../configuration';
 import DefaultLayout from '../../../layouts/DefaultLayout';
 import { INDEX_CONFERENCES } from './ListConferences';
 
-const CREATE_USER = gql`
-  mutation CreateUser($user: UserInput!) {
-    users {
-      createUser(user: $user) {
-        user {
+const CREATE_CONFERENCE = gql`
+  mutation CreateConference($conference: ConferenceInput!) {
+    conferences {
+      createConference(conference: $conference) {
+        conference {
           id
-          email
           name
-          nickname
         }
       }
     }
@@ -26,18 +24,18 @@ const CREATE_USER = gql`
 export default function NewConference() {
   const intl = useIntl();
   const navigate = useNavigate();
-  const [createUserMutation, { loading }] = useMutation<CreateUserMutation, CreateUserMutationVariables>(CREATE_USER, {
+  const [createConferenceMutation, { loading }] = useMutation<CreateConferenceMutation, CreateConferenceMutationVariables>(CREATE_CONFERENCE, {
     update: (cache, { data }) => {
       const currentUsers = cache.readQuery<IndexUsersQuery>({ query: INDEX_CONFERENCES });
-      cache.writeQuery({ query: INDEX_CONFERENCES, data: { users: { ...currentUsers?.users, ...data?.users?.createUser } } });
+      cache.writeQuery({ query: INDEX_CONFERENCES, data: { conferences: { ...currentUsers?.users, ...data?.conferences?.createConference } } });
     }
   });
 
-  const saveUser = (user: UserInput) => {
-    createUserMutation({
-      variables: { user }
+  const saveConference = (conference: ConferenceInput) => {
+    createConferenceMutation({
+      variables: { conference }
     }).then(() => {
-      navigate(CONFIGURATION.paths.users);
+      navigate(CONFIGURATION.paths.verification.conference);
     });
   };
 
@@ -45,13 +43,13 @@ export default function NewConference() {
     <DefaultLayout
       pageHeader={
         <PageHeader
-          title={intl.formatMessage({ id: 'label.user-management' })}
-          subTitle={intl.formatMessage({ id: 'label.new-user' })}
-          onBack={() => navigate(CONFIGURATION.paths.users)}
+          title={intl.formatMessage({ id: 'label.conference-management' })}
+          subTitle={intl.formatMessage({ id: 'label.new-conference' })}
+          onBack={() => navigate(CONFIGURATION.paths.verification.conference)}
         />
       }
     >
-      <UserForm save={saveUser} loading={loading} />
+      <ConferenceForm save={saveConference} loading={loading} />
     </DefaultLayout>
   );
 }

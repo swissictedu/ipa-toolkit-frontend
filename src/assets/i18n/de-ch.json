@@ -33,6 +33,7 @@
   "label.assignment": "Zuordnung",
   "label.candidate-forename": "Vorname (Kandidat)",
   "label.candidate-surname": "Nachname (Kandidat)",
+  "label.conference-management": "Notenkonferenzverwaltung",
   "label.conference.connection": "Verbindung zu PkOrg",
   "label.conference.scraping": "Importieren der Dossiers",
   "label.conference.selection": "Auswahl der Dossiers",

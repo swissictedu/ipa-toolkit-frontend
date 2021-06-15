@@ -3,7 +3,7 @@ import { Button, message, PageHeader, Table, TableColumnType } from 'antd';
 import { Fragment } from 'react';
 import { useIntl } from 'react-intl';
 import { IndexDossiersQuery, CreateVerificationMutation, CreateVerificationMutationVariables } from '../../../graphql-types';
-import InvitationForm from '../../components/conference/InvitationForm';
+import InvitationForm from '../../components/verification/InvitationForm';
 import DefaultLayout from '../../layouts/DefaultLayout';
 import { Unarray } from '../../utils/types';
 
