@@ -50,6 +50,7 @@
   "label.evaluation": "Auswertung",
   "label.evaluation-path": "Auswertungspfad",
   "label.grading-conference": "Notenkonferenz",
+  "label.importing-dossiers": "Importing {count} dossiers",
   "label.new-conference": "Notenkonferenz erstellen",
   "label.new-user": "Benutzer erstellen",
   "label.no": "Nein",

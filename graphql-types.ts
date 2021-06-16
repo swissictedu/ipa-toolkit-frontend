@@ -119,6 +119,7 @@ export type DossierInput = {
   primaryExpert?: Maybe<PersonInput>;
   secondaryExpert?: Maybe<PersonInput>;
   companyContact?: Maybe<PersonInput>;
+  conferenceId: Scalars['Int'];
   companyPointsA?: Maybe<Scalars['String']>;
   companyPointsB?: Maybe<Scalars['String']>;
   companyMarkA?: Maybe<Scalars['String']>;

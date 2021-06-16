@@ -1,14 +1,16 @@
 import { css } from '@emotion/react';
-import { Button, Form, Input, Space, Table, TableColumnType } from 'antd';
+import { Button, Form, Input, Space, Table, TableColumnType, Select, message } from 'antd';
 import { Fragment, useEffect, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { DossierInput, ImportDossiersMutation, ImportDossiersMutationVariables } from '../../../../graphql-types';
+import { DossierInput, ImportDossiersMutation, ImportDossiersMutationVariables, IndexConferencesQuery } from '../../../../graphql-types';
 import CONFIGURATION from '../../../configuration';
 import { Credentials } from '../../../models/Credentials';
 import mapToDossierInput from '../../../utils/mappers/DossierInputMapper';
-import { gql, useMutation } from '@apollo/client';
+import { gql, useMutation, useQuery } from '@apollo/client';
 import { Affiliation } from '../../../models/Affiliations';
 import HelpContainer from '../../../components/HelpContainer';
+import { INDEX_CONFERENCES } from '../conferences/ListConferences';
+import { useNavigate } from 'react-router';
 
 const flexGrow = css`
   && {
@@ -41,13 +43,16 @@ type ImportContainerProps = {
 
 export default function ImportContainer({ credentials, affiliations, selection }: ImportContainerProps) {
   const intl = useIntl();
+  const navigate = useNavigate();
   const [dossierPath, setDossierPath] = useState(`${credentials.baseUrl}/${CONFIGURATION.defaultValues.dossierPath}`);
+  const [conference, setConference] = useState(0);
   const [dossiers, setDossiers] = useState<DossierInput[]>([]);
-  const [importDossiers, { loading, data }] = useMutation<ImportDossiersMutation, ImportDossiersMutationVariables>(IMPORT_DOSSIERS);
+  const [importDossiers, { loading: mutating, data }] = useMutation<ImportDossiersMutation, ImportDossiersMutationVariables>(IMPORT_DOSSIERS);
+  const { loading, data: conferences } = useQuery<IndexConferencesQuery>(INDEX_CONFERENCES);
 
   useEffect(() => {
-    setDossiers(mapToDossierInput(selection, affiliations, dossierPath));
-  }, [affiliations, selection, dossierPath]);
+    setDossiers(mapToDossierInput(selection, affiliations, dossierPath, conference));
+  }, [affiliations, selection, dossierPath, conference]);
 
   const importTableColumns: TableColumnType<ImportTable>[] = [
     {
@@ -66,7 +71,7 @@ export default function ImportContainer({ credentials, affiliations, selection }
       title: intl.formatMessage({ id: 'label.dossier-path' }),
       dataIndex: 'dossierPath',
       render: (value: string) => (
-        <Button type="link" href={value} loading={loading}>
+        <Button type="link" href={value} loading={loading || mutating}>
           {value}
         </Button>
       )
@@ -74,7 +79,10 @@ export default function ImportContainer({ credentials, affiliations, selection }
   ];
 
   const executeImportDossiers = () => {
-    importDossiers({ variables: { ...credentials, dossiers } });
+    importDossiers({ variables: { ...credentials, dossiers } }).then(() => {
+      message.info(intl.formatMessage({ id: 'label.importing-dossiers' }, { count: data?.pkorg?.importDossiers?.importCount }));
+      navigate(CONFIGURATION.paths.dashboard);
+    });
   };
 
   return (
@@ -83,9 +91,16 @@ export default function ImportContainer({ credentials, affiliations, selection }
         <HelpContainer>
           <FormattedMessage id="help.conference-import-import" />
         </HelpContainer>
-        <Form layout="inline">
+        <Form layout="vertical">
           <Form.Item label={intl.formatMessage({ id: 'label.evaluation-path' })} name="dossierPath" css={flexGrow} rules={[{ required: true }]} initialValue={dossierPath}>
-            <Input onChange={(e) => setDossierPath(e.target.value)} disabled={loading} />
+            <Input onChange={(e) => setDossierPath(e.target.value)} disabled={loading || mutating} />
+          </Form.Item>
+          <Form.Item label={intl.formatMessage({ id: 'label.grading-conference' })} name="conference" rules={[{ required: true }]}>
+            <Select loading={loading} onChange={(value) => setConference(parseInt(value?.toString() || ''))}>
+              {conferences?.conferences?.map((c) => (
+                <Select.Option value={c.id}>{c.name}</Select.Option>
+              ))}
+            </Select>
           </Form.Item>
         </Form>
         <Table<ImportTable>
@@ -99,10 +114,9 @@ export default function ImportContainer({ credentials, affiliations, selection }
             })) as ImportTable[]
           }
         />
-        <Button type="primary" onClick={executeImportDossiers}>
+        <Button type="primary" onClick={executeImportDossiers} disabled={conference === 0}>
           <FormattedMessage id="action.import" tagName="span" />
         </Button>
-        <span>{data?.pkorg?.importDossiers?.importCount}</span>
       </Space>
     </Fragment>
   );

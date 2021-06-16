@@ -1,6 +1,6 @@
 import { DossierInput, Affiliation } from '../../../graphql-types';
 
-export default function mapToDossierInput(data: Record<string, string | number>[], affiliations: Affiliation[], dossierPath: string): DossierInput[] {
+export default function mapToDossierInput(data: Record<string, string | number>[], affiliations: Affiliation[], dossierPath: string, conference: number): DossierInput[] {
   return data.map((dossier) => {
     const affiliation = affiliations.find((affiliation) => affiliation.tenantName === dossier['Fachrichtung']) ?? { tenantId: '', tenantName: '' };
     return {
@@ -31,6 +31,7 @@ export default function mapToDossierInput(data: Record<string, string | number>[
             surname: dossier['NachnameVF'] as string
           }
         : undefined,
+      conferenceId: conference,
       companyPointsA: dossier['PunkteVfTeilA'] as string,
       companyPointsB: dossier['PunkteVfTeilB'] as string,
       companyMarkA: dossier['NoteVfTeilA'] as string,
