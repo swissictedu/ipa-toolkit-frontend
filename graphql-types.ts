@@ -29,13 +29,14 @@ export type Conference = {
   __typename?: 'Conference';
   id: Scalars['Int'];
   name: Scalars['String'];
+  participants: Array<Participant>;
 };
 
 export type ConferenceInput = {
   id?: Maybe<Scalars['Int']>;
   name: Scalars['String'];
-  password: Scalars['String'];
-  participants: Array<ParticipantInput>;
+  password?: Maybe<Scalars['String']>;
+  participants?: Maybe<Array<ParticipantInput>>;
 };
 
 export type ConferenceMutation = {
@@ -51,7 +52,6 @@ export type ConferenceMutationCreateConferenceArgs = {
 
 
 export type ConferenceMutationUpdateConferenceArgs = {
-  id: Scalars['Int'];
   conference: ConferenceInput;
 };
 
@@ -170,8 +170,16 @@ export type MutationUserLoginArgs = {
   password: Scalars['String'];
 };
 
-export type ParticipantInput = {
+export type Participant = {
+  __typename?: 'Participant';
+  email: Scalars['String'];
+  forename: Scalars['String'];
   id: Scalars['Int'];
+  surname: Scalars['String'];
+};
+
+export type ParticipantInput = {
+  id?: Maybe<Scalars['Int']>;
   forename: Scalars['String'];
   surname: Scalars['String'];
   email: Scalars['String'];
@@ -495,11 +503,14 @@ export type ReadConferenceQuery = (
   & { conferences?: Maybe<Array<(
     { __typename?: 'Conference' }
     & Pick<Conference, 'id' | 'name'>
+    & { participants: Array<(
+      { __typename?: 'Participant' }
+      & Pick<Participant, 'id' | 'forename' | 'surname' | 'email'>
+    )> }
   )>> }
 );
 
 export type UpdateConferenceMutationVariables = Exact<{
-  id: Scalars['Int'];
   conference: ConferenceInput;
 }>;
 

@@ -18,12 +18,14 @@ export const INDEX_CONFERENCES = gql`
   }
 `;
 
+type ConferenceListItem = Pick<Conference, 'id' | 'name'>;
+
 export default function ListConferences() {
   const intl = useIntl();
   const navigate = useNavigate();
   const { loading, data } = useQuery<IndexConferencesQuery>(INDEX_CONFERENCES);
 
-  const columns: TableColumnType<Conference>[] = [
+  const columns: TableColumnType<ConferenceListItem>[] = [
     {
       dataIndex: 'name',
       key: 'name',
@@ -59,7 +61,7 @@ export default function ListConferences() {
         />
       }
     >
-      <Table<Conference> columns={columns} dataSource={data?.conferences?.map((conference) => ({ ...conference, key: conference.id })) || []} loading={loading} />
+      <Table<ConferenceListItem> columns={columns} dataSource={data?.conferences?.map((conference) => ({ ...conference, key: conference.id })) || []} loading={loading} />
     </DefaultLayout>
   );
 }

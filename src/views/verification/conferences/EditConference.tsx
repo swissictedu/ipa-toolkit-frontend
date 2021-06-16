@@ -5,12 +5,12 @@ import { useNavigate, useParams } from 'react-router';
 import CONFIGURATION from '../../../configuration';
 import DefaultLayout from '../../../layouts/DefaultLayout';
 import {
-  IndexUsersQuery,
   ReadConferenceQuery,
   ReadConferenceQueryVariables,
   UpdateConferenceMutation,
   UpdateConferenceMutationVariables,
-  ConferenceInput
+  ConferenceInput,
+  IndexConferencesQuery
 } from '../../../../graphql-types';
 import { INDEX_CONFERENCES } from './ListConferences';
 import ConferenceForm from '../../../components/verification/conferences/ConferenceForm';
@@ -20,14 +20,20 @@ export const READ_CONFERENCE = gql`
     conferences(id: $id) {
       id
       name
+      participants {
+        id
+        forename
+        surname
+        email
+      }
     }
   }
 `;
 
 const UPDATE_CONFERENCE = gql`
-  mutation UpdateConference($id: Int!, $conference: ConferenceInput!) {
+  mutation UpdateConference($conference: ConferenceInput!) {
     conferences {
-      updateConference(id: $id, conference: $conference) {
+      updateConference(conference: $conference) {
         conference {
           id
           name
@@ -41,14 +47,14 @@ export default function EditConference() {
   const intl = useIntl();
   const params = useParams();
   const navigate = useNavigate();
-  const { loading, data } = useQuery<ReadConferenceQuery, ReadConferenceQueryVariables>(READ_CONFERENCE, { variables: { id: parseInt(params.id) } });
+  const { loading, data } = useQuery<ReadConferenceQuery, ReadConferenceQueryVariables>(READ_CONFERENCE, { variables: { id: parseInt(params.id) }, fetchPolicy: 'network-only' });
   const [updateConferenceMutation, { loading: mutating }] = useMutation<UpdateConferenceMutation, UpdateConferenceMutationVariables>(UPDATE_CONFERENCE, {
     update: (cache, { data }) => {
-      const currentUsers = cache.readQuery<IndexUsersQuery>({ query: INDEX_CONFERENCES });
+      const currentConference = cache.readQuery<IndexConferencesQuery>({ query: INDEX_CONFERENCES });
       cache.writeQuery({
         query: INDEX_CONFERENCES,
         data: {
-          users: currentUsers?.users?.map((conference) =>
+          conferences: currentConference?.conferences?.map((conference) =>
             conference.id === data?.conferences?.updateConference?.conference.id ? data.conferences.updateConference.conference : conference
           )
         }
@@ -59,11 +65,20 @@ export default function EditConference() {
   const saveConference = (conference: ConferenceInput) => {
     const currentConference = data?.conferences?.find((conference) => conference);
     if (currentConference?.id) {
-      updateConferenceMutation({ variables: { conference, id: currentConference.id } }).then(() => {
+      updateConferenceMutation({ variables: { conference: { ...conference, id: currentConference.id } } }).then(() => {
         navigate(CONFIGURATION.paths.verification.conference);
       });
     }
   };
+
+  let currentConference = data?.conferences?.find((conference) => conference);
+  if (currentConference) {
+    const participants = currentConference?.participants.map((p) => {
+      const { __typename, ...participant } = p;
+      return participant;
+    });
+    currentConference = { ...currentConference, participants };
+  }
 
   return (
     <DefaultLayout
@@ -75,7 +90,7 @@ export default function EditConference() {
         />
       }
     >
-      {data ? <ConferenceForm save={saveConference} loading={loading || mutating} initialConference={data?.conferences?.find((conference) => conference)} /> : <Spin />}
+      {data ? <ConferenceForm save={saveConference} loading={loading || mutating} initialConference={currentConference} /> : <Spin />}
     </DefaultLayout>
   );
 }
