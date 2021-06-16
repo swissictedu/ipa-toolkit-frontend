@@ -97,6 +97,7 @@ export type Dossier = {
   companyMarkB?: Maybe<Scalars['String']>;
   companyPointsA?: Maybe<Scalars['String']>;
   companyPointsB?: Maybe<Scalars['String']>;
+  conference: Conference;
   dossierPath?: Maybe<Scalars['String']>;
   expertMarkA?: Maybe<Scalars['String']>;
   expertMarkB?: Maybe<Scalars['String']>;
@@ -337,8 +338,8 @@ export type Verification = {
 
 export type VerificationInput = {
   id?: Maybe<Scalars['Int']>;
-  email: Scalars['String'];
   dossierId: Scalars['Int'];
+  participantId: Scalars['Int'];
 };
 
 export type VerificationMutation = {
@@ -471,6 +472,9 @@ export type IndexDossiersQuery = (
     & { candidate: (
       { __typename?: 'Person' }
       & Pick<Person, 'forename' | 'surname' | 'id'>
+    ), conference: (
+      { __typename?: 'Conference' }
+      & Pick<Conference, 'name'>
     ) }
   )>> }
 );
@@ -492,6 +496,25 @@ export type CreateVerificationMutation = (
       ) }
     )> }
   )> }
+);
+
+export type ReadDossierQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type ReadDossierQuery = (
+  { __typename?: 'Query' }
+  & { dossiers?: Maybe<Array<(
+    { __typename?: 'Dossier' }
+    & { conference: (
+      { __typename?: 'Conference' }
+      & { participants: Array<(
+        { __typename?: 'Participant' }
+        & Pick<Participant, 'email' | 'forename' | 'surname' | 'id'>
+      )> }
+    ) }
+  )>> }
 );
 
 export type ReadConferenceQueryVariables = Exact<{

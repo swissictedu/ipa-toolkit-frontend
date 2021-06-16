@@ -54,6 +54,7 @@
   "label.new-conference": "Notenkonferenz erstellen",
   "label.new-user": "Benutzer erstellen",
   "label.no": "Nein",
+  "label.participant": "Teilnehmer",
   "label.pkorg-access": "PkOrg-Zugang",
   "label.pkorg-endpoint": "Serveradresse",
   "label.pkorg-endpoint-default": "https://{year}.pkorg.ch",

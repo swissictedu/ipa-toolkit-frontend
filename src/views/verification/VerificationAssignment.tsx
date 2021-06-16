@@ -3,7 +3,7 @@ import { Button, message, PageHeader, Table, TableColumnType } from 'antd';
 import { Fragment } from 'react';
 import { useIntl } from 'react-intl';
 import { IndexDossiersQuery, CreateVerificationMutation, CreateVerificationMutationVariables } from '../../../graphql-types';
-import InvitationForm from '../../components/verification/InvitationForm';
+import SingleAssignmentModal from './assignment/SingleAssignmentModal';
 import DefaultLayout from '../../layouts/DefaultLayout';
 import { Unarray } from '../../utils/types';
 
@@ -15,6 +15,9 @@ const INDEX_DOSSIERS = gql`
         forename
         surname
         id
+      }
+      conference {
+        name
       }
       submittedMark
       markDeduction
@@ -72,13 +75,18 @@ export default function VerificationAssignment() {
       render: (value: boolean) => (value ? intl.formatMessage({ id: 'label.yes' }) : intl.formatMessage({ id: 'label.no' }))
     },
     {
+      dataIndex: ['conference', 'name'],
+      key: 'conferenceName',
+      title: intl.formatMessage({ id: 'label.grading-conference' })
+    },
+    {
       key: 'actions',
       title: intl.formatMessage({ id: 'label.actions' }),
       align: 'center',
       render: (_value, record) => (
         <Fragment>
           <Button.Group>
-            <InvitationForm invite={(email) => createVerification({ variables: { verification: { email, dossierId: record.id } } })} />
+            <SingleAssignmentModal dossierId={record.id} />
           </Button.Group>
         </Fragment>
       )
