@@ -1,5 +1,5 @@
 import { gql, useLazyQuery } from '@apollo/client';
-import { Button, Form, Input, Space, Table, TableColumnType } from 'antd';
+import { Button, Form, Input, message, Space, Table, TableColumnType } from 'antd';
 import React, { Fragment, useEffect, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Credentials } from '../../../models/Credentials';
@@ -70,17 +70,21 @@ export default function SelectionContainer({ isValid, credentials, setSelection 
   useEffect(() => {
     if (data?.pkorg?.evaluation?.result) {
       const result = JSON.parse(data.pkorg.evaluation.result) as ResultType;
-      const parsedColumns: TableColumnType<DataSourceType>[] = result.fields.map((field) => ({ key: field, title: field, dataIndex: field }));
-      // Get unique values for first row and create filters from it
-      const uniqueFirstRowFilters = [...new Set(result.rows.map((row) => Object.values(row)[0]))].map((value) => ({ text: value, value }));
-      parsedColumns[0] = {
-        ...parsedColumns[0],
-        defaultFilteredValue: [],
-        filters: uniqueFirstRowFilters,
-        onFilter: (value, record) => Object.values(record)[1].toString().indexOf(value.toString()) === 0
-      };
-      setColumns(parsedColumns);
-      setDataSource(result.rows.map((row, i) => ({ key: i, ...row })));
+      if (result.fields) {
+        const parsedColumns: TableColumnType<DataSourceType>[] = result.fields.map((field) => ({ key: field, title: field, dataIndex: field }));
+        // Get unique values for first row and create filters from it
+        const uniqueFirstRowFilters = [...new Set(result.rows.map((row) => Object.values(row)[0]))].map((value) => ({ text: value, value }));
+        parsedColumns[0] = {
+          ...parsedColumns[0],
+          defaultFilteredValue: [],
+          filters: uniqueFirstRowFilters,
+          onFilter: (value, record) => Object.values(record)[1].toString().indexOf(value.toString()) === 0
+        };
+        setColumns(parsedColumns);
+        setDataSource(result.rows.map((row, i) => ({ key: i, ...row })));
+      } else {
+        message.error(intl.formatMessage({ id: 'error.unable-to-fetch' }));
+      }
     }
   }, [data]);
 
