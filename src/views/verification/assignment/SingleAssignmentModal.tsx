@@ -1,8 +1,8 @@
 import { MailOutlined } from '@ant-design/icons';
-import { gql, useMutation, useQuery } from '@apollo/client';
-import { Button, Form, Input, message, Modal, Select } from 'antd';
+import { gql, useLazyQuery, useMutation } from '@apollo/client';
+import { Button, Form, message, Modal, Select } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { CreateVerificationMutation, CreateVerificationMutationVariables, ReadDossierQuery, ReadDossierQueryVariables } from '../../../../graphql-types';
 
@@ -46,11 +46,17 @@ export default function SingleAssignmentModal({ dossierId }: SingleAssignmentMod
   const toggleOpen = () => isOpen(!open);
   const [form] = useForm<SingleAssignmentModalForm>();
   const intl = useIntl();
-  const { loading, data } = useQuery<ReadDossierQuery, ReadDossierQueryVariables>(READ_DOSSIER, { variables: { id: dossierId } });
+  const [readDossier, { loading, data }] = useLazyQuery<ReadDossierQuery, ReadDossierQueryVariables>(READ_DOSSIER, { variables: { id: dossierId } });
   const [createVerification, { loading: mutating }] = useMutation<CreateVerificationMutation, CreateVerificationMutationVariables>(CREATE_VERIFICATION, {
     onCompleted: () => message.info('Einladung verschickt.'),
     onError: () => message.error('Konnte keine Einladung verschicken, weil der Dateiimport noch nicht abgeschlossen ist.')
   });
+
+  useEffect(() => {
+    if (open) {
+      readDossier();
+    }
+  }, [open, readDossier]);
 
   const handleSubmit = (values: SingleAssignmentModalForm) => {
     createVerification({ variables: { verification: { dossierId, participantId: parseInt(values.participantId) } } });

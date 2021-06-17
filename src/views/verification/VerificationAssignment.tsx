@@ -1,8 +1,9 @@
-import { gql, useMutation, useQuery } from '@apollo/client';
-import { Button, message, PageHeader, Table, TableColumnType } from 'antd';
+import { gql, useQuery } from '@apollo/client';
+import { Button, PageHeader, Table, TableColumnType } from 'antd';
+import { CloudDownloadOutlined } from '@ant-design/icons';
 import { Fragment } from 'react';
 import { useIntl } from 'react-intl';
-import { IndexDossiersQuery, CreateVerificationMutation, CreateVerificationMutationVariables } from '../../../graphql-types';
+import { IndexDossiersQuery } from '../../../graphql-types';
 import SingleAssignmentModal from './assignment/SingleAssignmentModal';
 import DefaultLayout from '../../layouts/DefaultLayout';
 import { Unarray } from '../../utils/types';
@@ -21,18 +22,7 @@ const INDEX_DOSSIERS = gql`
       }
       submittedMark
       markDeduction
-    }
-  }
-`;
-
-const CREATE_VERIFICATION = gql`
-  mutation CreateVerification($verification: VerificationInput!) {
-    verifications {
-      createVerification(verification: $verification) {
-        verification {
-          id
-        }
-      }
+      dossierDownloadPath
     }
   }
 `;
@@ -42,10 +32,6 @@ type AssignmentTable = Unarray<NonNullable<IndexDossiersQuery['dossiers']>>;
 export default function VerificationAssignment() {
   const intl = useIntl();
   const { loading, data } = useQuery<IndexDossiersQuery>(INDEX_DOSSIERS);
-  const [createVerification, { loading: mutating }] = useMutation<CreateVerificationMutation, CreateVerificationMutationVariables>(CREATE_VERIFICATION, {
-    onCompleted: () => message.info('Einladung verschickt.'),
-    onError: () => message.error('Konnte keine Einladung verschicken, weil der Dateiimport noch nicht abgeschlossen ist.')
-  });
 
   const columns: TableColumnType<AssignmentTable>[] = [
     {
@@ -86,6 +72,7 @@ export default function VerificationAssignment() {
       render: (_value, record) => (
         <Fragment>
           <Button.Group>
+            {record.dossierDownloadPath ? <Button href={record.dossierDownloadPath} icon={<CloudDownloadOutlined />} /> : null}
             <SingleAssignmentModal dossierId={record.id} />
           </Button.Group>
         </Fragment>
@@ -95,7 +82,7 @@ export default function VerificationAssignment() {
 
   return (
     <DefaultLayout pageHeader={<PageHeader title={intl.formatMessage({ id: 'label.verification' })} subTitle={intl.formatMessage({ id: 'label.assignment' })} />}>
-      <Table<AssignmentTable> columns={columns} dataSource={data?.dossiers ?? []} loading={loading || mutating} />
+      <Table<AssignmentTable> columns={columns} dataSource={data?.dossiers ?? []} loading={loading} />
     </DefaultLayout>
   );
 }
