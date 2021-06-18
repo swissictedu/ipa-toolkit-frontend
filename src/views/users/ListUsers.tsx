@@ -86,7 +86,7 @@ export default function ListUsers() {
         <PageHeader
           title={intl.formatMessage({ id: 'label.user-management' })}
           extra={[
-            <Button onClick={() => navigate(CONFIGURATION.paths.actions.new)} icon={<PlusOutlined />}>
+            <Button onClick={() => navigate(CONFIGURATION.paths.actions.new)} icon={<PlusOutlined />} key="new-action">
               <FormattedMessage id="label.new-user" tagName="span" />
             </Button>
           ]}

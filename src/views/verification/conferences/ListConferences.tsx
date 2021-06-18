@@ -54,7 +54,7 @@ export default function ListConferences() {
           title={intl.formatMessage({ id: 'label.verification' })}
           subTitle={intl.formatMessage({ id: 'label.grading-conference' })}
           extra={[
-            <Button onClick={() => navigate(CONFIGURATION.paths.actions.new)} icon={<PlusOutlined />}>
+            <Button onClick={() => navigate(CONFIGURATION.paths.actions.new)} icon={<PlusOutlined />} key="new-action">
               <FormattedMessage id="label.new-conference" tagName="span" />
             </Button>
           ]}
