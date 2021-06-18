@@ -31,7 +31,7 @@ type AssignmentTable = Unarray<NonNullable<IndexDossiersQuery['dossiers']>>;
 
 export default function VerificationAssignment() {
   const intl = useIntl();
-  const { loading, data } = useQuery<IndexDossiersQuery>(INDEX_DOSSIERS);
+  const { loading, data } = useQuery<IndexDossiersQuery>(INDEX_DOSSIERS, { fetchPolicy: 'cache-and-network' });
 
   const columns: TableColumnType<AssignmentTable>[] = [
     {
