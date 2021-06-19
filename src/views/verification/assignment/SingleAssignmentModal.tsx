@@ -71,6 +71,7 @@ export default function SingleAssignmentModal({ dossierId }: SingleAssignmentMod
         onCancel={() => toggleOpen()}
         onOk={() => form.validateFields().then(() => form.submit())}
         title={intl.formatMessage({ id: 'label.verification-invitation' })}
+        confirmLoading={mutating}
       >
         <Form form={form} onFinish={handleSubmit}>
           <Form.Item name="participantId" label={intl.formatMessage({ id: 'label.participant' })} rules={[{ required: true }]}>
