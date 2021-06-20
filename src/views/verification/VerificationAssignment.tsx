@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
-import { Button, PageHeader, Table, TableColumnType } from 'antd';
+import { Button, PageHeader, Table, TableColumnsType } from 'antd';
 import { CloudDownloadOutlined } from '@ant-design/icons';
 import { Fragment } from 'react';
 import { useIntl } from 'react-intl';
@@ -7,6 +7,7 @@ import { IndexDossiersQuery } from '../../../graphql-types';
 import SingleAssignmentModal from './assignment/SingleAssignmentModal';
 import DefaultLayout from '../../layouts/DefaultLayout';
 import { Unarray } from '../../utils/types';
+import VerificationList from './assignment/VerificationList';
 
 const INDEX_DOSSIERS = gql`
   query IndexDossiers {
@@ -33,7 +34,7 @@ export default function VerificationAssignment() {
   const intl = useIntl();
   const { loading, data } = useQuery<IndexDossiersQuery>(INDEX_DOSSIERS, { fetchPolicy: 'cache-and-network' });
 
-  const columns: TableColumnType<AssignmentTable>[] = [
+  const columns: TableColumnsType<AssignmentTable> = [
     {
       dataIndex: 'id',
       key: 'id',
@@ -86,7 +87,12 @@ export default function VerificationAssignment() {
 
   return (
     <DefaultLayout pageHeader={<PageHeader title={intl.formatMessage({ id: 'label.verification' })} subTitle={intl.formatMessage({ id: 'label.assignment' })} />}>
-      <Table<AssignmentTable> columns={columns} dataSource={data?.dossiers?.map((d) => ({ ...d, key: d.id })) ?? []} loading={loading} />
+      <Table<AssignmentTable>
+        columns={columns}
+        dataSource={data?.dossiers?.map((d) => ({ ...d, key: d.id })) ?? []}
+        loading={loading}
+        expandable={{ expandedRowRender: (record) => <VerificationList dossierId={record.id} /> }}
+      />
     </DefaultLayout>
   );
 }

@@ -238,6 +238,7 @@ export type Query = {
   system?: Maybe<System>;
   users?: Maybe<Array<User>>;
   verificationFeedback?: Maybe<VerificationFeedback>;
+  verifications?: Maybe<Array<Verification>>;
 };
 
 
@@ -265,6 +266,12 @@ export type QueryUsersArgs = {
 
 export type QueryVerificationFeedbackArgs = {
   token: Scalars['String'];
+};
+
+
+export type QueryVerificationsArgs = {
+  id?: Maybe<Scalars['Int']>;
+  dossierId?: Maybe<Scalars['Int']>;
 };
 
 export type SessionUser = {
@@ -347,8 +354,11 @@ export type UserMutationUpdateUserArgs = {
 
 export type Verification = {
   __typename?: 'Verification';
-  email: Scalars['String'];
+  changeGrading?: Maybe<Scalars['Boolean']>;
+  comment?: Maybe<Scalars['String']>;
+  dossier: Dossier;
   id: Scalars['Int'];
+  participant: Participant;
 };
 
 export type VerificationFeedback = {
@@ -575,6 +585,23 @@ export type CreateVerificationMutation = (
       ) }
     )> }
   )> }
+);
+
+export type IndexVerificationsQueryVariables = Exact<{
+  dossierId?: Maybe<Scalars['Int']>;
+}>;
+
+
+export type IndexVerificationsQuery = (
+  { __typename?: 'Query' }
+  & { verifications?: Maybe<Array<(
+    { __typename?: 'Verification' }
+    & Pick<Verification, 'changeGrading' | 'comment'>
+    & { participant: (
+      { __typename?: 'Participant' }
+      & Pick<Participant, 'forename' | 'surname'>
+    ) }
+  )>> }
 );
 
 export type ReadConferenceQueryVariables = Exact<{
