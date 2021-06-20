@@ -1,10 +1,10 @@
 import { Button, Checkbox, Form, Input, Space } from 'antd';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useParams } from 'react-router';
-import HelpContainer from '../components/HelpContainer';
-import DefaultLayout from '../layouts/DefaultLayout';
-import NarrowLayout from '../layouts/NarrowLayout';
-import HeaderSection from '../layouts/sections/HeaderSection';
+import HelpContainer from '../../components/HelpContainer';
+import DefaultLayout from '../../layouts/DefaultLayout';
+import NarrowLayout from '../../layouts/NarrowLayout';
+import HeaderSection from '../../layouts/sections/HeaderSection';
 
 type VerificationResultForm = {
   change: boolean;

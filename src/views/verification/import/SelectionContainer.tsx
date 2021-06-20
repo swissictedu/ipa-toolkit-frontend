@@ -86,7 +86,7 @@ export default function SelectionContainer({ isValid, credentials, setSelection 
         message.error(intl.formatMessage({ id: 'error.unable-to-fetch' }));
       }
     }
-  }, [data]);
+  }, [data, intl]);
 
   return (
     <Fragment>

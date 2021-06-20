@@ -6,10 +6,10 @@ const NarrowLayoutContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-self: center;
-  min-width: 72rem;
-  max-width: 72rem;
+  min-width: 60rem;
+  max-width: 60rem;
 
-  @media all and (max-width: 80rem) {
+  @media all and (max-width: 72rem) {
     min-width: 100%;
   }
 `;
