@@ -72,8 +72,12 @@ export default function VerificationAssignment() {
       render: (_value, record) => (
         <Fragment>
           <Button.Group>
-            {record.dossierDownloadPath ? <Button href={record.dossierDownloadPath} icon={<CloudDownloadOutlined />} /> : null}
-            <SingleAssignmentModal dossierId={record.id} />
+            {record.dossierDownloadPath ? (
+              <Fragment>
+                <Button href={record.dossierDownloadPath} icon={<CloudDownloadOutlined />} />
+                <SingleAssignmentModal dossierId={record.id} />
+              </Fragment>
+            ) : null}
           </Button.Group>
         </Fragment>
       )

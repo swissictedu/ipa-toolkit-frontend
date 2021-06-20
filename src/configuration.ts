@@ -21,7 +21,7 @@ const CONFIGURATION = {
       import: '/verification/import',
       assignment: '/verification/assignment',
       export: '/verification/export',
-      result: '/verification/result/:token',
+      feedback: '/verification/feedback/:token',
       download: '/verification/download/:token'
     },
     actions: {

@@ -13,7 +13,7 @@ import SignOut from './views/SignOut';
 import Users from './views/Users';
 import EditUser from './views/users/EditUser';
 import NewUser from './views/users/NewUser';
-import VerificationResult from './views/verification/VerificationResult';
+import VerificationFeedback from './views/verification/VerificationFeedback';
 import VerificationDownload from './views/verification/VerificationDownload';
 import EditConference from './views/verification/conferences/EditConference';
 
@@ -33,7 +33,7 @@ export default function Router() {
     <Routes>
       <Route path={CONFIGURATION.paths.signIn} element={<SignIn />} />
       <Route path={CONFIGURATION.paths.signOut} element={<SignOut />} />
-      <Route path={CONFIGURATION.paths.verification.result} element={<VerificationResult />} />
+      <Route path={CONFIGURATION.paths.verification.feedback} element={<VerificationFeedback />} />
       <Route path={CONFIGURATION.paths.verification.download} element={<VerificationDownload />} />
       <ProtectedRoute {...defaultProtectedRouteProps} isAuthenticated={!!sessionVar()}>
         <Route path={CONFIGURATION.paths.dashboard} element={<Dashboard />} />
