@@ -359,6 +359,7 @@ export type Verification = {
   dossier: Dossier;
   id: Scalars['Int'];
   participant: Participant;
+  verifiedAt?: Maybe<Scalars['String']>;
 };
 
 export type VerificationFeedback = {
@@ -501,7 +502,10 @@ export type IndexDossiersQuery = (
   & { dossiers?: Maybe<Array<(
     { __typename?: 'Dossier' }
     & Pick<Dossier, 'id' | 'submittedMark' | 'markDeduction' | 'dossierDownloadPath'>
-    & { candidate: (
+    & { affiliation: (
+      { __typename?: 'Affiliation' }
+      & Pick<Affiliation, 'tenantName'>
+    ), candidate: (
       { __typename?: 'Person' }
       & Pick<Person, 'forename' | 'surname' | 'id'>
     ), conference: (
@@ -596,10 +600,10 @@ export type IndexVerificationsQuery = (
   { __typename?: 'Query' }
   & { verifications?: Maybe<Array<(
     { __typename?: 'Verification' }
-    & Pick<Verification, 'changeGrading' | 'comment'>
+    & Pick<Verification, 'id' | 'changeGrading' | 'comment' | 'verifiedAt'>
     & { participant: (
       { __typename?: 'Participant' }
-      & Pick<Participant, 'forename' | 'surname'>
+      & Pick<Participant, 'forename' | 'surname' | 'email'>
     ) }
   )>> }
 );

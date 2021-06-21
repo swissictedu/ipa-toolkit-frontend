@@ -13,6 +13,9 @@ const INDEX_DOSSIERS = gql`
   query IndexDossiers {
     dossiers {
       id
+      affiliation {
+        tenantName
+      }
       candidate {
         forename
         surname
@@ -39,6 +42,11 @@ export default function VerificationAssignment() {
       dataIndex: 'id',
       key: 'id',
       title: intl.formatMessage({ id: 'attribute.id' })
+    },
+    {
+      dataIndex: ['affiliation', 'tenantName'],
+      key: 'affiliation.tenantName',
+      title: intl.formatMessage({ id: 'label.tenant' })
     },
     {
       dataIndex: ['candidate', 'forename'],
@@ -91,7 +99,9 @@ export default function VerificationAssignment() {
         columns={columns}
         dataSource={data?.dossiers?.map((d) => ({ ...d, key: d.id })) ?? []}
         loading={loading}
+        scroll={{ x: 800 }}
         expandable={{ expandedRowRender: (record) => <VerificationList dossierId={record.id} /> }}
+        rowSelection={{ selections: true }}
       />
     </DefaultLayout>
   );

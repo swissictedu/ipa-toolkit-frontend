@@ -24,6 +24,7 @@
   "attribute.submittedMark": "Endnote",
   "attribute.surname": "Nachname",
   "attribute.username": "Benutzername",
+  "attribute.verified-at": "Verifiziert am",
   "author": "Entwickelt durch openscript GmbH",
   "content.welcome": "Willkommen {name}",
   "error.insufficent-credentials": "Die Zugangsinformationen sind ungültig.",

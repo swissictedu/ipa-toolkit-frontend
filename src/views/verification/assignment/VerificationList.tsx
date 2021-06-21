@@ -10,6 +10,7 @@ const INDEX_VERIFICATIONS = gql`
       id
       changeGrading
       comment
+      verifiedAt
       participant {
         forename
         surname
@@ -59,13 +60,18 @@ export default function VerificationList({ dossierId }: VerificationListProps) {
       dataIndex: 'comment',
       key: 'comment',
       title: intl.formatMessage({ id: 'attribute.comment' })
+    },
+    {
+      dataIndex: 'verifiedAt',
+      key: 'verifiedAt',
+      title: intl.formatMessage({ id: 'attribute.verified-at' })
     }
   ];
   return (
     <Table<VerificationListTable>
       title={() => intl.formatMessage({ id: 'label.assigned-participants' })}
       columns={columns}
-      dataSource={data?.verifications || []}
+      dataSource={data?.verifications?.map((v) => ({ ...v, key: v.id })) ?? []}
       loading={loading}
       pagination={false}
     />
