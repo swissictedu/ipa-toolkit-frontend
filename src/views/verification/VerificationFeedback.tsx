@@ -1,5 +1,6 @@
 import { gql, useMutation, useQuery } from '@apollo/client';
 import { Button, Checkbox, Form, Input, message, Space, Spin } from 'antd';
+import { useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useNavigate, useParams } from 'react-router';
 import {
@@ -45,6 +46,7 @@ type VerificationFeedbackForm = {
 };
 
 export default function VerificationFeedback() {
+  const [commentRequired, setCommentRequired] = useState(false);
   const params = useParams();
   const intl = useIntl();
   const navigate = useNavigate();
@@ -53,6 +55,7 @@ export default function VerificationFeedback() {
       token: params.token
     },
     fetchPolicy: 'network-only',
+    onCompleted: (data) => setCommentRequired(data.verificationFeedback?.changeGrading || false),
     onError: () => {
       message.error(intl.formatMessage({ id: 'error.unable-to-fetch' }));
       navigate(CONFIGURATION.paths.signIn);
@@ -88,9 +91,9 @@ export default function VerificationFeedback() {
               initialValues={{ changeGrading: data?.verificationFeedback?.changeGrading, comment: data?.verificationFeedback?.comment }}
             >
               <Form.Item label={intl.formatMessage({ id: 'attribute.change-of-evaluation' })} name="changeGrading" labelCol={{ span: 4 }} valuePropName="checked">
-                <Checkbox disabled={mutating} />
+                <Checkbox disabled={mutating} onChange={(e) => setCommentRequired(e.target.checked)} />
               </Form.Item>
-              <Form.Item label={intl.formatMessage({ id: 'attribute.comment' })} name="comment" labelCol={{ span: 4 }}>
+              <Form.Item label={intl.formatMessage({ id: 'attribute.comment' })} name="comment" labelCol={{ span: 4 }} rules={[{ required: commentRequired }]}>
                 <Input.TextArea rows={10} disabled={mutating} />
               </Form.Item>
               <Form.Item wrapperCol={{ offset: 4 }}>
