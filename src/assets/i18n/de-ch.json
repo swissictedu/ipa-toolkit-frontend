@@ -57,6 +57,7 @@
   "label.empty-value": "Leer",
   "label.evaluation": "Auswertung",
   "label.evaluation-path": "Auswertungspfad",
+  "label.export-data": "Daten exportieren",
   "label.grading-conference": "Notenkonferenz",
   "label.importing-dossiers": "Importiere {count} Dossiers.",
   "label.new-conference": "Notenkonferenz erstellen",
