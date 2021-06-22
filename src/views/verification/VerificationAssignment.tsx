@@ -1,7 +1,7 @@
-import { gql, useQuery } from '@apollo/client';
+import { gql, useLazyQuery } from '@apollo/client';
 import { Button, PageHeader, Table, TableColumnsType, Tag, TagProps } from 'antd';
 import { CloudDownloadOutlined } from '@ant-design/icons';
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { IndexDossiersQuery } from '../../../graphql-types';
 import SingleAssignmentModal from './assignment/SingleAssignmentModal';
@@ -23,6 +23,7 @@ const INDEX_DOSSIERS = gql`
         id
       }
       conference {
+        id
         name
       }
       submittedMark
@@ -37,8 +38,12 @@ type AssignmentTable = Unarray<NonNullable<IndexDossiersQuery['dossiers']>>;
 
 export default function VerificationAssignment() {
   const intl = useIntl();
-  const { loading, data } = useQuery<IndexDossiersQuery>(INDEX_DOSSIERS, { fetchPolicy: 'cache-and-network' });
+  const [indexDossiers, { loading, data }] = useLazyQuery<IndexDossiersQuery>(INDEX_DOSSIERS, { fetchPolicy: 'cache-and-network' });
   const [selection, setSelection] = useState<number[]>([]);
+
+  useEffect(() => {
+    indexDossiers();
+  }, [indexDossiers]);
 
   const columns: TableColumnsType<AssignmentTable> = [
     {
@@ -101,7 +106,7 @@ export default function VerificationAssignment() {
             color = 'warning';
           }
           return (
-            <Tag color={color}>
+            <Tag color={color} key={t}>
               <FormattedMessage id={`label.${t}`} />
             </Tag>
           );
@@ -135,7 +140,7 @@ export default function VerificationAssignment() {
         <PageHeader
           title={intl.formatMessage({ id: 'label.verification' })}
           subTitle={intl.formatMessage({ id: 'label.assignment' })}
-          extra={[<MultiAssignmentModal dossierIds={selection} />]}
+          extra={[<MultiAssignmentModal dossierIds={selection} key="multiAssignment" />]}
         />
       }
     >

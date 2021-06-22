@@ -11,6 +11,7 @@ export const READ_DOSSIER = gql`
   query ReadDossier($id: Int!) {
     dossiers(id: $id) {
       conference {
+        id
         participants {
           email
           forename
@@ -35,10 +36,10 @@ export const READ_DOSSIER = gql`
 `;
 
 const CREATE_VERIFICATION = gql`
-  mutation CreateVerification($verification: VerificationInput!) {
+  mutation CreateVerification($verifications: [VerificationInput!]!) {
     verifications {
-      createVerification(verification: $verification) {
-        verification {
+      createVerification(verifications: $verifications) {
+        verifications {
           id
         }
       }
@@ -79,7 +80,7 @@ export default function SingleAssignmentModal({ dossierId }: SingleAssignmentMod
   const [readDossier, { loading, data }] = useLazyQuery<ReadDossierQuery, ReadDossierQueryVariables>(READ_DOSSIER, { variables: { id: dossierId } });
   const [createVerification, { loading: mutating }] = useMutation<CreateVerificationMutation, CreateVerificationMutationVariables>(CREATE_VERIFICATION, {
     onCompleted: () => message.info(intl.formatMessage({ id: 'info.invitation-sent' })),
-    onError: () => message.error('Konnte keine Einladung verschicken, weil der Dateiimport noch nicht abgeschlossen ist.')
+    onError: () => message.error(intl.formatMessage({ id: 'error.unable-to-send-invitation' }))
   });
 
   useEffect(() => {
@@ -89,7 +90,7 @@ export default function SingleAssignmentModal({ dossierId }: SingleAssignmentMod
   }, [open, readDossier]);
 
   const handleSubmit = (values: SingleAssignmentModalForm) => {
-    createVerification({ variables: { verification: { dossierId, participantId: parseInt(values.participantId) } } });
+    createVerification({ variables: { verifications: [{ dossierId, participantId: parseInt(values.participantId) }] } });
     toggleOpen();
   };
 
@@ -111,7 +112,7 @@ export default function SingleAssignmentModal({ dossierId }: SingleAssignmentMod
                 {data?.dossiers
                   ?.find((d) => d)
                   ?.conference.participants.map((p) => (
-                    <Select.Option value={p.id}>
+                    <Select.Option value={p.id} key={p.id}>
                       {p.forename} {p.surname}
                     </Select.Option>
                   ))}
