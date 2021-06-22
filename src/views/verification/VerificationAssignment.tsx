@@ -1,13 +1,14 @@
 import { gql, useQuery } from '@apollo/client';
-import { Button, PageHeader, Table, TableColumnsType } from 'antd';
+import { Button, PageHeader, Table, TableColumnsType, Tag, TagProps } from 'antd';
 import { CloudDownloadOutlined } from '@ant-design/icons';
 import { Fragment } from 'react';
-import { useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { IndexDossiersQuery } from '../../../graphql-types';
 import SingleAssignmentModal from './assignment/SingleAssignmentModal';
 import DefaultLayout from '../../layouts/DefaultLayout';
 import { Unarray } from '../../utils/types';
 import VerificationList from './assignment/VerificationList';
+import { ColumnFilterItem } from 'antd/lib/table/interface';
 
 const INDEX_DOSSIERS = gql`
   query IndexDossiers {
@@ -26,6 +27,7 @@ const INDEX_DOSSIERS = gql`
       }
       submittedMark
       markDeduction
+      tags
       dossierDownloadPath
     }
   }
@@ -73,6 +75,32 @@ export default function VerificationAssignment() {
       dataIndex: ['conference', 'name'],
       key: 'conferenceName',
       title: intl.formatMessage({ id: 'label.grading-conference' })
+    },
+    {
+      dataIndex: 'tags',
+      key: 'tags',
+      title: intl.formatMessage({ id: 'label.tags' }),
+      render: (value: string[]) =>
+        value.map((t) => {
+          let color: TagProps['color'] = 'default';
+          if (t === 'verified') {
+            color = 'success';
+          } else if (t === 'not-verified') {
+            color = 'red';
+          } else if (t === 'insufficient' || t === 'just-enough' || t === 'very-good') {
+            color = 'warning';
+          }
+          return (
+            <Tag color={color}>
+              <FormattedMessage id={`label.${t}`} />
+            </Tag>
+          );
+        }),
+      filters: [...new Set(data?.dossiers?.flatMap((d) => d.tags))].map((t) => ({ text: intl.formatMessage({ id: `label.${t}` }), value: t })),
+      onFilter: (value, record) => {
+        return record.tags.indexOf(value.toString()) !== -1;
+      },
+      filterMultiple: false
     },
     {
       key: 'actions',

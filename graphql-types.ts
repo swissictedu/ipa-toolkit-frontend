@@ -114,6 +114,7 @@ export type Dossier = {
   primaryExpert?: Maybe<Person>;
   secondaryExpert?: Maybe<Person>;
   submittedMark?: Maybe<Scalars['String']>;
+  tags: Array<Scalars['String']>;
   verifications?: Maybe<Array<Verification>>;
 };
 
@@ -505,7 +506,7 @@ export type IndexDossiersQuery = (
   { __typename?: 'Query' }
   & { dossiers?: Maybe<Array<(
     { __typename?: 'Dossier' }
-    & Pick<Dossier, 'id' | 'submittedMark' | 'markDeduction' | 'dossierDownloadPath'>
+    & Pick<Dossier, 'id' | 'submittedMark' | 'markDeduction' | 'tags' | 'dossierDownloadPath'>
     & { affiliation: (
       { __typename?: 'Affiliation' }
       & Pick<Affiliation, 'tenantName'>
