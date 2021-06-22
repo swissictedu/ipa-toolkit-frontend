@@ -62,6 +62,7 @@
   "label.importing-dossiers": "Importiere {count} Dossiers.",
   "label.insufficient": "Ungenügend",
   "label.not-verified": "Nicht verifiziert",
+  "label.no-final-mark": "Keine Endnote",
   "label.verified": "Verifiziert",
   "label.just-enough": "Knapp genügend",
   "label.new-conference": "Notenkonferenz erstellen",

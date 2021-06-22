@@ -93,8 +93,8 @@ export default function VerificationAssignment() {
           let color: TagProps['color'] = 'default';
           if (t === 'verified') {
             color = 'success';
-          } else if (t === 'not-verified') {
-            color = 'red';
+          } else if (t === 'not-verified' || t === 'no-final-mark') {
+            color = 'error';
           } else if (t === 'insufficient' || t === 'just-enough' || t === 'very-good') {
             color = 'warning';
           }
