@@ -596,6 +596,38 @@ export type SendVerificationFeedbackMutation = (
   )> }
 );
 
+export type ReadDossiersQueryVariables = Exact<{
+  ids?: Maybe<Array<Scalars['Int']> | Scalars['Int']>;
+}>;
+
+
+export type ReadDossiersQuery = (
+  { __typename?: 'Query' }
+  & { dossiers?: Maybe<Array<(
+    { __typename?: 'Dossier' }
+    & Pick<Dossier, 'id'>
+    & { conference: (
+      { __typename?: 'Conference' }
+      & { participants: Array<(
+        { __typename?: 'Participant' }
+        & Pick<Participant, 'email' | 'forename' | 'surname' | 'id'>
+      )> }
+    ), candidate: (
+      { __typename?: 'Person' }
+      & Pick<Person, 'forename' | 'surname'>
+    ), companyContact?: Maybe<(
+      { __typename?: 'Person' }
+      & Pick<Person, 'forename' | 'surname'>
+    )>, primaryExpert?: Maybe<(
+      { __typename?: 'Person' }
+      & Pick<Person, 'forename' | 'surname'>
+    )>, secondaryExpert?: Maybe<(
+      { __typename?: 'Person' }
+      & Pick<Person, 'forename' | 'surname'>
+    )> }
+  )>> }
+);
+
 export type ReadDossierQueryVariables = Exact<{
   id: Scalars['Int'];
 }>;

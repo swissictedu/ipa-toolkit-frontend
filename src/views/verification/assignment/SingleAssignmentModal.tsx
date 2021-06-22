@@ -5,7 +5,6 @@ import { useForm } from 'antd/lib/form/Form';
 import { Fragment, useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { CreateVerificationMutation, CreateVerificationMutationVariables, ReadDossierQuery, ReadDossierQueryVariables } from '../../../../graphql-types';
-import HelpContainer from '../../../components/HelpContainer';
 import { Unarray } from '../../../utils/types';
 
 export const READ_DOSSIER = gql`

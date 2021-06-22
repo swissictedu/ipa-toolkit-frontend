@@ -1,13 +1,14 @@
 import { gql, useQuery } from '@apollo/client';
 import { Button, PageHeader, Table, TableColumnsType, Tag, TagProps } from 'antd';
 import { CloudDownloadOutlined } from '@ant-design/icons';
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { IndexDossiersQuery } from '../../../graphql-types';
 import SingleAssignmentModal from './assignment/SingleAssignmentModal';
 import DefaultLayout from '../../layouts/DefaultLayout';
 import { Unarray } from '../../utils/types';
 import VerificationList from './assignment/VerificationList';
+import MultiAssignmentModal from './assignment/MultiAssignmentModal';
 
 const INDEX_DOSSIERS = gql`
   query IndexDossiers {
@@ -37,6 +38,7 @@ type AssignmentTable = Unarray<NonNullable<IndexDossiersQuery['dossiers']>>;
 export default function VerificationAssignment() {
   const intl = useIntl();
   const { loading, data } = useQuery<IndexDossiersQuery>(INDEX_DOSSIERS, { fetchPolicy: 'cache-and-network' });
+  const [selection, setSelection] = useState<number[]>([]);
 
   const columns: TableColumnsType<AssignmentTable> = [
     {
@@ -128,14 +130,27 @@ export default function VerificationAssignment() {
   ];
 
   return (
-    <DefaultLayout pageHeader={<PageHeader title={intl.formatMessage({ id: 'label.verification' })} subTitle={intl.formatMessage({ id: 'label.assignment' })} />}>
+    <DefaultLayout
+      pageHeader={
+        <PageHeader
+          title={intl.formatMessage({ id: 'label.verification' })}
+          subTitle={intl.formatMessage({ id: 'label.assignment' })}
+          extra={[<MultiAssignmentModal dossierIds={selection} />]}
+        />
+      }
+    >
       <Table<AssignmentTable>
         columns={columns}
         dataSource={data?.dossiers?.map((d) => ({ ...d, key: d.id })) ?? []}
         loading={loading}
         scroll={{ x: 800 }}
         expandable={{ expandedRowRender: (record) => <VerificationList dossierId={record.id} /> }}
-        rowSelection={{ selections: true }}
+        rowSelection={{
+          selections: true,
+          onChange: (rows) => {
+            setSelection(rows.map((r) => parseInt(r.toString())));
+          }
+        }}
       />
     </DefaultLayout>
   );
