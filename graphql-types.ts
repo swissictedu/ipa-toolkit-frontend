@@ -254,6 +254,7 @@ export type QueryConferencesArgs = {
 
 export type QueryDossiersArgs = {
   id?: Maybe<Scalars['Int']>;
+  ids?: Maybe<Array<Scalars['Int']>>;
 };
 
 
@@ -610,7 +611,16 @@ export type ReadDossierQuery = (
         { __typename?: 'Participant' }
         & Pick<Participant, 'email' | 'forename' | 'surname' | 'id'>
       )> }
-    ) }
+    ), companyContact?: Maybe<(
+      { __typename?: 'Person' }
+      & Pick<Person, 'forename' | 'surname'>
+    )>, primaryExpert?: Maybe<(
+      { __typename?: 'Person' }
+      & Pick<Person, 'forename' | 'surname'>
+    )>, secondaryExpert?: Maybe<(
+      { __typename?: 'Person' }
+      & Pick<Person, 'forename' | 'surname'>
+    )> }
   )>> }
 );
 
