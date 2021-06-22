@@ -8,7 +8,6 @@ import SingleAssignmentModal from './assignment/SingleAssignmentModal';
 import DefaultLayout from '../../layouts/DefaultLayout';
 import { Unarray } from '../../utils/types';
 import VerificationList from './assignment/VerificationList';
-import { ColumnFilterItem } from 'antd/lib/table/interface';
 
 const INDEX_DOSSIERS = gql`
   query IndexDossiers {
@@ -48,7 +47,10 @@ export default function VerificationAssignment() {
     {
       dataIndex: ['affiliation', 'tenantName'],
       key: 'affiliation.tenantName',
-      title: intl.formatMessage({ id: 'label.tenant' })
+      title: intl.formatMessage({ id: 'label.tenant' }),
+      filters: [...new Set(data?.dossiers?.map((d) => d.affiliation.tenantName))].map((a) => ({ text: a, value: a })),
+      filterMultiple: false,
+      onFilter: (value, record) => record.affiliation.tenantName === value
     },
     {
       dataIndex: ['candidate', 'forename'],
@@ -69,7 +71,13 @@ export default function VerificationAssignment() {
       dataIndex: 'markDeduction',
       key: 'markDeduction',
       title: intl.formatMessage({ id: 'attribute.markDeduction' }),
-      render: (value: boolean) => (value ? intl.formatMessage({ id: 'label.yes' }) : intl.formatMessage({ id: 'label.no' }))
+      render: (value: boolean) => (value ? intl.formatMessage({ id: 'label.yes' }) : intl.formatMessage({ id: 'label.no' })),
+      filters: [
+        { text: intl.formatMessage({ id: 'label.yes' }), value: true },
+        { text: intl.formatMessage({ id: 'label.no' }), value: false }
+      ],
+      onFilter: (value, record) => record.markDeduction === value,
+      filterMultiple: false
     },
     {
       dataIndex: ['conference', 'name'],
@@ -97,9 +105,7 @@ export default function VerificationAssignment() {
           );
         }),
       filters: [...new Set(data?.dossiers?.flatMap((d) => d.tags))].map((t) => ({ text: intl.formatMessage({ id: `label.${t}` }), value: t })),
-      onFilter: (value, record) => {
-        return record.tags.indexOf(value.toString()) !== -1;
-      },
+      onFilter: (value, record) => record.tags.indexOf(value.toString()) !== -1,
       filterMultiple: false
     },
     {
