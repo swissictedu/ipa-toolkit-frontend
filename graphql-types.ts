@@ -608,7 +608,7 @@ export type ReadDossiersQuery = (
     & Pick<Dossier, 'id'>
     & { conference: (
       { __typename?: 'Conference' }
-      & Pick<Conference, 'id'>
+      & Pick<Conference, 'id' | 'name'>
       & { participants: Array<(
         { __typename?: 'Participant' }
         & Pick<Participant, 'email' | 'forename' | 'surname' | 'id'>

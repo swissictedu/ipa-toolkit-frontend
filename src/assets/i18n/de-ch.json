@@ -83,6 +83,7 @@
   "label.preview": "Vorschau",
   "label.primary-expert-forename": "Vorname (Hauptexperte)",
   "label.primary-expert-surname": "Nachname (Hauptexperte)",
+  "label.randomly-assign": "Zufällig verteilen",
   "label.secondary-expert-forename": "Vorname (Nebenexperte)",
   "label.secondary-expert-surname": "Nachname (Nebenexperte)",
   "label.session-token": "Sessionsschlüssel",

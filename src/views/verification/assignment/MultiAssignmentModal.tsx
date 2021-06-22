@@ -1,11 +1,24 @@
 import { NotificationOutlined } from '@ant-design/icons';
 import { gql, useLazyQuery, useMutation } from '@apollo/client';
-import { Button, Form, Input, message, Modal, Select, Table, TableColumnsType } from 'antd';
+import { css } from '@emotion/react';
+import { Button, Form, Input, message, Modal, Select, Space, Table, TableColumnsType } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
 import { Fragment, useEffect, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { CreateVerificationsMutation, CreateVerificationsMutationVariables, ReadDossiersQuery, ReadDossiersQueryVariables } from '../../../../graphql-types';
 import { Unarray } from '../../../utils/types';
+
+const fullWidth = css`
+  && {
+    flex-grow: 1;
+  }
+`;
+
+const removeMarginRight = css`
+  && {
+    margin-right: 0;
+  }
+`;
 
 const READ_DOSSIERS = gql`
   query ReadDossiers($ids: [Int!]) {
@@ -13,6 +26,7 @@ const READ_DOSSIERS = gql`
       id
       conference {
         id
+        name
         participants {
           email
           forename
@@ -125,7 +139,7 @@ export default function MultiAssignmentModal({ dossierIds }: MultiAssignmentModa
       title: intl.formatMessage({ id: 'label.assignment' }),
       width: '200px',
       render: (_value, record, index) => (
-        <Form.Item name={['assignments', index, 'participantId']}>
+        <Form.Item name={['assignments', index, 'participantId']} rules={[{ required: true }]}>
           <Select>
             {record.conference.participants.map((p) => (
               <Select.Option value={p.id} key={p.id}>
@@ -156,9 +170,29 @@ export default function MultiAssignmentModal({ dossierIds }: MultiAssignmentModa
         confirmLoading={loading || mutating}
         onOk={() => form.validateFields().then(() => form.submit())}
       >
-        <Form onFinish={handleSubmit} form={form}>
-          <Table<AssignmentTable> columns={columns} dataSource={data?.dossiers?.map((d) => ({ ...d, key: d.id })) ?? []} loading={loading} />
-        </Form>
+        <Space direction="vertical" size="large">
+          {[...new Set(data?.dossiers?.map((d) => d.conference.name))].length === 1 && (
+            <Form layout="inline">
+              <Form.Item css={fullWidth}>
+                <Select mode="multiple">
+                  {data?.dossiers?.[0]?.conference.participants.map((p) => (
+                    <Select.Option value={p.id} key={p.id}>
+                      {p.forename} {p.surname}
+                    </Select.Option>
+                  ))}
+                </Select>
+              </Form.Item>
+              <Form.Item css={removeMarginRight}>
+                <Button>
+                  <FormattedMessage id="label.randomly-assign" tagName="span" />
+                </Button>
+              </Form.Item>
+            </Form>
+          )}
+          <Form onFinish={handleSubmit} form={form}>
+            <Table<AssignmentTable> columns={columns} dataSource={data?.dossiers?.map((d) => ({ ...d, key: d.id })) ?? []} loading={loading} />
+          </Form>
+        </Space>
       </Modal>
     </Fragment>
   );
