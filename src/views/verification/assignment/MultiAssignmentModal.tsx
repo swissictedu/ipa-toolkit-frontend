@@ -6,6 +6,7 @@ import { useForm } from 'antd/lib/form/Form';
 import { Fragment, useEffect, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { CreateVerificationsMutation, CreateVerificationsMutationVariables, ReadDossiersQuery, ReadDossiersQueryVariables } from '../../../../graphql-types';
+import HelpContainer from '../../../components/HelpContainer';
 import { Unarray } from '../../../utils/types';
 
 const fullWidth = css`
@@ -66,6 +67,7 @@ const CREATE_VERIFICATIONS = gql`
   }
 `;
 
+type DistributionForm = { participantIds: number[] };
 type AssignmentForm = { assignments: { dossierId: number; participantId: number }[] };
 type AssignmentTable = Unarray<NonNullable<ReadDossiersQuery['dossiers']>>;
 
@@ -157,6 +159,17 @@ export default function MultiAssignmentModal({ dossierIds }: MultiAssignmentModa
     toggleOpen();
   };
 
+  const handleDistribution = (values: DistributionForm) => {
+    if (data?.dossiers) {
+      const participantAmount = values.participantIds.length;
+      const assignments: AssignmentForm['assignments'] = data.dossiers.map((d, i) => ({
+        dossierId: d.id,
+        participantId: values.participantIds[i % participantAmount]
+      }));
+      form.setFieldsValue({ assignments });
+    }
+  };
+
   return (
     <Fragment>
       <Button icon={<NotificationOutlined />} onClick={() => toggleOpen()} disabled={dossierIds.length <= 1}>
@@ -171,10 +184,11 @@ export default function MultiAssignmentModal({ dossierIds }: MultiAssignmentModa
         onOk={() => form.validateFields().then(() => form.submit())}
       >
         <Space direction="vertical" size="large">
-          {[...new Set(data?.dossiers?.map((d) => d.conference.name))].length === 1 && (
-            <Form layout="inline">
-              <Form.Item css={fullWidth}>
-                <Select mode="multiple">
+          {/* Checking if there are difference conferences */}
+          {[...new Set(data?.dossiers?.map((d) => d.conference.name))].length === 1 ? (
+            <Form<DistributionForm> layout="inline" onFinish={handleDistribution}>
+              <Form.Item css={fullWidth} name="participantIds">
+                <Select mode="multiple" showArrow>
                   {data?.dossiers?.[0]?.conference.participants.map((p) => (
                     <Select.Option value={p.id} key={p.id}>
                       {p.forename} {p.surname}
@@ -183,11 +197,15 @@ export default function MultiAssignmentModal({ dossierIds }: MultiAssignmentModa
                 </Select>
               </Form.Item>
               <Form.Item css={removeMarginRight}>
-                <Button>
-                  <FormattedMessage id="label.randomly-assign" tagName="span" />
+                <Button htmlType="submit">
+                  <FormattedMessage id="label.distribute" tagName="span" />
                 </Button>
               </Form.Item>
             </Form>
+          ) : (
+            <HelpContainer>
+              <FormattedMessage id="help.different-conferences" />
+            </HelpContainer>
           )}
           <Form onFinish={handleSubmit} form={form}>
             <Table<AssignmentTable> columns={columns} dataSource={data?.dossiers?.map((d) => ({ ...d, key: d.id })) ?? []} loading={loading} />
