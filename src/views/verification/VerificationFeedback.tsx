@@ -82,7 +82,8 @@ export default function VerificationFeedback() {
                 id="help.verification-result"
                 values={{
                   forename: <strong>{data?.verificationFeedback?.dossier.candidate.forename}</strong>,
-                  surname: <strong>{data?.verificationFeedback?.dossier.candidate.surname}</strong>
+                  surname: <strong>{data?.verificationFeedback?.dossier.candidate.surname}</strong>,
+                  url: <a href="https://docs.google.com/document/d/1EPDhMYzHcrlP4BDxou1gAWVuuYymCaVx3QeZe5e_Rwc">Änderungsformular</a>
                 }}
               />
             </HelpContainer>

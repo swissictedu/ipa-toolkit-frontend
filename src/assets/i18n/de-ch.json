@@ -39,7 +39,7 @@
   "help.conference-import-selection": "Nun können die Dossiers geladen und ausgewählt werden. Dazu wird der Pfad von der Auswertung \"22.90 Notenübersicht\" benötigt.",
   "help.different-conferences": "Da Dossiers aus verschiedenen Notenkonferenzen gewählt wurden, kann keine automatische Verteilung vorgenommen werden.",
   "help.verification-download": "Um das Dossier herunterzuladen, muss das bekanntgegebene Passwort im Formular unterhalb eingegeben und bestätigt werden.",
-  "help.verification-result": "Bitte gebe unterhalb kurz an, was das Resultat der Verifizierung der IPA von {forename} {surname} ist. Falls die Bewertung geändert werden muss, sende bitte die Unterlagen an den CEX der jeweiligen Fachrichtung.",
+  "help.verification-result": "Bitte gebe unterhalb an, was das Resultat der Verifizierung der IPA von {forename} {surname} ist. Falls die Bewertung geändert werden muss, fülle bitte das {url} aus und übergebe es dem verantwortlichen Chefexperten. Dabei gilt zu beachten, dass eine vorgeschlagene Bewertungsänderung erst vollständig ausgefüllt und eingereicht werden soll, wenn dadurch eine Notenanpassung >=  0.3 möglich wird.",
   "info.invitation-sent": "Einladung verschickt",
   "info.invitations-sent": "Einladungen verschickt",
   "label.account": "Benutzerkonto",
