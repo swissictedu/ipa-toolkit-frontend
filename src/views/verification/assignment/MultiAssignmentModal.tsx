@@ -184,7 +184,7 @@ export default function MultiAssignmentModal({ dossierIds }: MultiAssignmentModa
         onOk={() => form.validateFields().then(() => form.submit())}
       >
         <Space direction="vertical" size="large">
-          {/* Checking if there are difference conferences */}
+          {/* Checking if the selection spread over different conferences */}
           {[...new Set(data?.dossiers?.map((d) => d.conference.name))].length === 1 ? (
             <Form<DistributionForm> layout="inline" onFinish={handleDistribution}>
               <Form.Item css={fullWidth} name="participantIds">

@@ -88,7 +88,7 @@ export default function VerificationFeedback() {
             </HelpContainer>
             <Form<VerificationFeedbackForm>
               onFinish={handleSubmit}
-              initialValues={{ changeGrading: data?.verificationFeedback?.changeGrading, comment: data?.verificationFeedback?.comment }}
+              initialValues={{ changeGrading: data?.verificationFeedback?.changeGrading || false, comment: data?.verificationFeedback?.comment }}
             >
               <Form.Item label={intl.formatMessage({ id: 'attribute.change-of-evaluation' })} name="changeGrading" labelCol={{ span: 4 }} valuePropName="checked">
                 <Checkbox disabled={mutating} onChange={(e) => setCommentRequired(e.target.checked)} />
