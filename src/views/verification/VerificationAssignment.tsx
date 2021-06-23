@@ -56,7 +56,6 @@ export default function VerificationAssignment() {
       key: 'affiliation.tenantName',
       title: intl.formatMessage({ id: 'label.tenant' }),
       filters: [...new Set(data?.dossiers?.map((d) => d.affiliation.tenantName))].map((a) => ({ text: a, value: a })),
-      filterMultiple: false,
       onFilter: (value, record) => record.affiliation.tenantName === value
     },
     {
