@@ -76,6 +76,8 @@
   "label.no": "Nein",
   "label.no-final-mark": "Keine Endnote",
   "label.not-verified": "Nicht verifiziert",
+  "label.verified-with-change": "Notenänderung",
+  "label.no-invitation": "Keine Einladung",
   "label.participant": "Teilnehmer",
   "label.pkorg-access": "PkOrg-Zugang",
   "label.pkorg-endpoint": "Serveradresse",
