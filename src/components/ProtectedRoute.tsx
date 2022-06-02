@@ -1,4 +1,4 @@
-import { Navigate, Route, RouteProps } from 'react-router';
+import { Navigate, Outlet, RouteProps } from 'react-router';
 
 export type ProtectedRouteProps = {
   isAuthenticated: boolean;
@@ -7,7 +7,7 @@ export type ProtectedRouteProps = {
 
 export default function ProtectedRoute({ isAuthenticated, authenticationPath, ...routeProps }: ProtectedRouteProps) {
   if (isAuthenticated) {
-    return <Route {...routeProps} />;
+    return <Outlet />;
   } else {
     return <Navigate to={{ pathname: authenticationPath }} />;
   }

@@ -52,7 +52,7 @@ export default function VerificationFeedback() {
   const navigate = useNavigate();
   const { loading, data } = useQuery<ReadVerificationFeedbackQuery, ReadVerificationFeedbackQueryVariables>(READ_VERIFICATION_FEEDBACK, {
     variables: {
-      token: params.token
+      token: params.token || ''
     },
     fetchPolicy: 'network-only',
     onCompleted: (data) => setCommentRequired(data.verificationFeedback?.changeGrading || false),
@@ -67,7 +67,7 @@ export default function VerificationFeedback() {
   });
 
   const handleSubmit = (values: VerificationFeedbackForm) => {
-    sendVerificationFeedback({ variables: { ...values, token: params.token } });
+    sendVerificationFeedback({ variables: { ...values, token: params.token || '' } });
   };
 
   return (

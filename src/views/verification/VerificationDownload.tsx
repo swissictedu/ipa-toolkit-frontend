@@ -25,7 +25,7 @@ export default function VerificationDownload() {
       headers: {
         'X-Token': params.token,
         'X-Password': values.password
-      }
+      } as Record<string, string>
     })
       .then((response) => {
         if (response.status === 200) {

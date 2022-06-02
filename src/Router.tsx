@@ -35,20 +35,20 @@ export default function Router() {
       <Route path={CONFIGURATION.paths.signOut} element={<SignOut />} />
       <Route path={CONFIGURATION.paths.verification.feedback} element={<VerificationFeedback />} />
       <Route path={CONFIGURATION.paths.verification.download} element={<VerificationDownload />} />
-      <ProtectedRoute {...defaultProtectedRouteProps} isAuthenticated={!!sessionVar()}>
+      <Route element={<ProtectedRoute {...defaultProtectedRouteProps} isAuthenticated={!!sessionVar()} />}>
         <Route path={CONFIGURATION.paths.dashboard} element={<Dashboard />} />
         <Route path={CONFIGURATION.paths.users} element={<Users />}>
-          <Route path={`/${CONFIGURATION.paths.actions.new}`} element={<NewUser />} />
-          <Route path={`/${CONFIGURATION.paths.actions.edit}/:id`} element={<EditUser />} />
+          <Route path={`${CONFIGURATION.paths.users}/${CONFIGURATION.paths.actions.new}`} element={<NewUser />} />
+          <Route path={`${CONFIGURATION.paths.users}/${CONFIGURATION.paths.actions.edit}/:id`} element={<EditUser />} />
         </Route>
         <Route path={CONFIGURATION.paths.verification.conference} element={<VerificationConference />}>
-          <Route path={`/${CONFIGURATION.paths.actions.new}`} element={<NewConference />} />
-          <Route path={`/${CONFIGURATION.paths.actions.edit}/:id`} element={<EditConference />} />
+          <Route path={`${CONFIGURATION.paths.verification.conference}/${CONFIGURATION.paths.actions.new}`} element={<NewConference />} />
+          <Route path={`${CONFIGURATION.paths.verification.conference}/${CONFIGURATION.paths.actions.edit}/:id`} element={<EditConference />} />
         </Route>
         <Route path={CONFIGURATION.paths.verification.import} element={<ConferenceImport />} />
         <Route path={CONFIGURATION.paths.verification.assignment} element={<VerificationAssignment />} />
         <Route path={CONFIGURATION.paths.verification.export} element={<ConferenceExport />} />
-      </ProtectedRoute>
+      </Route>
     </Routes>
   );
 }

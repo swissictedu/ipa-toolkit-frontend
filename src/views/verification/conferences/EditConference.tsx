@@ -45,9 +45,9 @@ const UPDATE_CONFERENCE = gql`
 
 export default function EditConference() {
   const intl = useIntl();
-  const params = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
-  const { loading, data } = useQuery<ReadConferenceQuery, ReadConferenceQueryVariables>(READ_CONFERENCE, { variables: { id: parseInt(params.id) }, fetchPolicy: 'network-only' });
+  const { loading, data } = useQuery<ReadConferenceQuery, ReadConferenceQueryVariables>(READ_CONFERENCE, { variables: { id: parseInt(id || '0') }, fetchPolicy: 'network-only' });
   const [updateConferenceMutation, { loading: mutating }] = useMutation<UpdateConferenceMutation, UpdateConferenceMutationVariables>(UPDATE_CONFERENCE, {
     update: (cache, { data }) => {
       const currentConference = cache.readQuery<IndexConferencesQuery>({ query: INDEX_CONFERENCES });

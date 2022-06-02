@@ -35,10 +35,10 @@ const UPDATE_USER = gql`
 `;
 
 export default function EditUser() {
+  const { id } = useParams();
   const intl = useIntl();
-  const params = useParams();
   const navigate = useNavigate();
-  const { loading, data } = useQuery<ReadUserQuery, ReadUserQueryVariables>(READ_USER, { variables: { id: parseInt(params.id) } });
+  const { loading, data } = useQuery<ReadUserQuery, ReadUserQueryVariables>(READ_USER, { variables: { id: parseInt(id || '0') } });
   const [updateUserMutation, { loading: mutating }] = useMutation<UpdateUserMutation, UpdateUserMutationVariables>(UPDATE_USER, {
     update: (cache, { data }) => {
       const currentUsers = cache.readQuery<IndexUsersQuery>({ query: INDEX_USERS });
