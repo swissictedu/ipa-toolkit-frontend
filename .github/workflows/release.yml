@@ -1,10 +1,12 @@
 name: Release new application image
 
 on:
-  release:
-    types: [published]
+  push:
+    tags:
+      - v*
+
 jobs:
-  push_to_registry:
+  push-to-registry:
     name: Push Docker image to GitHub Packages
     runs-on: ubuntu-latest
     permissions:
@@ -12,15 +14,17 @@ jobs:
       contents: read
     steps:
       - name: Check out the repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v1
+        uses: docker/login-action@v2
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Push to GitHub Packages
-        uses: docker/build-push-action@v2
+
+      - name: Push to GitHub Container Registry
+        uses: docker/build-push-action@v3
         with:
           push: true
           tags: ghcr.io/ictorg/ipa-toolkit-frontend:latest
