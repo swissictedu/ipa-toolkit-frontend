@@ -34,6 +34,6 @@ jobs:
           cache-to: type=inline
 
       - name: Create Github release
-        run: npm run release:create-github-release
+        run: yarn run release:create-github-release
         env:
           CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{secrets.GITHUB_TOKEN}}
