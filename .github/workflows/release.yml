@@ -1,22 +1,28 @@
-name: Release new application image
+name: Release management
 
 on:
   push:
-    tags:
-      - v*
+    branches:
+      - main
 
 jobs:
-  push-to-registry:
-    name: Push Docker image to GitHub Packages
+  release-please:
     runs-on: ubuntu-latest
     permissions:
       packages: write
       contents: read
     steps:
+      - uses: google-github-actions/release-please-action@v3
+        id: release
+        with:
+          release-type: node
+          package-name: ipa-toolkit-frontend
+
       - name: Check out the repo
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+        if: ${{ steps.release.outputs.release_created }}
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
@@ -24,6 +30,7 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
+        if: ${{ steps.release.outputs.release_created }}
 
       - name: Push to GitHub Container Registry
         uses: docker/build-push-action@v3
@@ -32,3 +39,4 @@ jobs:
           tags: ghcr.io/ictorg/ipa-toolkit-frontend:latest
           cache-from: type=registry,ref=ghcr.io/ictorg/ipa-toolkit-frontend:latest
           cache-to: type=inline
+        if: ${{ steps.release.outputs.release_created }}
