@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/ictorg/ipa-toolkit-frontend/compare/v1.1.0...v1.1.1) (2022-06-14)
+
+
+### Bug Fixes
+
+* test release system ([03a12a2](https://github.com/ictorg/ipa-toolkit-frontend/commit/03a12a2cc33283a94a903a1737b3d65707903b92))
+
 ## [1.1.0](https://github.com/ictorg/ipa-toolkit-frontend/compare/1.0.6...v1.1.0) (2022-06-14)
 
 
