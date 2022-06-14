@@ -8,10 +8,6 @@
     "check:format": "eslint . --max-warnings 0",
     "check:types": "tsc --noEmit",
     "eject": "craco eject",
-    "release:major": "standard-version --release-as major && git push --follow-tags",
-    "release:minor": "standard-version --release-as minor && git push --follow-tags",
-    "release:patch": "standard-version --release-as patch && git push --follow-tags",
-    "release:create-github-release": "conventional-github-releaser -p angular",
     "start": "PORT=3001 craco start",
     "test": "craco test"
   },
@@ -69,8 +65,6 @@
     "@graphql-codegen/cli": "^2.6.2",
     "@graphql-codegen/typescript": "^2.5.1",
     "@graphql-codegen/typescript-operations": "^2.4.2",
-    "conventional-github-releaser": "^3.1.5",
-    "prettier": "^2.7.0",
-    "standard-version": "^9.5.0"
+    "prettier": "^2.7.0"
   }
 }

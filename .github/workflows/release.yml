@@ -32,8 +32,3 @@ jobs:
           tags: ghcr.io/ictorg/ipa-toolkit-frontend:latest
           cache-from: type=registry,ref=ghcr.io/ictorg/ipa-toolkit-frontend:latest
           cache-to: type=inline
-
-      - name: Create Github release
-        run: yarn run release:create-github-release
-        env:
-          CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{secrets.GITHUB_TOKEN}}
