@@ -1,8 +1,9 @@
 name: Release new application image
 
 on:
-  release:
-    types: [published]
+  push:
+    tags:
+      - v*
 
 jobs:
   push-to-registry:
@@ -14,6 +15,8 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
+        with:
+          fetch-depth: '0'
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
@@ -29,3 +32,8 @@ jobs:
           tags: ghcr.io/ictorg/ipa-toolkit-frontend:latest
           cache-from: type=registry,ref=ghcr.io/ictorg/ipa-toolkit-frontend:latest
           cache-to: type=inline
+
+      - name: Create Github release
+        run: npm run release:create-github-release
+        env:
+          CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{secrets.GITHUB_TOKEN}}
