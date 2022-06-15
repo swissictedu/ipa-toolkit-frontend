@@ -12,29 +12,31 @@ import MultiAssignmentModal from './assignment/MultiAssignmentModal';
 
 const INDEX_DOSSIERS = gql`
   query IndexDossiers {
-    dossiers {
-      id
-      affiliation {
-        tenantName
-      }
-      candidate {
-        forename
-        surname
+    dossiers(page: 1) {
+      collection {
         id
+        affiliation {
+          tenantName
+        }
+        candidate {
+          forename
+          surname
+          id
+        }
+        conference {
+          id
+          name
+        }
+        submittedMark
+        markDeduction
+        tags
+        dossierDownloadPath
       }
-      conference {
-        id
-        name
-      }
-      submittedMark
-      markDeduction
-      tags
-      dossierDownloadPath
     }
   }
 `;
 
-type AssignmentTable = Unarray<NonNullable<IndexDossiersQuery['dossiers']>>;
+type AssignmentTable = Unarray<NonNullable<NonNullable<IndexDossiersQuery['dossiers']>['collection']>>;
 
 export default function VerificationAssignment() {
   const intl = useIntl();
@@ -55,7 +57,7 @@ export default function VerificationAssignment() {
       dataIndex: ['affiliation', 'tenantName'],
       key: 'affiliation.tenantName',
       title: intl.formatMessage({ id: 'label.tenant' }),
-      filters: [...new Set(data?.dossiers?.map((d) => d.affiliation.tenantName))].map((a) => ({ text: a, value: a })),
+      filters: [...new Set(data?.dossiers?.collection.map((d) => d.affiliation.tenantName))].map((a) => ({ text: a, value: a })),
       onFilter: (value, record) => record.affiliation.tenantName === value
     },
     {
@@ -110,7 +112,7 @@ export default function VerificationAssignment() {
             </Tag>
           );
         }),
-      filters: [...new Set(data?.dossiers?.flatMap((d) => d.tags))].map((t) => ({ text: intl.formatMessage({ id: `label.${t}` }), value: t })),
+      filters: [...new Set(data?.dossiers?.collection.flatMap((d) => d.tags))].map((t) => ({ text: intl.formatMessage({ id: `label.${t}` }), value: t })),
       onFilter: (value, record) => record.tags.indexOf(value.toString()) !== -1,
       filterMultiple: false
     },
@@ -145,7 +147,7 @@ export default function VerificationAssignment() {
     >
       <Table<AssignmentTable>
         columns={columns}
-        dataSource={data?.dossiers?.map((d) => ({ ...d, key: d.id })) ?? []}
+        dataSource={data?.dossiers?.collection?.map((d) => ({ ...d, key: d.id })) ?? []}
         loading={loading}
         scroll={{ x: 800 }}
         expandable={{ expandedRowRender: (record) => <VerificationList dossierId={record.id} /> }}

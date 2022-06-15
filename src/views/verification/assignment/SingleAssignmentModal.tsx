@@ -10,26 +10,28 @@ import { Unarray } from '../../../utils/types';
 export const READ_DOSSIER = gql`
   query ReadDossier($id: Int!) {
     dossiers(id: $id) {
-      conference {
-        id
-        participants {
-          email
+      collection {
+        conference {
+          id
+          participants {
+            email
+            forename
+            surname
+            id
+          }
+        }
+        companyContact {
           forename
           surname
-          id
         }
-      }
-      companyContact {
-        forename
-        surname
-      }
-      primaryExpert {
-        forename
-        surname
-      }
-      secondaryExpert {
-        forename
-        surname
+        primaryExpert {
+          forename
+          surname
+        }
+        secondaryExpert {
+          forename
+          surname
+        }
       }
     }
   }
@@ -55,7 +57,7 @@ type SingleAssignmentModalProps = {
   dossierId: number;
 };
 
-function AdditionalDossierInformation({ dossier }: { dossier?: Unarray<ReadDossierQuery['dossiers']> }) {
+function AdditionalDossierInformation({ dossier }: { dossier?: Unarray<NonNullable<ReadDossierQuery['dossiers']>['collection']> }) {
   const intl = useIntl();
   return (
     <Descriptions size="small" bordered column={1}>
@@ -105,11 +107,11 @@ export default function SingleAssignmentModal({ dossierId }: SingleAssignmentMod
         confirmLoading={mutating}
       >
         <Space direction="vertical" size="large">
-          <AdditionalDossierInformation dossier={data?.dossiers?.find((d) => d)} />
+          <AdditionalDossierInformation dossier={data?.dossiers?.collection.find((d) => d)} />
           <Form form={form} onFinish={handleSubmit}>
             <Form.Item name="participantId" label={intl.formatMessage({ id: 'label.participant' })} rules={[{ required: true }]}>
               <Select loading={loading}>
-                {data?.dossiers
+                {data?.dossiers?.collection
                   ?.find((d) => d)
                   ?.conference.participants.map((p) => (
                     <Select.Option value={p.id} key={p.id}>
