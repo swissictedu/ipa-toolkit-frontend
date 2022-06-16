@@ -56,9 +56,11 @@ export type ConferenceMutation = {
   updateConference?: Maybe<UpdateConferenceMutationPayload>;
 };
 
+
 export type ConferenceMutationCreateConferenceArgs = {
   conference: ConferenceInput;
 };
+
 
 export type ConferenceMutationUpdateConferenceArgs = {
   conference: ConferenceInput;
@@ -177,16 +179,19 @@ export type Mutation = {
   verifications?: Maybe<VerificationMutation>;
 };
 
+
 export type MutationPkorgArgs = {
   baseUrl: Scalars['String'];
   sessionToken: Scalars['String'];
   userAgent?: InputMaybe<Scalars['String']>;
 };
 
+
 export type MutationUserLoginArgs = {
   email: Scalars['String'];
   password: Scalars['String'];
 };
+
 
 export type MutationVerificationFeedbackArgs = {
   changeGrading: Scalars['Boolean'];
@@ -227,6 +232,7 @@ export type PkorgMutation = {
   importDossiers?: Maybe<ImportMutationPayload>;
 };
 
+
 export type PkorgMutationImportDossiersArgs = {
   dossiers: Array<DossierInput>;
 };
@@ -236,6 +242,7 @@ export type PkorgQuery = {
   evaluation?: Maybe<Evaluation>;
   sessionUser?: Maybe<SessionUser>;
 };
+
 
 export type PkorgQueryEvaluationArgs = {
   evaluationPath: Scalars['String'];
@@ -252,9 +259,11 @@ export type Query = {
   verifications?: Maybe<Array<Verification>>;
 };
 
+
 export type QueryConferencesArgs = {
   id?: InputMaybe<Scalars['Int']>;
 };
+
 
 export type QueryDossiersArgs = {
   id?: InputMaybe<Scalars['Int']>;
@@ -262,19 +271,23 @@ export type QueryDossiersArgs = {
   page?: InputMaybe<Scalars['Int']>;
 };
 
+
 export type QueryPkorgArgs = {
   baseUrl: Scalars['String'];
   sessionToken: Scalars['String'];
   userAgent?: InputMaybe<Scalars['String']>;
 };
 
+
 export type QueryUsersArgs = {
   id?: InputMaybe<Scalars['Int']>;
 };
 
+
 export type QueryVerificationFeedbackArgs = {
   token: Scalars['String'];
 };
+
 
 export type QueryVerificationsArgs = {
   dossierId?: InputMaybe<Scalars['Int']>;
@@ -343,13 +356,16 @@ export type UserMutation = {
   updateUser?: Maybe<UpdateUserMutationPayload>;
 };
 
+
 export type UserMutationCreateUserArgs = {
   user: UserInput;
 };
 
+
 export type UserMutationDeleteUserArgs = {
   id: Scalars['Int'];
 };
+
 
 export type UserMutationUpdateUserArgs = {
   id: Scalars['Int'];
@@ -391,6 +407,7 @@ export type VerificationMutation = {
   createVerification?: Maybe<CreateVerificationMutationPayload>;
 };
 
+
 export type VerificationMutationCreateVerificationArgs = {
   verifications: Array<VerificationInput>;
 };
@@ -400,132 +417,61 @@ export type SignInMutationVariables = Exact<{
   password: Scalars['String'];
 }>;
 
-export type SignInMutation = {
-  __typename?: 'Mutation';
-  userLogin?: {
-    __typename?: 'UserLoginPayload';
-    authenticatable: { __typename?: 'User'; email: string; name?: string | null };
-    credentials: { __typename?: 'Credential'; accessToken: string; client: string; expiry: number; tokenType: string; uid: string };
-  } | null;
-};
+
+export type SignInMutation = { __typename?: 'Mutation', userLogin?: { __typename?: 'UserLoginPayload', authenticatable: { __typename?: 'User', email: string, name?: string | null }, credentials: { __typename?: 'Credential', accessToken: string, client: string, expiry: number, tokenType: string, uid: string } } | null };
 
 export type ReadUserQueryVariables = Exact<{
   id: Scalars['Int'];
 }>;
 
-export type ReadUserQuery = { __typename?: 'Query'; users?: Array<{ __typename?: 'User'; id: number; email: string; name?: string | null; nickname?: string | null }> | null };
+
+export type ReadUserQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'User', id: number, email: string, name?: string | null, nickname?: string | null }> | null };
 
 export type UpdateUserMutationVariables = Exact<{
   id: Scalars['Int'];
   user: UserInput;
 }>;
 
-export type UpdateUserMutation = {
-  __typename?: 'Mutation';
-  users?: {
-    __typename?: 'UserMutation';
-    updateUser?: { __typename?: 'UpdateUserMutationPayload'; user: { __typename?: 'User'; id: number; email: string; name?: string | null; nickname?: string | null } } | null;
-  } | null;
-};
 
-export type IndexUsersQueryVariables = Exact<{ [key: string]: never }>;
+export type UpdateUserMutation = { __typename?: 'Mutation', users?: { __typename?: 'UserMutation', updateUser?: { __typename?: 'UpdateUserMutationPayload', user: { __typename?: 'User', id: number, email: string, name?: string | null, nickname?: string | null } } | null } | null };
 
-export type IndexUsersQuery = { __typename?: 'Query'; users?: Array<{ __typename?: 'User'; id: number; email: string; name?: string | null; nickname?: string | null }> | null };
+export type IndexUsersQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type IndexUsersQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'User', id: number, email: string, name?: string | null, nickname?: string | null }> | null };
 
 export type DeleteUserMutationVariables = Exact<{
   id: Scalars['Int'];
 }>;
 
-export type DeleteUserMutation = {
-  __typename?: 'Mutation';
-  users?: { __typename?: 'UserMutation'; deleteUser?: { __typename?: 'DeleteUserMutationPayload'; user: { __typename?: 'User'; id: number } } | null } | null;
-};
+
+export type DeleteUserMutation = { __typename?: 'Mutation', users?: { __typename?: 'UserMutation', deleteUser?: { __typename?: 'DeleteUserMutationPayload', user: { __typename?: 'User', id: number } } | null } | null };
 
 export type CreateUserMutationVariables = Exact<{
   user: UserInput;
 }>;
 
-export type CreateUserMutation = {
-  __typename?: 'Mutation';
-  users?: {
-    __typename?: 'UserMutation';
-    createUser?: { __typename?: 'CreateUserMutationPayload'; user: { __typename?: 'User'; id: number; email: string; name?: string | null; nickname?: string | null } } | null;
-  } | null;
-};
 
-export type IndexDossiersQueryVariables = Exact<{ [key: string]: never }>;
+export type CreateUserMutation = { __typename?: 'Mutation', users?: { __typename?: 'UserMutation', createUser?: { __typename?: 'CreateUserMutationPayload', user: { __typename?: 'User', id: number, email: string, name?: string | null, nickname?: string | null } } | null } | null };
 
-export type IndexDossiersQuery = {
-  __typename?: 'Query';
-  dossiers?: {
-    __typename?: 'DossierCollection';
-    collection: Array<{
-      __typename?: 'Dossier';
-      id: number;
-      submittedMark?: string | null;
-      markDeduction?: boolean | null;
-      tags: Array<string>;
-      dossierDownloadPath?: string | null;
-      affiliation: { __typename?: 'Affiliation'; tenantName: string };
-      candidate: { __typename?: 'Person'; forename: string; surname: string; id: number };
-      conference: { __typename?: 'Conference'; id: number; name: string };
-    }>;
-  } | null;
-};
+export type IndexDossiersQueryVariables = Exact<{
+  page?: InputMaybe<Scalars['Int']>;
+}>;
 
-export type DossierVerificationExportQueryVariables = Exact<{ [key: string]: never }>;
 
-export type DossierVerificationExportQuery = {
-  __typename?: 'Query';
-  dossiers?: {
-    __typename?: 'DossierCollection';
-    collection: Array<{
-      __typename?: 'Dossier';
-      companyMarkA?: string | null;
-      companyMarkB?: string | null;
-      companyPointsA?: string | null;
-      companyPointsB?: string | null;
-      expertMarkA?: string | null;
-      expertMarkB?: string | null;
-      expertMarkC?: string | null;
-      expertPointsA?: string | null;
-      expertPointsB?: string | null;
-      finalMark?: string | null;
-      expertPointsC?: string | null;
-      id: number;
-      markDeduction?: boolean | null;
-      submittedMark?: string | null;
-      affiliation: { __typename?: 'Affiliation'; tenantName: string };
-      candidate: { __typename?: 'Person'; forename: string; id: number; surname: string };
-      companyContact?: { __typename?: 'Person'; forename: string; id: number; surname: string } | null;
-      conference: { __typename?: 'Conference'; id: number; name: string };
-      primaryExpert?: { __typename?: 'Person'; forename: string; id: number; surname: string } | null;
-      secondaryExpert?: { __typename?: 'Person'; forename: string; id: number; surname: string } | null;
-      verifications?: Array<{
-        __typename?: 'Verification';
-        changeGrading?: boolean | null;
-        comment?: string | null;
-        id: number;
-        verifiedAt?: any | null;
-        participant: { __typename?: 'Participant'; forename: string; email: string; surname: string; id: number };
-      }> | null;
-    }>;
-  } | null;
-};
+export type IndexDossiersQuery = { __typename?: 'Query', dossiers?: { __typename?: 'DossierCollection', collection: Array<{ __typename?: 'Dossier', id: number, submittedMark?: string | null, markDeduction?: boolean | null, tags: Array<string>, dossierDownloadPath?: string | null, affiliation: { __typename?: 'Affiliation', tenantName: string }, candidate: { __typename?: 'Person', forename: string, surname: string, id: number }, conference: { __typename?: 'Conference', id: number, name: string } }>, metadata: { __typename?: 'CollectionMetadata', totalCount: number } } | null };
+
+export type DossierVerificationExportQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type DossierVerificationExportQuery = { __typename?: 'Query', dossiers?: { __typename?: 'DossierCollection', collection: Array<{ __typename?: 'Dossier', companyMarkA?: string | null, companyMarkB?: string | null, companyPointsA?: string | null, companyPointsB?: string | null, expertMarkA?: string | null, expertMarkB?: string | null, expertMarkC?: string | null, expertPointsA?: string | null, expertPointsB?: string | null, finalMark?: string | null, expertPointsC?: string | null, id: number, markDeduction?: boolean | null, submittedMark?: string | null, affiliation: { __typename?: 'Affiliation', tenantName: string }, candidate: { __typename?: 'Person', forename: string, id: number, surname: string }, companyContact?: { __typename?: 'Person', forename: string, id: number, surname: string } | null, conference: { __typename?: 'Conference', id: number, name: string }, primaryExpert?: { __typename?: 'Person', forename: string, id: number, surname: string } | null, secondaryExpert?: { __typename?: 'Person', forename: string, id: number, surname: string } | null, verifications?: Array<{ __typename?: 'Verification', changeGrading?: boolean | null, comment?: string | null, id: number, verifiedAt?: any | null, participant: { __typename?: 'Participant', forename: string, email: string, surname: string, id: number } }> | null }> } | null };
 
 export type ReadVerificationFeedbackQueryVariables = Exact<{
   token: Scalars['String'];
 }>;
 
-export type ReadVerificationFeedbackQuery = {
-  __typename?: 'Query';
-  verificationFeedback?: {
-    __typename?: 'VerificationFeedback';
-    changeGrading?: boolean | null;
-    comment?: string | null;
-    dossier: { __typename?: 'Dossier'; candidate: { __typename?: 'Person'; forename: string; surname: string } };
-  } | null;
-};
+
+export type ReadVerificationFeedbackQuery = { __typename?: 'Query', verificationFeedback?: { __typename?: 'VerificationFeedback', changeGrading?: boolean | null, comment?: string | null, dossier: { __typename?: 'Dossier', candidate: { __typename?: 'Person', forename: string, surname: string } } } | null };
 
 export type SendVerificationFeedbackMutationVariables = Exact<{
   token: Scalars['String'];
@@ -533,135 +479,69 @@ export type SendVerificationFeedbackMutationVariables = Exact<{
   comment?: InputMaybe<Scalars['String']>;
 }>;
 
-export type SendVerificationFeedbackMutation = {
-  __typename?: 'Mutation';
-  verificationFeedback?: { __typename?: 'VerificationFeedbackMutationPayload'; verification: { __typename?: 'VerificationFeedback'; id: number } } | null;
-};
+
+export type SendVerificationFeedbackMutation = { __typename?: 'Mutation', verificationFeedback?: { __typename?: 'VerificationFeedbackMutationPayload', verification: { __typename?: 'VerificationFeedback', id: number } } | null };
 
 export type ReadDossiersQueryVariables = Exact<{
   ids?: InputMaybe<Array<Scalars['Int']> | Scalars['Int']>;
 }>;
 
-export type ReadDossiersQuery = {
-  __typename?: 'Query';
-  dossiers?: {
-    __typename?: 'DossierCollection';
-    collection: Array<{
-      __typename?: 'Dossier';
-      id: number;
-      conference: {
-        __typename?: 'Conference';
-        id: number;
-        name: string;
-        participants: Array<{ __typename?: 'Participant'; email: string; forename: string; surname: string; id: number }>;
-      };
-      candidate: { __typename?: 'Person'; forename: string; surname: string };
-      companyContact?: { __typename?: 'Person'; forename: string; surname: string } | null;
-      primaryExpert?: { __typename?: 'Person'; forename: string; surname: string } | null;
-      secondaryExpert?: { __typename?: 'Person'; forename: string; surname: string } | null;
-    }>;
-  } | null;
-};
+
+export type ReadDossiersQuery = { __typename?: 'Query', dossiers?: { __typename?: 'DossierCollection', collection: Array<{ __typename?: 'Dossier', id: number, conference: { __typename?: 'Conference', id: number, name: string, participants: Array<{ __typename?: 'Participant', email: string, forename: string, surname: string, id: number }> }, candidate: { __typename?: 'Person', forename: string, surname: string }, companyContact?: { __typename?: 'Person', forename: string, surname: string } | null, primaryExpert?: { __typename?: 'Person', forename: string, surname: string } | null, secondaryExpert?: { __typename?: 'Person', forename: string, surname: string } | null }> } | null };
 
 export type CreateVerificationsMutationVariables = Exact<{
   verifications: Array<VerificationInput> | VerificationInput;
 }>;
 
-export type CreateVerificationsMutation = {
-  __typename?: 'Mutation';
-  verifications?: {
-    __typename?: 'VerificationMutation';
-    createVerification?: { __typename?: 'CreateVerificationMutationPayload'; verifications: Array<{ __typename?: 'Verification'; id: number }> } | null;
-  } | null;
-};
+
+export type CreateVerificationsMutation = { __typename?: 'Mutation', verifications?: { __typename?: 'VerificationMutation', createVerification?: { __typename?: 'CreateVerificationMutationPayload', verifications: Array<{ __typename?: 'Verification', id: number }> } | null } | null };
 
 export type ReadDossierQueryVariables = Exact<{
   id: Scalars['Int'];
 }>;
 
-export type ReadDossierQuery = {
-  __typename?: 'Query';
-  dossiers?: {
-    __typename?: 'DossierCollection';
-    collection: Array<{
-      __typename?: 'Dossier';
-      conference: { __typename?: 'Conference'; id: number; participants: Array<{ __typename?: 'Participant'; email: string; forename: string; surname: string; id: number }> };
-      companyContact?: { __typename?: 'Person'; forename: string; surname: string } | null;
-      primaryExpert?: { __typename?: 'Person'; forename: string; surname: string } | null;
-      secondaryExpert?: { __typename?: 'Person'; forename: string; surname: string } | null;
-    }>;
-  } | null;
-};
+
+export type ReadDossierQuery = { __typename?: 'Query', dossiers?: { __typename?: 'DossierCollection', collection: Array<{ __typename?: 'Dossier', conference: { __typename?: 'Conference', id: number, participants: Array<{ __typename?: 'Participant', email: string, forename: string, surname: string, id: number }> }, companyContact?: { __typename?: 'Person', forename: string, surname: string } | null, primaryExpert?: { __typename?: 'Person', forename: string, surname: string } | null, secondaryExpert?: { __typename?: 'Person', forename: string, surname: string } | null }> } | null };
 
 export type CreateVerificationMutationVariables = Exact<{
   verifications: Array<VerificationInput> | VerificationInput;
 }>;
 
-export type CreateVerificationMutation = {
-  __typename?: 'Mutation';
-  verifications?: {
-    __typename?: 'VerificationMutation';
-    createVerification?: { __typename?: 'CreateVerificationMutationPayload'; verifications: Array<{ __typename?: 'Verification'; id: number }> } | null;
-  } | null;
-};
+
+export type CreateVerificationMutation = { __typename?: 'Mutation', verifications?: { __typename?: 'VerificationMutation', createVerification?: { __typename?: 'CreateVerificationMutationPayload', verifications: Array<{ __typename?: 'Verification', id: number }> } | null } | null };
 
 export type IndexVerificationsQueryVariables = Exact<{
   dossierId?: InputMaybe<Scalars['Int']>;
 }>;
 
-export type IndexVerificationsQuery = {
-  __typename?: 'Query';
-  verifications?: Array<{
-    __typename?: 'Verification';
-    id: number;
-    changeGrading?: boolean | null;
-    comment?: string | null;
-    verifiedAt?: any | null;
-    participant: { __typename?: 'Participant'; forename: string; surname: string; email: string };
-  }> | null;
-};
+
+export type IndexVerificationsQuery = { __typename?: 'Query', verifications?: Array<{ __typename?: 'Verification', id: number, changeGrading?: boolean | null, comment?: string | null, verifiedAt?: any | null, participant: { __typename?: 'Participant', forename: string, surname: string, email: string } }> | null };
 
 export type ReadConferenceQueryVariables = Exact<{
   id: Scalars['Int'];
 }>;
 
-export type ReadConferenceQuery = {
-  __typename?: 'Query';
-  conferences?: Array<{
-    __typename?: 'Conference';
-    id: number;
-    name: string;
-    participants: Array<{ __typename?: 'Participant'; id: number; forename: string; surname: string; email: string }>;
-  }> | null;
-};
+
+export type ReadConferenceQuery = { __typename?: 'Query', conferences?: Array<{ __typename?: 'Conference', id: number, name: string, participants: Array<{ __typename?: 'Participant', id: number, forename: string, surname: string, email: string }> }> | null };
 
 export type UpdateConferenceMutationVariables = Exact<{
   conference: ConferenceInput;
 }>;
 
-export type UpdateConferenceMutation = {
-  __typename?: 'Mutation';
-  conferences?: {
-    __typename?: 'ConferenceMutation';
-    updateConference?: { __typename?: 'UpdateConferenceMutationPayload'; conference: { __typename?: 'Conference'; id: number; name: string } } | null;
-  } | null;
-};
 
-export type IndexConferencesQueryVariables = Exact<{ [key: string]: never }>;
+export type UpdateConferenceMutation = { __typename?: 'Mutation', conferences?: { __typename?: 'ConferenceMutation', updateConference?: { __typename?: 'UpdateConferenceMutationPayload', conference: { __typename?: 'Conference', id: number, name: string } } | null } | null };
 
-export type IndexConferencesQuery = { __typename?: 'Query'; conferences?: Array<{ __typename?: 'Conference'; id: number; name: string }> | null };
+export type IndexConferencesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type IndexConferencesQuery = { __typename?: 'Query', conferences?: Array<{ __typename?: 'Conference', id: number, name: string }> | null };
 
 export type CreateConferenceMutationVariables = Exact<{
   conference: ConferenceInput;
 }>;
 
-export type CreateConferenceMutation = {
-  __typename?: 'Mutation';
-  conferences?: {
-    __typename?: 'ConferenceMutation';
-    createConference?: { __typename?: 'CreateConferenceMutationPayload'; conference: { __typename?: 'Conference'; id: number; name: string } } | null;
-  } | null;
-};
+
+export type CreateConferenceMutation = { __typename?: 'Mutation', conferences?: { __typename?: 'ConferenceMutation', createConference?: { __typename?: 'CreateConferenceMutationPayload', conference: { __typename?: 'Conference', id: number, name: string } } | null } | null };
 
 export type CheckConnectionQueryVariables = Exact<{
   baseUrl: Scalars['String'];
@@ -669,19 +549,8 @@ export type CheckConnectionQueryVariables = Exact<{
   userAgent: Scalars['String'];
 }>;
 
-export type CheckConnectionQuery = {
-  __typename?: 'Query';
-  pkorg?: {
-    __typename?: 'PkorgQuery';
-    sessionUser?: {
-      __typename?: 'SessionUser';
-      email: string;
-      forename: string;
-      surname: string;
-      affiliations: Array<{ __typename?: 'Affiliation'; tenantName: string; tenantId: string; role: string }>;
-    } | null;
-  } | null;
-};
+
+export type CheckConnectionQuery = { __typename?: 'Query', pkorg?: { __typename?: 'PkorgQuery', sessionUser?: { __typename?: 'SessionUser', email: string, forename: string, surname: string, affiliations: Array<{ __typename?: 'Affiliation', tenantName: string, tenantId: string, role: string }> } | null } | null };
 
 export type ImportDossiersMutationVariables = Exact<{
   baseUrl: Scalars['String'];
@@ -690,10 +559,8 @@ export type ImportDossiersMutationVariables = Exact<{
   dossiers: Array<DossierInput> | DossierInput;
 }>;
 
-export type ImportDossiersMutation = {
-  __typename?: 'Mutation';
-  pkorg?: { __typename?: 'PkorgMutation'; importDossiers?: { __typename?: 'ImportMutationPayload'; importCount: number } | null } | null;
-};
+
+export type ImportDossiersMutation = { __typename?: 'Mutation', pkorg?: { __typename?: 'PkorgMutation', importDossiers?: { __typename?: 'ImportMutationPayload', importCount: number } | null } | null };
 
 export type RetrieveEvaluationQueryVariables = Exact<{
   baseUrl: Scalars['String'];
@@ -702,4 +569,5 @@ export type RetrieveEvaluationQueryVariables = Exact<{
   evaluationPath: Scalars['String'];
 }>;
 
-export type RetrieveEvaluationQuery = { __typename?: 'Query'; pkorg?: { __typename?: 'PkorgQuery'; evaluation?: { __typename?: 'Evaluation'; result: any } | null } | null };
+
+export type RetrieveEvaluationQuery = { __typename?: 'Query', pkorg?: { __typename?: 'PkorgQuery', evaluation?: { __typename?: 'Evaluation', result: any } | null } | null };

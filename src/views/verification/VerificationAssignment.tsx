@@ -9,10 +9,11 @@ import DefaultLayout from '../../layouts/DefaultLayout';
 import { Unarray } from '../../utils/types';
 import VerificationList from './assignment/VerificationList';
 import MultiAssignmentModal from './assignment/MultiAssignmentModal';
+import { usePagination } from '../../utils/pagination';
 
 const INDEX_DOSSIERS = gql`
-  query IndexDossiers {
-    dossiers(page: 1) {
+  query IndexDossiers($page: Int) {
+    dossiers(page: $page) {
       collection {
         id
         affiliation {
@@ -32,6 +33,9 @@ const INDEX_DOSSIERS = gql`
         tags
         dossierDownloadPath
       }
+      metadata {
+        totalCount
+      }
     }
   }
 `;
@@ -42,10 +46,11 @@ export default function VerificationAssignment() {
   const intl = useIntl();
   const [indexDossiers, { loading, data }] = useLazyQuery<IndexDossiersQuery>(INDEX_DOSSIERS, { fetchPolicy: 'cache-and-network' });
   const [selection, setSelection] = useState<number[]>([]);
+  const { paginationConfig, currentPage } = usePagination(data?.dossiers?.metadata.totalCount);
 
   useEffect(() => {
-    indexDossiers();
-  }, [indexDossiers]);
+    indexDossiers({ variables: { page: currentPage } });
+  }, [indexDossiers, currentPage]);
 
   const columns: TableColumnsType<AssignmentTable> = [
     {
@@ -157,6 +162,7 @@ export default function VerificationAssignment() {
             setSelection(rows.map((r) => parseInt(r.toString())));
           }
         }}
+        pagination={paginationConfig}
       />
     </DefaultLayout>
   );

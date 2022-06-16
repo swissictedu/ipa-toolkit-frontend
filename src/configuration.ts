@@ -36,7 +36,8 @@ const CONFIGURATION = {
   },
   defaultValues: {
     evaluationPath: 'verwaltung/301/40?nauswertungid=149',
-    dossierPath: 'generate-zip/'
+    dossierPath: 'generate-zip/',
+    pageSize: 20
   },
   localStorage: {
     session: 'session'
