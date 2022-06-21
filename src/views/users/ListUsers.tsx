@@ -16,6 +16,7 @@ export const INDEX_USERS = gql`
       email
       name
       nickname
+      superuser
     }
   }
 `;
@@ -62,6 +63,12 @@ export default function ListUsers() {
       dataIndex: 'nickname',
       key: 'nickname',
       title: intl.formatMessage({ id: 'attribute.nickname' })
+    },
+    {
+      dataIndex: 'superuser',
+      key: 'superuser',
+      title: intl.formatMessage({ id: 'attribute.superuser' }),
+      render: (value: boolean) => (value ? intl.formatMessage({ id: 'label.yes' }) : intl.formatMessage({ id: 'label.no' }))
     },
     {
       key: 'actions',

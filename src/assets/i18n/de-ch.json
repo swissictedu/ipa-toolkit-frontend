@@ -25,6 +25,7 @@
   "attribute.primary-expert": "Hauptexperte",
   "attribute.secondary-expert": "Nebenexperte",
   "attribute.submittedMark": "Endnote",
+  "attribute.superuser": "Administrator",
   "attribute.surname": "Nachname",
   "attribute.username": "Benutzername",
   "attribute.verifications-count": "Anzahl zugewiesener Verifizierungen",

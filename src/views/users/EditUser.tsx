@@ -14,6 +14,7 @@ export const READ_USER = gql`
       id
       email
       name
+      superuser
       nickname
     }
   }
