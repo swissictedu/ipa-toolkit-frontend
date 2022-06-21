@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { Conference, IndexConferencesQuery } from '../../../../graphql-types';
 import CONFIGURATION from '../../../configuration';
 import DefaultLayout from '../../../layouts/DefaultLayout';
+import ParticipantList from './ParticipantList';
 
 export const INDEX_CONFERENCES = gql`
   query IndexConferences {
@@ -61,7 +62,12 @@ export default function ListConferences() {
         />
       }
     >
-      <Table<ConferenceListItem> columns={columns} dataSource={data?.conferences?.map((conference) => ({ ...conference, key: conference.id })) || []} loading={loading} />
+      <Table<ConferenceListItem>
+        columns={columns}
+        dataSource={data?.conferences?.map((conference) => ({ ...conference, key: conference.id })) || []}
+        loading={loading}
+        expandable={{ expandedRowRender: (record) => <ParticipantList conferenceId={record.id} /> }}
+      />
     </DefaultLayout>
   );
 }
