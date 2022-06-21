@@ -16,10 +16,15 @@ export const usePagination = (totalCount?: number, options?: PaginationOptions):
   const pageParams = searchParams.get(searchParamKey);
   const currentPage = pageParams ? parseInt(pageParams) : undefined;
 
+  const updatePageParam = (page: number) => {
+    searchParams.set(searchParamKey, `${page}`);
+    setSearchParams(searchParams);
+  };
+
   return {
     paginationConfig: {
       current: currentPage,
-      onChange: (page) => setSearchParams({ [searchParamKey]: `${page}` }),
+      onChange: updatePageParam,
       pageSize,
       total: totalCount,
       showSizeChanger: false,

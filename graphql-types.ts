@@ -133,6 +133,10 @@ export type DossierCollection = {
   metadata: CollectionMetadata;
 };
 
+export type DossierFilterInput = {
+  tenantName: Array<Scalars['String']>;
+};
+
 export type DossierInput = {
   affiliation: AffiliationInput;
   candidate: PersonInput;
@@ -267,6 +271,7 @@ export type QueryConferencesArgs = {
 
 
 export type QueryDossiersArgs = {
+  filter?: InputMaybe<DossierFilterInput>;
   id?: InputMaybe<Scalars['Int']>;
   ids?: InputMaybe<Array<Scalars['Int']>>;
   page?: InputMaybe<Scalars['Int']>;
@@ -457,6 +462,7 @@ export type CreateUserMutation = { __typename?: 'Mutation', users?: { __typename
 
 export type IndexDossiersQueryVariables = Exact<{
   page?: InputMaybe<Scalars['Int']>;
+  filter?: InputMaybe<DossierFilterInput>;
 }>;
 
 
