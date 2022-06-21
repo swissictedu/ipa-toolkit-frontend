@@ -24,32 +24,34 @@ const removeMarginRight = css`
 const READ_DOSSIERS = gql`
   query ReadDossiers($ids: [Int!]) {
     dossiers(ids: $ids) {
-      id
-      conference {
+      collection {
         id
-        name
-        participants {
-          email
+        conference {
+          id
+          name
+          participants {
+            email
+            forename
+            surname
+            id
+          }
+        }
+        candidate {
           forename
           surname
-          id
         }
-      }
-      candidate {
-        forename
-        surname
-      }
-      companyContact {
-        forename
-        surname
-      }
-      primaryExpert {
-        forename
-        surname
-      }
-      secondaryExpert {
-        forename
-        surname
+        companyContact {
+          forename
+          surname
+        }
+        primaryExpert {
+          forename
+          surname
+        }
+        secondaryExpert {
+          forename
+          surname
+        }
       }
     }
   }
@@ -69,7 +71,7 @@ const CREATE_VERIFICATIONS = gql`
 
 type DistributionForm = { participantIds: number[] };
 type AssignmentForm = { assignments: { dossierId: number; participantId: number }[] };
-type AssignmentTable = Unarray<NonNullable<ReadDossiersQuery['dossiers']>>;
+type AssignmentTable = Unarray<NonNullable<ReadDossiersQuery['dossiers']>['collection']>;
 
 type MultiAssignmentModalProps = {
   dossierIds: number[];
@@ -162,7 +164,7 @@ export default function MultiAssignmentModal({ dossierIds }: MultiAssignmentModa
   const handleDistribution = (values: DistributionForm) => {
     if (data?.dossiers) {
       const participantAmount = values.participantIds.length;
-      const assignments: AssignmentForm['assignments'] = data.dossiers.map((d, i) => ({
+      const assignments: AssignmentForm['assignments'] = data.dossiers.collection.map((d, i) => ({
         dossierId: d.id,
         participantId: values.participantIds[i % participantAmount]
       }));
@@ -185,11 +187,11 @@ export default function MultiAssignmentModal({ dossierIds }: MultiAssignmentModa
       >
         <Space direction="vertical" size="large">
           {/* Checking if the selection spread over different conferences */}
-          {[...new Set(data?.dossiers?.map((d) => d.conference.name))].length === 1 ? (
+          {[...new Set(data?.dossiers?.collection.map((d) => d.conference.name))].length === 1 ? (
             <Form<DistributionForm> layout="inline" onFinish={handleDistribution}>
               <Form.Item css={fullWidth} name="participantIds">
                 <Select mode="multiple" showArrow>
-                  {data?.dossiers?.[0]?.conference.participants.map((p) => (
+                  {data?.dossiers?.collection?.[0]?.conference.participants.map((p) => (
                     <Select.Option value={p.id} key={p.id}>
                       {p.forename} {p.surname}
                     </Select.Option>
@@ -208,7 +210,7 @@ export default function MultiAssignmentModal({ dossierIds }: MultiAssignmentModa
             </HelpContainer>
           )}
           <Form onFinish={handleSubmit} form={form}>
-            <Table<AssignmentTable> columns={columns} dataSource={data?.dossiers?.map((d) => ({ ...d, key: d.id })) ?? []} loading={loading} />
+            <Table<AssignmentTable> columns={columns} dataSource={data?.dossiers?.collection.map((d) => ({ ...d, key: d.id })) ?? []} loading={loading} />
           </Form>
         </Space>
       </Modal>

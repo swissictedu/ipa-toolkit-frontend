@@ -28,6 +28,14 @@ export type AffiliationInput = {
   tenantName: Scalars['String'];
 };
 
+export type CollectionMetadata = {
+  __typename?: 'CollectionMetadata';
+  currentPage: Scalars['Int'];
+  limitValue: Scalars['Int'];
+  totalCount: Scalars['Int'];
+  totalPages: Scalars['Int'];
+};
+
 export type Conference = {
   __typename?: 'Conference';
   id: Scalars['Int'];
@@ -117,6 +125,18 @@ export type Dossier = {
   submittedMark?: Maybe<Scalars['String']>;
   tags: Array<Scalars['String']>;
   verifications?: Maybe<Array<Verification>>;
+};
+
+export type DossierCollection = {
+  __typename?: 'DossierCollection';
+  collection: Array<Dossier>;
+  metadata: CollectionMetadata;
+};
+
+export type DossierFilterInput = {
+  markDeduction?: InputMaybe<Scalars['Boolean']>;
+  tags?: InputMaybe<Scalars['String']>;
+  tenantName?: InputMaybe<Array<Scalars['String']>>;
 };
 
 export type DossierInput = {
@@ -251,10 +271,11 @@ export type PkorgQueryEvaluationArgs = {
 export type Query = {
   __typename?: 'Query';
   conferences?: Maybe<Array<Conference>>;
-  dossiers?: Maybe<Array<Dossier>>;
+  dossiers?: Maybe<DossierCollection>;
   participants?: Maybe<Array<Participant>>;
   pkorg?: Maybe<PkorgQuery>;
   system?: Maybe<System>;
+  uniqueTenantNames?: Maybe<Array<Scalars['String']>>;
   users?: Maybe<Array<User>>;
   verificationFeedback?: Maybe<VerificationFeedback>;
   verifications?: Maybe<Array<Verification>>;
@@ -267,8 +288,10 @@ export type QueryConferencesArgs = {
 
 
 export type QueryDossiersArgs = {
+  filter?: InputMaybe<DossierFilterInput>;
   id?: InputMaybe<Scalars['Int']>;
   ids?: InputMaybe<Array<Scalars['Int']>>;
+  page?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -464,15 +487,18 @@ export type CreateUserMutationVariables = Exact<{
 
 export type CreateUserMutation = { __typename?: 'Mutation', users?: { __typename?: 'UserMutation', createUser?: { __typename?: 'CreateUserMutationPayload', user: { __typename?: 'User', id: number, email: string, name?: string | null, nickname?: string | null } } | null } | null };
 
-export type IndexDossiersQueryVariables = Exact<{ [key: string]: never; }>;
+export type IndexDossiersQueryVariables = Exact<{
+  page?: InputMaybe<Scalars['Int']>;
+  filter?: InputMaybe<DossierFilterInput>;
+}>;
 
 
-export type IndexDossiersQuery = { __typename?: 'Query', dossiers?: Array<{ __typename?: 'Dossier', id: number, submittedMark?: string | null, markDeduction?: boolean | null, tags: Array<string>, dossierDownloadPath?: string | null, affiliation: { __typename?: 'Affiliation', tenantName: string }, candidate: { __typename?: 'Person', forename: string, surname: string, id: number }, conference: { __typename?: 'Conference', id: number, name: string } }> | null };
+export type IndexDossiersQuery = { __typename?: 'Query', uniqueTenantNames?: Array<string> | null, dossiers?: { __typename?: 'DossierCollection', collection: Array<{ __typename?: 'Dossier', id: number, submittedMark?: string | null, markDeduction?: boolean | null, tags: Array<string>, dossierDownloadPath?: string | null, affiliation: { __typename?: 'Affiliation', tenantName: string }, candidate: { __typename?: 'Person', forename: string, surname: string, id: number }, conference: { __typename?: 'Conference', id: number, name: string } }>, metadata: { __typename?: 'CollectionMetadata', totalCount: number } } | null };
 
 export type DossierVerificationExportQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type DossierVerificationExportQuery = { __typename?: 'Query', dossiers?: Array<{ __typename?: 'Dossier', companyMarkA?: string | null, companyMarkB?: string | null, companyPointsA?: string | null, companyPointsB?: string | null, expertMarkA?: string | null, expertMarkB?: string | null, expertMarkC?: string | null, expertPointsA?: string | null, expertPointsB?: string | null, finalMark?: string | null, expertPointsC?: string | null, id: number, markDeduction?: boolean | null, submittedMark?: string | null, affiliation: { __typename?: 'Affiliation', tenantName: string }, candidate: { __typename?: 'Person', forename: string, id: number, surname: string }, companyContact?: { __typename?: 'Person', forename: string, id: number, surname: string } | null, conference: { __typename?: 'Conference', id: number, name: string }, primaryExpert?: { __typename?: 'Person', forename: string, id: number, surname: string } | null, secondaryExpert?: { __typename?: 'Person', forename: string, id: number, surname: string } | null, verifications?: Array<{ __typename?: 'Verification', changeGrading?: boolean | null, comment?: string | null, id: number, verifiedAt?: any | null, participant: { __typename?: 'Participant', forename: string, email: string, surname: string, id: number } }> | null }> | null };
+export type DossierVerificationExportQuery = { __typename?: 'Query', dossiers?: { __typename?: 'DossierCollection', collection: Array<{ __typename?: 'Dossier', companyMarkA?: string | null, companyMarkB?: string | null, companyPointsA?: string | null, companyPointsB?: string | null, expertMarkA?: string | null, expertMarkB?: string | null, expertMarkC?: string | null, expertPointsA?: string | null, expertPointsB?: string | null, finalMark?: string | null, expertPointsC?: string | null, id: number, markDeduction?: boolean | null, submittedMark?: string | null, affiliation: { __typename?: 'Affiliation', tenantName: string }, candidate: { __typename?: 'Person', forename: string, id: number, surname: string }, companyContact?: { __typename?: 'Person', forename: string, id: number, surname: string } | null, conference: { __typename?: 'Conference', id: number, name: string }, primaryExpert?: { __typename?: 'Person', forename: string, id: number, surname: string } | null, secondaryExpert?: { __typename?: 'Person', forename: string, id: number, surname: string } | null, verifications?: Array<{ __typename?: 'Verification', changeGrading?: boolean | null, comment?: string | null, id: number, verifiedAt?: any | null, participant: { __typename?: 'Participant', forename: string, email: string, surname: string, id: number } }> | null }> } | null };
 
 export type ReadVerificationFeedbackQueryVariables = Exact<{
   token: Scalars['String'];
@@ -495,7 +521,7 @@ export type ReadDossiersQueryVariables = Exact<{
 }>;
 
 
-export type ReadDossiersQuery = { __typename?: 'Query', dossiers?: Array<{ __typename?: 'Dossier', id: number, conference: { __typename?: 'Conference', id: number, name: string, participants: Array<{ __typename?: 'Participant', email: string, forename: string, surname: string, id: number }> }, candidate: { __typename?: 'Person', forename: string, surname: string }, companyContact?: { __typename?: 'Person', forename: string, surname: string } | null, primaryExpert?: { __typename?: 'Person', forename: string, surname: string } | null, secondaryExpert?: { __typename?: 'Person', forename: string, surname: string } | null }> | null };
+export type ReadDossiersQuery = { __typename?: 'Query', dossiers?: { __typename?: 'DossierCollection', collection: Array<{ __typename?: 'Dossier', id: number, conference: { __typename?: 'Conference', id: number, name: string, participants: Array<{ __typename?: 'Participant', email: string, forename: string, surname: string, id: number }> }, candidate: { __typename?: 'Person', forename: string, surname: string }, companyContact?: { __typename?: 'Person', forename: string, surname: string } | null, primaryExpert?: { __typename?: 'Person', forename: string, surname: string } | null, secondaryExpert?: { __typename?: 'Person', forename: string, surname: string } | null }> } | null };
 
 export type CreateVerificationsMutationVariables = Exact<{
   verifications: Array<VerificationInput> | VerificationInput;
@@ -509,7 +535,7 @@ export type ReadDossierQueryVariables = Exact<{
 }>;
 
 
-export type ReadDossierQuery = { __typename?: 'Query', dossiers?: Array<{ __typename?: 'Dossier', conference: { __typename?: 'Conference', id: number, participants: Array<{ __typename?: 'Participant', email: string, forename: string, surname: string, id: number }> }, companyContact?: { __typename?: 'Person', forename: string, surname: string } | null, primaryExpert?: { __typename?: 'Person', forename: string, surname: string } | null, secondaryExpert?: { __typename?: 'Person', forename: string, surname: string } | null }> | null };
+export type ReadDossierQuery = { __typename?: 'Query', dossiers?: { __typename?: 'DossierCollection', collection: Array<{ __typename?: 'Dossier', conference: { __typename?: 'Conference', id: number, participants: Array<{ __typename?: 'Participant', email: string, forename: string, surname: string, id: number }> }, companyContact?: { __typename?: 'Person', forename: string, surname: string } | null, primaryExpert?: { __typename?: 'Person', forename: string, surname: string } | null, secondaryExpert?: { __typename?: 'Person', forename: string, surname: string } | null }> } | null };
 
 export type CreateVerificationMutationVariables = Exact<{
   verifications: Array<VerificationInput> | VerificationInput;
