@@ -5,6 +5,7 @@ import { useForm } from 'antd/lib/form/Form';
 import { Fragment, useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { CreateVerificationMutation, CreateVerificationMutationVariables, ReadDossierQuery, ReadDossierQueryVariables } from '../../../../graphql-types';
+import EmptyValue from '../../../components/EmptyValue';
 import { Unarray } from '../../../utils/types';
 
 export const READ_DOSSIER = gql`
@@ -60,13 +61,13 @@ function AdditionalDossierInformation({ dossier }: { dossier?: Unarray<ReadDossi
   return (
     <Descriptions size="small" bordered column={1}>
       <Descriptions.Item label={intl.formatMessage({ id: 'attribute.company-contact' })}>
-        {dossier?.companyContact?.forename} {dossier?.companyContact?.surname}
+        {dossier?.companyContact ? `${dossier.companyContact.forename} ${dossier.companyContact.surname}` : <EmptyValue />}
       </Descriptions.Item>
       <Descriptions.Item label={intl.formatMessage({ id: 'attribute.primary-expert' })}>
-        {dossier?.primaryExpert?.forename} {dossier?.primaryExpert?.surname}
+        {dossier?.primaryExpert ? `${dossier.primaryExpert.forename} ${dossier.primaryExpert.surname}` : <EmptyValue />}
       </Descriptions.Item>
       <Descriptions.Item label={intl.formatMessage({ id: 'attribute.secondary-expert' })}>
-        {dossier?.secondaryExpert?.forename} {dossier?.secondaryExpert?.surname}
+        {dossier?.secondaryExpert ? `${dossier.secondaryExpert.forename} ${dossier.secondaryExpert.surname}` : <EmptyValue />}
       </Descriptions.Item>
     </Descriptions>
   );

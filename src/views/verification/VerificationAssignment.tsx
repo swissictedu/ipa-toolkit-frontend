@@ -9,6 +9,7 @@ import DefaultLayout from '../../layouts/DefaultLayout';
 import { Unarray } from '../../utils/types';
 import VerificationList from './assignment/VerificationList';
 import MultiAssignmentModal from './assignment/MultiAssignmentModal';
+import EmptyValue from '../../components/EmptyValue';
 
 const INDEX_DOSSIERS = gql`
   query IndexDossiers {
@@ -71,7 +72,8 @@ export default function VerificationAssignment() {
     {
       dataIndex: 'submittedMark',
       key: 'submittedMark',
-      title: intl.formatMessage({ id: 'attribute.submittedMark' })
+      title: intl.formatMessage({ id: 'attribute.submittedMark' }),
+      render: (value?: string) => value ?? <EmptyValue />
     },
     {
       dataIndex: 'markDeduction',
