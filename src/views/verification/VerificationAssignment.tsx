@@ -37,6 +37,7 @@ const INDEX_DOSSIERS = gql`
         totalCount
       }
     }
+    uniqueTenantNames
   }
 `;
 
@@ -62,7 +63,7 @@ export default function VerificationAssignment() {
       dataIndex: ['affiliation', 'tenantName'],
       key: 'affiliation.tenantName',
       title: intl.formatMessage({ id: 'label.tenant' }),
-      filters: [...new Set(data?.dossiers?.collection.map((d) => d.affiliation.tenantName))].map((a) => ({ text: a, value: a })),
+      filters: data?.uniqueTenantNames?.map((a) => ({ text: a, value: a })),
       onFilter: (value, record) => record.affiliation.tenantName === value
     },
     {

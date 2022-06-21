@@ -254,6 +254,7 @@ export type Query = {
   dossiers?: Maybe<DossierCollection>;
   pkorg?: Maybe<PkorgQuery>;
   system?: Maybe<System>;
+  uniqueTenantNames?: Maybe<Array<Scalars['String']>>;
   users?: Maybe<Array<User>>;
   verificationFeedback?: Maybe<VerificationFeedback>;
   verifications?: Maybe<Array<Verification>>;
@@ -459,7 +460,7 @@ export type IndexDossiersQueryVariables = Exact<{
 }>;
 
 
-export type IndexDossiersQuery = { __typename?: 'Query', dossiers?: { __typename?: 'DossierCollection', collection: Array<{ __typename?: 'Dossier', id: number, submittedMark?: string | null, markDeduction?: boolean | null, tags: Array<string>, dossierDownloadPath?: string | null, affiliation: { __typename?: 'Affiliation', tenantName: string }, candidate: { __typename?: 'Person', forename: string, surname: string, id: number }, conference: { __typename?: 'Conference', id: number, name: string } }>, metadata: { __typename?: 'CollectionMetadata', totalCount: number } } | null };
+export type IndexDossiersQuery = { __typename?: 'Query', uniqueTenantNames?: Array<string> | null, dossiers?: { __typename?: 'DossierCollection', collection: Array<{ __typename?: 'Dossier', id: number, submittedMark?: string | null, markDeduction?: boolean | null, tags: Array<string>, dossierDownloadPath?: string | null, affiliation: { __typename?: 'Affiliation', tenantName: string }, candidate: { __typename?: 'Person', forename: string, surname: string, id: number }, conference: { __typename?: 'Conference', id: number, name: string } }>, metadata: { __typename?: 'CollectionMetadata', totalCount: number } } | null };
 
 export type DossierVerificationExportQueryVariables = Exact<{ [key: string]: never; }>;
 
