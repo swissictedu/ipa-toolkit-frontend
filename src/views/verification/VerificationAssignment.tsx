@@ -72,7 +72,7 @@ export default function VerificationAssignment() {
 
   useEffect(() => {
     delete queryParams.page;
-    indexDossiers({ variables: { page: currentPage, filter: queryParams } });
+    indexDossiers({ variables: { page: currentPage ?? 1, filter: queryParams } });
   }, [indexDossiers, currentPage, queryParams]);
 
   const columns: TableColumnsType<AssignmentTable> = [
