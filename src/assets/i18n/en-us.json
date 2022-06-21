@@ -1,3 +1,5 @@
 {
-  "attribute.password": "Password"
+  "attribute.password": "Password",
+  "attribute.superuser": "Administrator",
+  "attribute.verifications-count": "Number of assigned verifications"
 }

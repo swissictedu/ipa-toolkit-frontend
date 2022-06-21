@@ -11,6 +11,7 @@ import VerificationList from './assignment/VerificationList';
 import MultiAssignmentModal from './assignment/MultiAssignmentModal';
 import { usePagination } from '../../utils/pagination';
 import { ArrayParam, BooleanParam, NumberParam, StringParam, useQueryParams } from 'use-query-params';
+import EmptyValue from '../../components/EmptyValue';
 
 const INDEX_DOSSIERS = gql`
   query IndexDossiers($page: Int, $filter: DossierFilterInput) {
@@ -101,7 +102,8 @@ export default function VerificationAssignment() {
     {
       dataIndex: 'submittedMark',
       key: 'submittedMark',
-      title: intl.formatMessage({ id: 'attribute.submittedMark' })
+      title: intl.formatMessage({ id: 'attribute.submittedMark' }),
+      render: (value?: string) => value ?? <EmptyValue />
     },
     {
       dataIndex: 'markDeduction',
