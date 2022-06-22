@@ -1,6 +1,6 @@
 import { LogoutOutlined } from '@ant-design/icons';
 import { css } from '@emotion/react';
-import { Menu } from 'antd';
+import { Menu, MenuProps } from 'antd';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import CONFIGURATION from '../../configuration';
@@ -13,13 +13,17 @@ const menuWidth = css`
 `;
 
 export default function HeaderMenuSection() {
-  return (
-    <Menu theme="dark" mode="horizontal" selectable={false} css={menuWidth}>
-      <Menu.Item key="sign-out" icon={<LogoutOutlined />}>
+  const menuItems: MenuProps['items'] = [
+    {
+      key: CONFIGURATION.paths.signOut,
+      icon: <LogoutOutlined />,
+      label: (
         <Link to={CONFIGURATION.paths.signOut}>
           <FormattedMessage id="label.sign-out" />
         </Link>
-      </Menu.Item>
-    </Menu>
-  );
+      )
+    }
+  ];
+
+  return <Menu theme="dark" mode="horizontal" selectable={false} css={menuWidth} items={menuItems} />;
 }
