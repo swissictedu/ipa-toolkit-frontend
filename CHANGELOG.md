@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.2.0](https://github.com/ictorg/ipa-toolkit-frontend/compare/v1.1.2...v1.2.0) (2022-06-22)
+
+
+### Features
+
+* add pagination for verification assignment table ([2fcc06f](https://github.com/ictorg/ipa-toolkit-frontend/commit/2fcc06fbc4169189b2e4e0ab3ec5bd053ce0e891))
+* add superuser attribute to user form ([1becc5a](https://github.com/ictorg/ipa-toolkit-frontend/commit/1becc5a1ee1c5d50a1a619f28bf2a41d1d33aa5b))
+* always pass page param to dossiers query ([f29f472](https://github.com/ictorg/ipa-toolkit-frontend/commit/f29f472830e9df7cb5a25bffa19c02cbfeae9a3c))
+* conference participants in subtable ([2648642](https://github.com/ictorg/ipa-toolkit-frontend/commit/2648642627bb236a6a2058d3a378876b8cf55c56))
+* display superuser status ([06465f4](https://github.com/ictorg/ipa-toolkit-frontend/commit/06465f49456987b27c9d10c77f22fb44e48a712e))
+* fetch tenant names for filter from api ([ae4a0af](https://github.com/ictorg/ipa-toolkit-frontend/commit/ae4a0afade43cd74b4fa632b173d0c43c7fb2564))
+* implement filtering from backend ([2a7136e](https://github.com/ictorg/ipa-toolkit-frontend/commit/2a7136e33594b24bba26dc472507ed8754cbffd4))
+* mark empty fields ([6b58474](https://github.com/ictorg/ipa-toolkit-frontend/commit/6b58474230cc7a479692850355eb26460c526948))
+* migrate dossier queries to collectiont_type ([c32faee](https://github.com/ictorg/ipa-toolkit-frontend/commit/c32faee2b045d6cbfeea916a60088ac29621e80a))
+
+
+### Bug Fixes
+
+* menu deprecation warning about item usage ([eb05303](https://github.com/ictorg/ipa-toolkit-frontend/commit/eb05303e111764cc59ef35bf840ef48a52ad4172))
+
 ## [1.1.2](https://github.com/ictorg/ipa-toolkit-frontend/compare/v1.1.1...v1.1.2) (2022-06-14)
 
 
