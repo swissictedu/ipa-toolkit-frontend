@@ -1,4 +1,4 @@
-import { Button, Form, Input } from 'antd';
+import { Button, Checkbox, Form, Input } from 'antd';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { User, UserInput } from '../../../graphql-types';
 
@@ -27,6 +27,9 @@ export default function UserForm({ save, initialUser, loading }: UserFormProps) 
       </Form.Item>
       <Form.Item name="passwordConfirmation" label={intl.formatMessage({ id: 'attribute.password-confirmation' })} rules={[{ required: !initialUser }]}>
         <Input.Password autoComplete="new-password" minLength={6} />
+      </Form.Item>
+      <Form.Item name="superuser" label={intl.formatMessage({ id: 'attribute.superuser' })} valuePropName="checked">
+        <Checkbox />
       </Form.Item>
       <Form.Item>
         <Button htmlType="submit" type="primary" loading={loading}>

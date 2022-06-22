@@ -29,6 +29,7 @@ const UPDATE_USER = gql`
           email
           name
           nickname
+          superuser
         }
       }
     }
